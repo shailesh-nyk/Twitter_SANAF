@@ -10,7 +10,7 @@ class Login extends React.Component {
     }
     render() { 
       return (
-            <h2 style={{textAlign: 'center'}}>add LOGIN content here</h2>
+            <h2 style={{textAlign: 'center'}}>add LOGIN content here bruh!!!!</h2>
       )
     }
 }
