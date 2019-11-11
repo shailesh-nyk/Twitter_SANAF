@@ -1,0 +1,19 @@
+.t-alert-success {
+    background-color: $app-success;
+    color: $app-text;
+ }
+ .t-alert-danger {
+    background-color: $app-danger;
+    color: $app-text;
+ }
+ .t-alert-hidden { 
+    position: fixed;
+    bottom: -1000;
+ }
+ .t-alert-show {
+     position: fixed;
+     bottom: 0;
+     width: 700px;
+     text-align: center;
+     left: calc(50% - 350px);
+ }

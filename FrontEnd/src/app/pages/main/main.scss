@@ -1,0 +1,15 @@
+.t-app-container {
+     display: flex;
+     height: 100vh;
+
+    .t-main-container {
+        flex: 1;
+        position: relative;
+
+        .t-main-content {
+            padding: 63px 20px 0px 20px;
+            height: 100vh;
+            overflow: auto; 
+        }
+    }
+}

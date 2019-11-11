@@ -1,0 +1,36 @@
+@import '../src/assets/scss/var.scss';
+@import '../src/assets/scss/styles.scss';
+
+//COMPONENT STYLES
+@import '../src/app/components/loader/loader.scss';
+@import '../src/app/components/messages/messages.scss';
+@import '../src//app/components/leftnav/leftnav.scss';
+@import '../src//app//components/topnav/topnav.scss';
+//PAGE STYLES
+@import '../src/app/pages/login/login.scss';
+@import '../src/app/pages/signup/signup.scss';
+@import '../src/app/pages/main/main.scss';
+@import '../src/app/pages/newsfeed/newsfeed.scss';
+
+
+body {
+    color: $app-text;
+    background-color: $app-bg;
+    font-size: 18px;
+    margin: 0;
+    font-family: -system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+
+
+
+
+
