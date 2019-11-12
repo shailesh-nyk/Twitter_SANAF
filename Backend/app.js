@@ -37,10 +37,8 @@ require('./config/passport')(passport);
 var requireAuth = passport.authenticate('jwt', {session: false});
 
 var indexRouter = require('./routes/index');
-var tweetRouter = require('./routes/tweet');
 
 // app.use('/api', requireAuth,  indexRouter);
 app.use('/api', indexRouter);
-app.use('/api/tweet', tweetRouter);
 
 module.exports = app;

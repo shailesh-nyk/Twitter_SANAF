@@ -29,6 +29,8 @@ function mk_request(topic_name, msg_payload, callback){
 
 module.exports.make_request = function(topic, payload ,res){
 	mk_request(topic, payload, function(err, result){
+		console.log('in result');
+		console.log(result);
 		if (err){
 			console.log("Inside err");
 			res.send(result)
