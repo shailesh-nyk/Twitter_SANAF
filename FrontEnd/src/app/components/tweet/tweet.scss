@@ -1,0 +1,40 @@
+.t-tweet-container {
+    border-bottom: 1px solid $app-border;
+    padding: 10px 15px;
+    display: flex;
+}
+.t-tweet-right {
+    flex: 1;
+    padding-left: 10px;
+}
+.t-tweet-avatar {
+    width: 100px;
+    border-radius: 60px;
+}
+.t-tweet-pic {
+    width: 430px;
+    border-radius: 12px;
+}
+.t-tweet-actions {
+    padding-top: 10px;
+    display: flex;
+    span {
+        margin-right: 75px;
+        cursor: pointer;
+    }
+}
+.t-comment { 
+    &:hover {
+        color: $app-theme;
+    }
+}
+.t-retweet { 
+    &:hover {
+        color: $app-theme-green;
+    }
+}
+.t-like { 
+    &:hover {
+        color: $app-theme-red;
+    }
+}
