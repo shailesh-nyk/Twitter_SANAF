@@ -15,7 +15,7 @@
     width: 430px;
     border-radius: 12px;
 }
-.t-tweet-actions {
+.t-tweet-actions {  
     padding-top: 10px;
     display: flex;
     span {
@@ -37,4 +37,7 @@
     &:hover {
         color: $app-theme-red;
     }
+}
+.t-liked {
+    color: $app-theme-red;
 }

@@ -3,7 +3,7 @@ var router = express.Router();
 var kafka = require('../kafka/client');
 
 //POST A NEW TWEET
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
     console.log('INSIDE POST ' + req.url);
     let request = {
       body: req.body,
@@ -12,7 +12,8 @@ router.post('/', function(req, res, next) {
     kafka.make_request('tweet', request , res);
 })
 
-router.get('/', function(req, res, next) {
+//GET TWEET
+router.get('/', function(req, res) {
   console.log('INSIDE GET ' + req.url);
   let request = {
     body: req.query,
@@ -21,5 +22,24 @@ router.get('/', function(req, res, next) {
   kafka.make_request('tweet', request , res);
 })
 
+//LIKE TWEET 
+router.put('/like', function(req, res) {
+  console.log('INSIDE PUT ' + req.url);
+  let request = {
+    body: req.body,
+    message: 'LIKETWEET'
+  }
+  kafka.make_request('tweet', request , res);
+})
+
+//UNLIKE TWEET 
+router.delete('/like', function(req, res) {
+  console.log('INSIDE DELETE ' + req.url);
+  let request = {
+    body: req.body,
+    message: 'UNLIKETWEET'
+  }
+  kafka.make_request('tweet', request , res);
+})
 
 module.exports = router;
