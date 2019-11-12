@@ -1,5 +1,4 @@
 var TweetModel = require('../../models/tweet');
-var UserModel = require('../../models/users');
 
 module.exports.postTweet = function(req, callback){
         let newTweet = new TweetModel({
