@@ -1,4 +1,5 @@
-var userHandler = require('../topic_handlers/user');
+var userHandler = require('../topic_handlers/user_handler');
+var tweetHandler = require('../topic_handlers/tweet_handler');
 
 module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
         let fname;
@@ -8,6 +9,9 @@ module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
             //second argument is a function that will handle this topic request
             case "user" : {
                 fname = userHandler.handleRequest ;  break; 
+            }
+            case "tweet" : {
+                fname = tweetHandler.handleRequest ;  break; 
             }
             default: break;
         }
