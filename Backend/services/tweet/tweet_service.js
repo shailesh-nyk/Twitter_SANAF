@@ -1,5 +1,6 @@
 var TweetModel = require('../../models/tweet');
 var UserModel = require('../../models/users');
+var utils = require('../../middleware/utils');
 
 module.exports.postTweet = function(req, callback){
         let newTweet = new TweetModel({
@@ -29,16 +30,68 @@ module.exports.getTweet = function(req, callback){
         callback(null, {
                 success: false,
                 msg: "Something went wrong",
-                msgDesc: err
+                payload: err
         })
     }
     else if(result) {
+        result._doc['timeElapsed'] = utils.getTimeElapsed(result.postedOn);  //Time since post in minutes
         callback(null,{
             success: true,
             msg: "Successfully fetched the tweet" ,
-            msgDesc: result
+            payload: result
         }) 
     } 
     }).populate('user');
 };
 
+module.exports.likeTweet = function(req, callback) {
+    let search = {
+        "_id": req.id
+    }
+    let update = {
+        $push: {
+            "likes": req.user_id
+        }
+    }
+    TweetModel.findOneAndUpdate(search, update , {safe: true, new: true, useFindAndModify: false}, function(err, result){
+    if(err) {
+        callback(null,{
+            success: false,
+            msg: "Something went wrong",
+            payload: err
+        })
+    } else {
+        callback(null,{
+            success: true,
+            msg: "Successfully liked the tweet" ,
+            payload: result
+        }) 
+    }
+    });
+}
+
+module.exports.unlikeTweet = function(req, callback) {
+    let search = {
+        "_id": req.id
+    }
+    let update = {
+        $pull: {
+            "likes": req.user_id
+        }
+    }
+    TweetModel.findOneAndUpdate(search, update , {safe: true, new: true, useFindAndModify: false}, function(err, result){
+    if(err) {
+        callback(null,{
+            success: false,
+            msg: "Something went wrong",
+            payload: err
+        })
+    } else {
+        callback(null,{
+            success: true,
+            msg: "Successfully unliked the tweet" ,
+            payload: result
+        }) 
+    }
+    });
+}

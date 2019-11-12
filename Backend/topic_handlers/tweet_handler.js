@@ -2,7 +2,9 @@ var tweetService = require('../services/tweet/tweet_service');
 
 const messageServiceMap = {
     'POSTTWEET' : tweetService.postTweet,
-    'GETTWEET': tweetService.getTweet
+    'GETTWEET': tweetService.getTweet,
+    'LIKETWEET': tweetService.likeTweet,
+    'UNLIKETWEET': tweetService.unlikeTweet
 }
 
 module.exports.handleRequest = function(req, callback){
