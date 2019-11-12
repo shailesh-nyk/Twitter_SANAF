@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import  LeftNav  from '../../components/leftnav/leftnav';
 import  TopNav  from '../../components/topnav/topnav';
+import  Messages from './../messages/messages';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import NewsFeed from './../newsfeed/newsfeed';
 
@@ -25,6 +26,7 @@ class Main extends React.Component {
                                 <Redirect to="/ui/newsfeed" />        
                         )} /> 
                         <Route path="/ui/newsfeed" component={NewsFeed}/>
+                        <Route path="/ui/messages" component={Messages}/>
                     </Switch>
                 </div>
             </div>
