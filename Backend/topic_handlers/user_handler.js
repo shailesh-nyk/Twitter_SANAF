@@ -1,7 +1,6 @@
 var userService = require('../services/user/user_service');
 
 const messageServiceMap = {
-    'SOMETHING' : userService.getSomething,
 }
 
 module.exports.handleRequest = function(req, callback){
