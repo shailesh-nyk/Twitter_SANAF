@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 class LeftNav extends React.Component {
     constructor(props) {
@@ -16,15 +17,15 @@ class LeftNav extends React.Component {
                         <div className="col-9">
                             <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <i className="fab fa-twitter fa-2x p-3"></i>
-                                <a className="t-leftnav-a nav-link active" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">    <i className="pr-3 fas fa-home"></i>         Home            </a>
-                                <a className="t-leftnav-a nav-link" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">    <i className="pr-3 fas fa-hashtag"></i>      #Explore        </a>
-                                <a className="t-leftnav-a nav-link" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">  <i className="pr-3 far fa-bell"></i>         Notifications   </a>
-                                <a className="t-leftnav-a nav-link" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">  <i className="pr-3 far fa-envelope"></i>     Messages        </a>
-                                <a className="t-leftnav-a nav-link" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">  <i className="pr-3 far fa-bookmark"></i>     Bookmarks       </a>
-                                <a className="t-leftnav-a nav-link" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">  <i className="pr-3 fas fa-list-ul"></i>      Lists           </a>
-                                <a className="t-leftnav-a nav-link" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">  <i className="pr-3 far fa-user-circle"></i>  Profile         </a>
-                                <a className="t-leftnav-a nav-link" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">  <i className="pr-3 fas fa-ellipsis-h"></i>   More            </a>
-                                <button type="button" className="btn btn-primary t-leftnav-btn">Tweet</button>
+                                <Link className="t-leftnav-a nav-link" to="/ui/" >                  <i className="pr-3 fas fa-home"></i>       Home         </Link>
+                                <Link className="t-leftnav-a nav-link" to="/ui/">                   <i className="pr-3 fas fa-hashtag"></i>    #Explore     </Link>
+                                <Link className="t-leftnav-a nav-link" to="/ui/">                   <i className="pr-3 far fa-bell"></i>       Notifications</Link>
+                                <Link className="t-leftnav-a nav-link" to="/ui/messages">           <i className="pr-3 far fa-envelope"></i>   Messages     </Link>
+                                <Link className="t-leftnav-a nav-link" to="/ui/">                   <i className="pr-3 far fa-bookmark"></i>   Bookmarks    </Link>
+                                <Link className="t-leftnav-a nav-link" to="/ui/">                   <i className="pr-3 fas fa-list-ul"></i>    Lists        </Link>
+                                <Link className="t-leftnav-a nav-link" to="/ui/">                   <i className="pr-3 far fa-user-circle"></i>Profile      </Link>
+                                <Link className="t-leftnav-a nav-link" to="/ui/">                   <i className="pr-3 fas fa-ellipsis-h"></i> More         </Link>
+                                <button type="button" className="btn` btn-primary t-leftnav-btn">Tweet</button>
                             </div>
                         </div>
                     </div>

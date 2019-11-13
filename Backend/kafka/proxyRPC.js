@@ -1,4 +1,6 @@
-var userHandler = require('../topic_handlers/user');
+var userHandler = require('../topic_handlers/user_handler');
+var conversationHandler = require('../topic_handlers/conversation_handler');
+
 
 module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
         let fname;
@@ -9,10 +11,10 @@ module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
             case "user" : {
                 fname = userHandler.handleRequest ;  break; 
             }
+            case "conversation" : {
+                fname = conversationHandler.handleRequest ;  break; 
+            }
             default: break;
         }
         fname(payload, callback);
 }
-
-
-

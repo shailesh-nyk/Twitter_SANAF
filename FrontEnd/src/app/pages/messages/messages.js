@@ -10,7 +10,8 @@ class Messages extends React.Component {
         super(props);
         this.state = {
             value: '',
-            suggestions: []
+            suggestions: [],
+            head : '',
         };
     }
     getSuggestions = value => {
@@ -26,50 +27,6 @@ class Messages extends React.Component {
             {
                 name: 'C++',
                 year: 1983
-            },
-            {
-                name: 'Clojure',
-                year: 2007
-            },
-            {
-                name: 'Elm',
-                year: 2012
-            },
-            {
-                name: 'Go',
-                year: 2009
-            },
-            {
-                name: 'Haskell',
-                year: 1990
-            },
-            {
-                name: 'Java',
-                year: 1995
-            },
-            {
-                name: 'Javascript',
-                year: 1995
-            },
-            {
-                name: 'Perl',
-                year: 1987
-            },
-            {
-                name: 'PHP',
-                year: 1995
-            },
-            {
-                name: 'Python',
-                year: 1991
-            },
-            {
-                name: 'Ruby',
-                year: 1995
-            },
-            {
-                name: 'Scala',
-                year: 2003
             }
         ];
         const inputValue = value.trim().toLowerCase();
@@ -96,8 +53,6 @@ class Messages extends React.Component {
         });
     };
 
-    // Autosuggest will call this function every time you need to update suggestions.
-    // You already implemented this logic above, so just use it.
     onSuggestionsFetchRequested = ({ value }) => {
         var that = this;
         this.setState({
@@ -105,12 +60,18 @@ class Messages extends React.Component {
         });
     };
 
-    // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
         this.setState({
             suggestions: []
         });
     };
+
+    changeSelectedHead = (selHead) =>{
+        this.setState({
+            head : selHead
+        })
+    }
+
     render() {
         const { value, suggestions } = this.state;
         const inputProps = {
@@ -131,10 +92,10 @@ class Messages extends React.Component {
                             inputProps={inputProps}
                         />
                     </div>
-                    <ConversationHead query={this.state.value} />
+                    <ConversationHead query={this.state.value} changeHead={this.changeSelectedHead}/>
                 </div>
                 <div className="col-6 border">
-                    <Conversation />
+                    <Conversation query={this.state.head}/>
                 </div>
             </div>
         )
