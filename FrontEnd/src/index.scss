@@ -8,6 +8,8 @@
 @import '../src//app/components/topnav/topnav.scss';
 @import '../src/app/components/conversationhead/conversationhead.scss';
 @import '../src/app/components/conversation/conversation.scss';
+@import '../src/app/components/tweet/tweet.scss';
+@import '../src/app/components/comment-tweet/comment-tweet.scss';
 //PAGE STYLES
 @import '../src/app/pages/login/login.scss';
 @import '../src/app/pages/signup/signup.scss';
@@ -31,6 +33,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+i {
+  margin-right: 6px;
 }
 
 

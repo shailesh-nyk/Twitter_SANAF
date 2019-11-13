@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setMessage } from '../../../redux/actions/util-action';
-import Tweet from './../../components/tweet/tweet';
+import Tweet from '../../components/tweet/tweet';
 import config from '../../../config/app-config';
 
-class NewsFeed extends React.Component { 
+class TweetView extends React.Component { 
     constructor(props) {
         super(props);
         this.state = {
             tweet : {
                 "_id":"5dcb14f841a1663e90a9d2f4",
                 "image":'public/images/tweets/5dca69b394399426a4a77bb1.png',
-                "likes":[   ],
+                "likes":["Shailesh","Farya"],
                 "retweetCount":[],
                 "parent_id":null,
                 "user":{
@@ -30,7 +30,7 @@ class NewsFeed extends React.Component {
     render() {
         return(
             <div>
-                <h2 style={{textAlign: 'center'}}>add NEWS FEED content here</h2>
+                <h2 style={{textAlign: 'center'}}>add tweet view header here</h2>
                 <Tweet data={this.state.tweet}/>
             </div>
         )
@@ -45,4 +45,4 @@ const mapDispatchToProps = dispatch => {
        setMessage: payload => dispatch(setMessage(payload))
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);
+export default connect(mapStateToProps, mapDispatchToProps)(TweetView);

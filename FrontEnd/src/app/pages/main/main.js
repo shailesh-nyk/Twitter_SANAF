@@ -5,6 +5,7 @@ import  TopNav  from '../../components/topnav/topnav';
 import  Messages from './../messages/messages';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import NewsFeed from './../newsfeed/newsfeed';
+import TweetView from './../tweet-view/tweet-view';
 
 class Main extends React.Component {
     constructor(props) {
@@ -27,6 +28,7 @@ class Main extends React.Component {
                         )} /> 
                         <Route path="/ui/newsfeed" component={NewsFeed}/>
                         <Route path="/ui/messages" component={Messages}/>
+                        <Route path="/ui/tweet" component={TweetView}/>
                     </Switch>
                 </div>
             </div>
