@@ -4,7 +4,8 @@ const messageServiceMap = {
     'POSTTWEET' : tweetService.postTweet,
     'GETTWEET': tweetService.getTweet,
     'LIKETWEET': tweetService.likeTweet,
-    'UNLIKETWEET': tweetService.unlikeTweet
+    'UNLIKETWEET': tweetService.unlikeTweet,
+    'COMMENTTWEET': tweetService.commentTweet
 }
 
 module.exports.handleRequest = function(req, callback){
