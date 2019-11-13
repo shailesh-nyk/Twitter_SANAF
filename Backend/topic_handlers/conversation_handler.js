@@ -1,7 +1,8 @@
-var userService = require('../services/user/user_service');
+var conversationService = require('../services/conversation/conversation_service');
 
 const messageServiceMap = {
-    'SOMETHING' : userService.getSomething,
+    'GET_CONVERSATION_HEADS' : conversationService.getHeads,
+    'SEND_MESSAGE' : conversationService.send,
 }
 
 module.exports.handleRequest = function(req, callback){
