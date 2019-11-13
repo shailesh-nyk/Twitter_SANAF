@@ -2,17 +2,20 @@
 import React from 'react';
 import config from './../../../config/app-config';
 import axios from 'axios';
+import CommentTweet from './../comment-tweet/comment-tweet.js';
 
 class Tweet extends React.Component { 
     constructor(props) {
         super(props);
+        this.commentOnTweet = this.commentOnTweet.bind(this);
     }
     componentWillMount() {
         this.setState({
             data: this.props.data,
-            currentUser: "Shailesh",
-            hasLiked: this.props.data.likes.includes("Shailesh") ,
-            hasRT: this.props.data.retweetCount.includes("Shailesh")
+            currentUser: "5dcb16cf1c9d44000050d8fc",
+            hasLiked: this.props.data.likes.includes("5dcb16cf1c9d44000050d8fc") ,
+            hasRT: this.props.data.retweetCount.includes("5dcb16cf1c9d44000050d8fc"),
+            hasCommented: this.props.data.comments.filter(x => x.user == "5dcb16cf1c9d44000050d8fc")
         })
     }
     render() {
@@ -34,7 +37,11 @@ class Tweet extends React.Component {
                         ) : (null)}
                     </div>
                     <div className="t-tweet-actions t-secondary">
-                        <span className="t-comment"> <i class="far fa-comment-alt"></i> {this.state.data.comments.length}</span>  
+                        <span className="t-comment"> 
+                            <i class={this.state.hasCommented ? "fas fa-comment-alt t-commented" : "far fa-comment-alt"} 
+                                    data-toggle="modal" data-target={"#commentModal"+this.state.data._id}></i> 
+                            {this.state.data.comments.length}
+                        </span>  
                         <span className="t-retweet"> 
                             <i class="fas fa-retweet"></i> 
                             {this.state.data.retweetCount.length}
@@ -45,6 +52,7 @@ class Tweet extends React.Component {
                         </span>  
                     </div>
                 </div>
+                <CommentTweet data={this.state.data} postComment={this.commentOnTweet}/>
             </div>
         )
     }
@@ -73,6 +81,7 @@ class Tweet extends React.Component {
                 } 
         });
     }
+
     getTweet() {
         axios.get(config.api_host + '/tweet', {
             params: {
@@ -86,6 +95,21 @@ class Tweet extends React.Component {
                         hasLiked: resp.data.payload.likes.includes(this.state.currentUser) ,
                         hasRT: resp.data.payload.retweetCount.includes(this.state.currentUser)
                     })
+                } 
+        });
+    }
+
+    commentOnTweet(text) {
+        debugger;
+        let body = {
+            text : text,
+            user : "5dcb16cf1c9d44000050d8fc",
+            id: this.state.data._id
+        }
+        axios.post(config.api_host + '/tweet/comment', body)
+            .then(resp => {
+                if(resp.data.success) {
+                    this.getTweet();
                 } 
         });
     }

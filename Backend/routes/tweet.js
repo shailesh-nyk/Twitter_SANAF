@@ -42,4 +42,14 @@ router.delete('/like', function(req, res) {
   kafka.make_request('tweet', request , res);
 })
 
+//COMMENT ON A TWEET
+router.post('/comment', function(req, res) {
+  console.log('INSIDE POST ' + req.url);
+  let request = {
+    body: req.body,
+    message: 'COMMENTTWEET'
+  }
+  kafka.make_request('tweet', request , res);
+})
+
 module.exports = router;
