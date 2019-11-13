@@ -14,6 +14,7 @@ module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
             }
             case "conversation" : {
                 fname = conversationHandler.handleRequest ;  break; 
+            }
             case "tweet" : {
                 fname = tweetHandler.handleRequest ;  break; 
             }
