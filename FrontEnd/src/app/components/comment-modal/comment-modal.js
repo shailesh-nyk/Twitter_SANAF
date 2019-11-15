@@ -3,7 +3,7 @@ import React from 'react';
 import config from '../../../config/app-config';
 import axios from 'axios';
 
-class CommentTweet extends React.Component { 
+class CommentModal extends React.Component { 
     constructor(props) {
         super(props);
     }
@@ -72,4 +72,4 @@ class CommentTweet extends React.Component {
     }
 }
 
-export default CommentTweet;
+export default CommentModal;

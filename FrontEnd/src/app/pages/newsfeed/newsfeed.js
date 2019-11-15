@@ -30,7 +30,9 @@ class NewsFeed extends React.Component {
     render() {
         return(
             <div>
-                <h2 style={{textAlign: 'center'}}>add NEWS FEED content here</h2>
+                <div className="t-topnav-container">
+                    ADD HEADER HERE
+                </div>
                 <Tweet data={this.state.tweet}/>
             </div>
         )
