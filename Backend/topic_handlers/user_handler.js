@@ -1,7 +1,10 @@
-var userService = require('../services/user/user_service');
+var userRegnService = require('../services/user/user_registration_service');
 
 const messageServiceMap = {
-    'SOMETHING' : userService.getSomething,
+    'USER_REGISTRATION' : userRegnService.userRegistration,
+    'USER_LOGIN' : userRegnService.userLogin,
+    'USER_PROFILE_GET' : userRegnService.getUserProfile,
+    'USER_PROFILE_UPDATION' : userRegnService.editUserProfile,
 }
 
 module.exports.handleRequest = function(req, callback){
