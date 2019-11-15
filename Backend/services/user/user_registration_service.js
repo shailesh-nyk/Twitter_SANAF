@@ -8,10 +8,22 @@ module.exports.userRegistration = function(req, callback){
 
     let result;
 
+    let cond,condType="";
+     
+    if(req.hasOwnProperty("email") && req.email!="")
+        { 
+          cond = { email:req.email };
+          condType = "Email Id";
+        }  
+    
+    if(req.hasOwnProperty("phone_no") && req.phone_no!="")
+        {
+          cond = { phone_no:req.phone_no };
+          condType = "Phone No";
+        }      
+
     userModel.findOne({
-        where: {
-        email: req.email
-        }
+        where: cond
     })
     .then(user => {
       if (!user) {
@@ -24,18 +36,18 @@ module.exports.userRegistration = function(req, callback){
                                     callback(null,result);
                                 })
                     .catch(err => {
-                        result = { success:false,msg:err };
+                        result = { success:false,msg:err.message };
                         callback(null,result);
                         
                     })
                 })
            } else {
-                    result ={ success:false, msg:"Email Id already exists..." };
+                    result ={ success:false, msg:`${condType} already exists...` };
                     callback(null,result);
                 }
             })
             .catch(err => {
-                result = { success:false,msg:err };
+                result = { success:false,msg:err.message };
                 callback(null,result);
               });
                         
