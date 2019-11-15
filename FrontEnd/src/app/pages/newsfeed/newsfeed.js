@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { setMessage } from '../../../redux/actions/util-action';
 import Tweet from './../../components/tweet/tweet';
 import config from '../../../config/app-config';
+import axios from 'axios';
 
-class NewsFeed extends React.Component { 
+class NewsFeed extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,25 +25,74 @@ class NewsFeed extends React.Component {
                 "comments":[],
                 "postedOn":"2019-11-12T20:24:24.571Z", 
                 "timeElapsed": "20 mins ago"
-            }
+            },
+            defaultText : "What's happening?",
+            tweetText : "",
+            tweetImage : null
         }
     }
+
+    fileHandler = (event) => {
+        this.setState({ tweetImage: event.target.files[0] });
+    }
+
+    componentDidMount(){
+    }
+
+    createTweet = () => {
+        console.log("create tweet")
+        this.setState({tweetText:"",tweetImage:null})
+        let user = {
+            name : this.state.tweet.user.name,
+            handle : this.state.tweet.user.handle
+        }
+        const body = new FormData();
+        body.append('user',user);
+        body.append('text',this.state.tweetText);
+        body.append('image',this.state.tweetImage); 
+        // axios.post(config.api_host + '/tweet/', body)
+        //     .then(resp => {
+        //         if(resp.data.success) {
+        //             console.log("resp is ",JSON.stringify(resp))
+        //         } 
+        //     });
+        }
+
+    handleChange = (event) => {
+        this.setState({ tweetText: event.target.value });
+    }
+    
     render() {
-        return(
-            <div>
-                <h2 style={{textAlign: 'center'}}>add NEWS FEED content here</h2>
-                <Tweet data={this.state.tweet}/>
+        return (<div className="t-wh-container">
+            <div className="t-nf-container">
+                <div className="t-text-container" >    
+                    <img className="t-profile-img" src={config.base + this.state.tweet.user.avatar}></img>
+                    <input className="t-textbox form-control" onChange={this.handleChange} type="text" id="text"
+                       placeholder= {this.state.defaultText } value = {this.state.tweetText}/>
+                </div>
+                <div className="t-tweet-right">
+                <label for="tweetImage">
+                    <i class="fa fa-picture-o fa-lg t-image-upload"></i> 
+                    <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
+                </label>
+                <button className="t-rounded-button" disabled= { this.state.tweetText=="" &&  this.state.tweetImage== null ? true : false}
+                    onClick = {this.createTweet} >Tweet</button>
+                </div>
             </div>
+            <Tweet data={this.state.tweet}/>
+        </div>
         )
     }
 }
+
 const mapStateToProps = state => {
     return {
-    }   
+        user: state.user
+    }
 }
 const mapDispatchToProps = dispatch => {
     return {
-       setMessage: payload => dispatch(setMessage(payload))
+        setMessage: payload => dispatch(setMessage(payload))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);
