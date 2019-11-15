@@ -26,7 +26,8 @@
     "nodemon": "^1.19.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "@types/chai-http": "^4.2.0"
