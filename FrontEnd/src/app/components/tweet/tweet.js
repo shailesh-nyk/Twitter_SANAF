@@ -2,8 +2,8 @@
 import React from 'react';
 import config from './../../../config/app-config';
 import axios from 'axios';
-import CommentTweet from './../comment-tweet/comment-tweet.js';
-
+import CommentModal from '../../components/comment-modal/comment-modal';
+import { Redirect } from 'react-router-dom';
 class Tweet extends React.Component { 
     constructor(props) {
         super(props);
@@ -19,13 +19,19 @@ class Tweet extends React.Component {
         })
     }
     render() {
+        if(this.state.redirectToTweet) {
+            return (
+                <Redirect to={`/ui/tweet/${this.state.data._id}`} />
+            )
+        }
         return ( 
-            <div className="t-tweet-container">
+            <div>
+            <div className="t-tweet-container" onClick={() => this.redirectToTweet()}>
                 <div>
-                    <img class="t-tweet-avatar" src={config.base + this.state.data.user.avatar}/>
+                    <img class="t-tweet-avatar" src={config.base + this.state.data.user.avatar} onClick={(e) => e.stopPropagation()}/>
                 </div>
                 <div class="t-tweet-right">
-                    <div>
+                    <div onClick={(e) => e.stopPropagation()}>
                         <span className="t-primary-bold"> {this.state.data.user.name} </span>
                         <span className="t-secondary"> @{this.state.data.user.handle}</span>
                         <span className="t-secondary" style={{marginLeft: "40px"}}> {this.state.data.timeElapsed}</span>
@@ -37,26 +43,34 @@ class Tweet extends React.Component {
                         ) : (null)}
                     </div>
                     <div className="t-tweet-actions t-secondary">
-                        <span className="t-comment"> 
-                            <i class={this.state.hasCommented ? "fas fa-comment-alt t-commented" : "far fa-comment-alt"} 
-                                    data-toggle="modal" data-target={"#commentModal"+this.state.data._id}></i> 
+                        <span className="t-comment" data-toggle="modal" data-target={"#commentModal"+this.state.data._id} onClick={(e) => e.stopPropagation()}> 
+                            <i class={this.state.hasCommented.length > 0 ? "fas fa-comment-alt t-commented" : "far fa-comment-alt"}></i> 
                             {this.state.data.comments.length}
                         </span>  
-                        <span className="t-retweet"> 
+                        <span className="t-retweet" onClick={(e) => e.stopPropagation()}> 
                             <i class="fas fa-retweet"></i> 
                             {this.state.data.retweetCount.length}
                         </span>
-                        <span className="t-like"> 
-                            <i class={this.state.hasLiked ? "fas fa-heart t-liked" : "far fa-heart"} onClick={() => this.likeTweet()}></i> 
+                        <span className="t-like" onClick={(e) => this.likeTweet(e)}> 
+                            <i class={this.state.hasLiked ? "fas fa-heart t-liked" : "far fa-heart"}></i> 
                             {this.state.data.likes.length} 
                         </span>  
                     </div>
                 </div>
-                <CommentTweet data={this.state.data} postComment={this.commentOnTweet}/>
+            </div>
+            <CommentModal data={this.state.data} postComment={this.commentOnTweet}/>
             </div>
         )
     }
-    likeTweet() {
+    redirectToTweet() {
+        if(!window.location.pathname.includes('/ui/tweet/')) {
+            this.setState({
+                redirectToTweet: true
+            })
+        }
+    }
+    likeTweet(e) {
+        e.stopPropagation();
         let body = {
             id: this.state.data._id,
             user_id: this.state.currentUser

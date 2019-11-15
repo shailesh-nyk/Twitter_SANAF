@@ -34,7 +34,10 @@ module.exports.getTweet = function(req, callback){
         })
     }
     else if(result) {
-        result._doc['timeElapsed'] = utils.getTimeElapsed(result.postedOn);  //Time since post in minutes
+        result.set('timeElapsed', utils.getTimeElapsed(result.postedOn) , {strict: false});
+        result.comments.map(comment => {
+            comment.set('timeElapsed', utils.getTimeElapsed(comment.postedOn) , {strict: false});
+        })
         callback(null,{
             success: true,
             msg: "Successfully fetched the tweet" ,

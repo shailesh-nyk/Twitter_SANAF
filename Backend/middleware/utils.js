@@ -4,10 +4,12 @@ module.exports.getTimeElapsed = function(time) {
     console.log("Minutes");
     console.log(minutes);
     if(minutes < 60) {
-        return minutes + " mins ago";
+        return minutes + (minutes > 1 ? " mins": " min") + " ago";
     } else if(minutes < 1440) {
-        return Math.floor(minutes/60) + " hr ago";
+        let hrs = Math.floor(minutes/60);
+        return hrs + (hrs > 1 ? " hrs" : " hr") + " ago";
     } else  {
-        return Math.floor(minutes/1440) + " days ago";
+        let days = Math.floor(minutes/1440);
+        return days + (days > 1 ? " days" : " day") + " ago";
     }
 }

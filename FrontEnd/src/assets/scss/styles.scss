@@ -85,3 +85,13 @@
       font-weight: bold;
       padding: 8px 18px;
 }
+
+//TOP NAV PAGE STYLES
+.t-topnav-container {
+   height: 53px;
+   width: 100%;
+   padding: 0px 20px;
+   border-bottom: 1px solid $app-border;
+   display: flex;
+   align-items: center;
+}
