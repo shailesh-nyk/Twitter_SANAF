@@ -23,7 +23,9 @@ module.exports.getHeads = function (req, callback) {
 
     }).populate('users messages.sender_id');
 };
-
+sendMessage = (socket, text) => {
+    socket.emit('private', { message: text });
+}
 module.exports.send = function (req, callback) {
     let { users, message } = req;
     let messageObj = {
@@ -69,4 +71,8 @@ module.exports.send = function (req, callback) {
             });
         }
     });
+
+    let receiverSocket = req.socket["userid"];
+    if (receiverSocket)
+        this.sendMessage(receiverSocket, message);
 };

@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import { sendmessage } from './../../../redux/actions/conversation-action';
 
 class conversation extends React.Component {
+
+    constructor(props){
+        super(props);
+    }
+
     renderMessages = (messages) => {
         if (messages) {
             return messages.map((message) => {
