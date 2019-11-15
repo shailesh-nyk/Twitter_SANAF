@@ -28,7 +28,7 @@ class LeftNav extends React.Component {
                                 <Link className="t-leftnav-a nav-link" to="/ui/">                           <i className="pr-3 fas fa-list-ul"></i>    Lists        </Link>
                                 <Link className="t-leftnav-a nav-link" to="/ui/">                           <i className="pr-3 far fa-user-circle"></i>Profile      </Link>
                                 <Link className="t-leftnav-a nav-link" to="/ui/">                           <i className="pr-3 fas fa-ellipsis-h"></i> More         </Link>
-                                <button type="button" className="btn` btn-primary t-leftnav-btn">Tweet</button>
+                                <button type="button" className="btn btn-primary t-leftnav-btn">Tweet</button>
                             </div>
                         </div>
                     </div>

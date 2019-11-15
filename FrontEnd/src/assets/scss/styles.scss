@@ -65,6 +65,18 @@
    color: $app-secondary-text;
 }
 
+
+
+//OVERRIDING BOOTSTRAP STYLES
+.btn {
+      border-radius: 100px;
+      font-weight: bold;
+      padding: 8px 18px;
+}
+
+.border-white {
+    border-color: $app-border !important;
+}
 //MODAL STYLES
 .modal-header {
    button {
@@ -78,12 +90,6 @@
 }
 .modal-footer {
    border-top: none;
-}
-
-.btn {
-      border-radius: 100px;
-      font-weight: bold;
-      padding: 8px 18px;
 }
 
 //TOP NAV PAGE STYLES
