@@ -4,14 +4,13 @@ import Autosuggest from 'react-autosuggest';
 import ConversationHead from './../../components/conversationhead/conversationhead';
 import Conversation from './../../components/conversation/conversation';
 
-
 class Messages extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             value: '',
             suggestions: [],
-            head : '',
+            head: '',
         };
     }
     getSuggestions = value => {
@@ -66,9 +65,9 @@ class Messages extends React.Component {
         });
     };
 
-    changeSelectedHead = (selHead) =>{
+    changeSelectedHead = (selHead) => {
         this.setState({
-            head : selHead
+            head: selHead
         })
     }
 
@@ -92,10 +91,10 @@ class Messages extends React.Component {
                             inputProps={inputProps}
                         />
                     </div>
-                    <ConversationHead query={this.state.value} changeHead={this.changeSelectedHead}/>
+                    <ConversationHead query={this.state.value} changeHead={this.changeSelectedHead} />
                 </div>
                 <div className="col-6 border">
-                    <Conversation query={this.state.head}/>
+                    <Conversation query={this.state.head} />
                 </div>
             </div>
         )

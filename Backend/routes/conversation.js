@@ -12,6 +12,7 @@ router.get('/heads', function(req, res) {
 })
 
 router.post('/save', function(req, res) {
+  req.body.socket = req.app.get('users');
   let request = {
     body: req.body,
     message: 'SEND_MESSAGE'
