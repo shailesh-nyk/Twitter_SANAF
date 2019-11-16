@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-class TopNav extends React.Component { 
+class Search extends React.Component { 
     constructor(props) {
         super(props);
         this.state = {
@@ -9,8 +9,8 @@ class TopNav extends React.Component {
     }
     render() {
         return ( 
-            <div className="t-topnav-container">
-                TOPNAV
+            <div className="t-search-container">
+                SEARCH
             </div>
         )
     }
@@ -19,4 +19,5 @@ const mapStateToProps = state => {
     return {
     }   
 }
-export default connect(mapStateToProps)(TopNav);
+
+export default connect(mapStateToProps)(Search);

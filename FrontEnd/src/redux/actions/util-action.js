@@ -1,4 +1,4 @@
-import { STARTLOADER, STOPLOADER, CLRMSG, SETMSG } from "./action-types";
+import { STARTLOADER, STOPLOADER, CLRMSG, SETMSG, NEWSFEED } from "./action-types";
 
 export const startLoader = () => {
     return { 
@@ -19,5 +19,10 @@ export const setMessage = (payload) => {
 export const clearMessage = () => {
     return { 
         type: CLRMSG
+    };
+}
+export const newsfeed = () => {
+    return {
+        type : NEWSFEED
     };
 }

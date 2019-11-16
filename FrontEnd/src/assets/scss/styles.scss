@@ -8,6 +8,12 @@
       width: 100px;
    }
 }
+
+//Basic style for containers with dark bg and white color text
+.t-dark-container {
+   background-color: $app-bg;
+   color: $app-text;
+}
 //LOGO style
 .t-nav-logo {
    img {
@@ -45,6 +51,9 @@
  }
 
  //TEXT STYLES
+.t-small-text {
+   font-size: 15px;
+}
 .t-primary {
    color: $app-text;
 }
@@ -54,4 +63,41 @@
 }
 .t-secondary {
    color: $app-secondary-text;
+}
+
+
+
+//OVERRIDING BOOTSTRAP STYLES
+.btn {
+      border-radius: 100px;
+      font-weight: bold;
+      padding: 8px 18px;
+}
+
+.border-white {
+    border-color: $app-border !important;
+}
+//MODAL STYLES
+.modal-header {
+   button {
+      color: $app-theme;
+      &:hover {
+         color: $app-theme;
+        
+      }
+   }
+   border-bottom: 1px solid $app-border;
+}
+.modal-footer {
+   border-top: none;
+}
+
+//TOP NAV PAGE STYLES
+.t-topnav-container {
+   height: 53px;
+   width: 100%;
+   padding: 0px 20px;
+   border-bottom: 1px solid $app-border;
+   display: flex;
+   align-items: center;
 }

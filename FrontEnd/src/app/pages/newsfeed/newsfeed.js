@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setMessage } from '../../../redux/actions/util-action';
+import { newsfeed } from '../../../redux/actions/util-action';
 import Tweet from './../../components/tweet/tweet';
 import config from '../../../config/app-config';
 import axios from 'axios';
+import TopNav from './../../components/topnav/topnav';
 
 class NewsFeed extends React.Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class NewsFeed extends React.Component {
                 "postedOn":"2019-11-12T20:24:24.571Z", 
                 "timeElapsed": "20 mins ago"
             },
+            newsFeed : null,
             defaultText : "What's happening?",
             tweetText : "",
             tweetImage : null
@@ -36,7 +38,18 @@ class NewsFeed extends React.Component {
         this.setState({ tweetImage: event.target.files[0] });
     }
 
-    componentDidMount(){
+    componentWillMount(){
+        console.log("in will mount")
+        axios.get(config.base + 'user/newsFeed')
+            .then(resp => {
+                if(resp.data.success) {
+                    console.log("resp is ",resp);
+                    if(resp.data.success){
+                        this.setState({newsFeed:resp.data.payload});
+                        this.props.setNewsFeed(resp.data.payload);
+                    }
+                } 
+            });
     }
 
     createTweet = () => {
@@ -64,6 +77,7 @@ class NewsFeed extends React.Component {
     
     render() {
         return (<div className="t-wh-container">
+            <TopNav path = {this.props.location.pathname}/>
             <div className="t-nf-container">
                 <div className="t-text-container" >    
                     <img className="t-profile-img" src={config.base + this.state.tweet.user.avatar}></img>
@@ -79,7 +93,9 @@ class NewsFeed extends React.Component {
                     onClick = {this.createTweet} >Tweet</button>
                 </div>
             </div>
-            <Tweet data={this.state.tweet}/>
+            { this.state.newsFeed && this.state.newsFeed.map( tweet => {
+                return <Tweet data={this.state.tweet}/>
+            })}
         </div>
         )
     }
@@ -87,12 +103,11 @@ class NewsFeed extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        setMessage: payload => dispatch(setMessage(payload))
+        setNewsFeed: payload => dispatch(newsfeed(payload))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);

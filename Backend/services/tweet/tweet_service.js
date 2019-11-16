@@ -34,7 +34,10 @@ module.exports.getTweet = function(req, callback){
         })
     }
     else if(result) {
-        result._doc['timeElapsed'] = utils.getTimeElapsed(result.postedOn);  //Time since post in minutes
+        result.set('timeElapsed', utils.getTimeElapsed(result.postedOn) , {strict: false});
+        result.comments.map(comment => {
+            comment.set('timeElapsed', utils.getTimeElapsed(comment.postedOn) , {strict: false});
+        })
         callback(null,{
             success: true,
             msg: "Successfully fetched the tweet" ,
@@ -90,6 +93,36 @@ module.exports.unlikeTweet = function(req, callback) {
         callback(null,{
             success: true,
             msg: "Successfully unliked the tweet" ,
+            payload: result
+        }) 
+    }
+    });
+}
+
+module.exports.commentTweet = function(req, callback) {
+    let search = {
+        "_id": req.id
+    }
+    let update = {
+        $push: {
+            "comments":  {
+                text: req.text,
+                user: req.user,
+                postedOn: Date.now()
+            }
+        }
+    }
+    TweetModel.findOneAndUpdate(search, update , {safe: true, new: true, useFindAndModify: false}, function(err, result){
+    if(err) {
+        callback(null,{
+            success: false,
+            msg: "Something went wrong",
+            payload: err
+        })
+    } else {
+        callback(null,{
+            success: true,
+            msg: "Successfully commented on the tweet" ,
             payload: result
         }) 
     }

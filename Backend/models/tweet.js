@@ -11,6 +11,7 @@ var tweetSchema = new Schema({
     comments: [{
         text: {type: String},
         user: { type: Schema.Types.ObjectId, ref: 'users'},
+        postedOn: { type: Date }
     }],
     postedOn: { type: Date}
 })

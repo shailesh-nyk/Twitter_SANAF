@@ -1,4 +1,26 @@
 .t-leftnav-container {
-    width: 275px;
+    width: 360px;
     padding: 20px;
+}
+
+.t-leftnav-a{
+    font-weight: 100;
+    font-size: 23px;
+    color: $app-text;
+    width: max-content;
+    border-radius: 2rem;
+}
+.t-leftnav-btn{
+    border-radius: 2rem;
+    height: 3rem;
+}
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+   80% { transform: rotate(0deg); }
+   85% { transform: rotate(20deg); }
+   95% { transform: rotate(-20deg); }
+  100% { transform: rotate(0deg); }
+}
+.wiggle{
+    animation: wiggle 1.5s infinite;
 }
