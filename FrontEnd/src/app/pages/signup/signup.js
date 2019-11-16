@@ -12,6 +12,7 @@ class SignUp extends React.Component {
     render() {
         return(
             <h2 style={{textAlign: 'center'}}>add SIGNUP content here</h2>
+        
         )
     }
 }

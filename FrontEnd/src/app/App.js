@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from '../assets/images/logo.png';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Login  from './pages/login/login';
-import SignUp from './pages/signup/signup';
+//import Login  from './pages/login/login';
+//import SignUp from './pages/signup/signup';
+import SignUp from './components/signUp/signUp';
+import Login from './components/login/login';
 import Main from './pages/main/main';
 import Loader from './components/loader/loader';
 import Messages from './components/messages/messages';

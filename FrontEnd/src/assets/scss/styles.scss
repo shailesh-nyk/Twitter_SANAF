@@ -101,3 +101,20 @@
    display: flex;
    align-items: center;
 }
+
+//For Border Corners
+.t-sign-up-rounded {
+   border-radius: 0.75rem
+}
+
+.t-app-theme-color{
+   color: $app-theme;
+}
+
+.t-font-size-14 {
+   font-size: 14px;
+ }
+
+.t-font-size-16 {
+   font-size: 16px;
+ }  
