@@ -4,7 +4,6 @@ import { newsfeed } from '../../../redux/actions/util-action';
 import Tweet from './../../components/tweet/tweet';
 import config from '../../../config/app-config';
 import axios from 'axios';
-import TopNav from './../../components/topnav/topnav';
 
 class NewsFeed extends React.Component {
     constructor(props) {
@@ -77,7 +76,7 @@ class NewsFeed extends React.Component {
     
     render() {
         return (<div className="t-wh-container">
-            <TopNav path = {this.props.location.pathname}/>
+            <div className="t-top-nav" >Home</div>
             <div className="t-nf-container">
                 <div className="t-text-container" >    
                     <img className="t-profile-img" src={config.base + this.state.tweet.user.avatar}></img>
@@ -86,7 +85,7 @@ class NewsFeed extends React.Component {
                 </div>
                 <div className="t-tweet-right">
                 <label for="tweetImage">
-                    <i class="fa fa-picture-o fa-lg t-image-upload"></i> 
+                    <i class="fa fa-picture-o fa-lg t-favicon"></i> 
                     <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
                 </label>
                 <button className="t-rounded-button" disabled= { this.state.tweetText=="" &&  this.state.tweetImage== null ? true : false}
@@ -94,7 +93,7 @@ class NewsFeed extends React.Component {
                 </div>
             </div>
             { this.state.newsFeed && this.state.newsFeed.map( tweet => {
-                return <Tweet data={this.state.tweet}/>
+                return <Tweet data={tweet}/>
             })}
         </div>
         )

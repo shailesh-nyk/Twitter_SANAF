@@ -8,6 +8,19 @@
     color: $app-text;
     padding-left: 20px;
     padding-right: 20px;
+    padding-top: 60px;
+}
+.t-top-nav {
+    font-size: 20px;
+    font-weight: 900;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom: 1px solid $app-border;
+    background-color: $app-bg;
+    position: fixed;
+    width: inherit;
+    border-right: 2px solid $app-border;
 }
 .t-text-container {
     display: flex;
@@ -44,7 +57,7 @@
     height : 50px;
     border-radius: 40px;
 }
-.t-image-upload{
+.t-favicon{
     color: $app-theme;
     padding-top:20px; 
 }
