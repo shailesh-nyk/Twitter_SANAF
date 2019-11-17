@@ -81,6 +81,16 @@ class Messages extends React.Component {
         return (
             <div className="row t-messages-div">
                 <div className="col-6 border overflow-allow">
+                    <div class="d-flex bd-highlight mb-3">
+                        <div class="mr-auto p-2 bd-highlight t-primary-bold  t-medium-text">
+                            Messages
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <button type="button">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
                     <div className="p-1 ">
                         <Autosuggest
                             suggestions={suggestions}

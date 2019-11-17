@@ -16,7 +16,7 @@ class Main extends React.Component {
         this.state = {
             new_message: false
         }
-        config.socket.emit("openSocket", "userid"); // send the actual user id
+        config.socket.emit("openSocket", "userid"); //TODO:FZ send the actual user id
         config.listen(config.socket, this.showNotification);
     }
     showNotification = (message) => {
@@ -31,6 +31,7 @@ class Main extends React.Component {
         })
     }
     render() {
+        
         return (
             <div className="t-app-container">
                 <LeftNav new_message={this.state.new_message} reset={this.reset} />
@@ -47,7 +48,7 @@ class Main extends React.Component {
                         </Switch>
                     </div>
                 </div>
-                <Search/>
+                {window.location.pathname.includes('/ui/messages') ? (<div className="p-3"></div>) : (<Search />)}
             </div>
         )
     }
