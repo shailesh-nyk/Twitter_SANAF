@@ -38,4 +38,13 @@ router.post('/userProfile', function(req, res) {
   kafka.make_request('user', request , res);
 });
 
+router.get('/newsfeed', function(req, res) {
+  
+  let request = {
+    body: req.body,
+    message: 'GET_NEWS_FEED'
+  }
+  kafka.make_request('user', request , res);
+})
+
 module.exports = router;
