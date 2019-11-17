@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import TopNav from '../login/topNav';
+import { loginUser } from "../../../redux/actions/authActions";
 
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
+      username_or_email_or_phone: "",
       password: "",
       errors: {}
     };
@@ -19,49 +20,69 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
+    if (nextProps.auth.isAuthenticated) {
+
+      document.body.classList.remove("t-login-body");
+      document.body.classList.remove("t-sign-up-body"); 
+       nextProps.history.push("/ui");
       
-      document.getElementById('register-msg-box').style.display="block";
-                     document.getElementById('register-msg-box').className = 'alert-danger';
-                     document.getElementById('register-msg-box').innerHTML    = nextProps.errors.message;
+    }
+
+    if (nextProps.errors.hasOwnProperty("success")) {
+      /*this.setState({
+        errors: nextProps.errors
+      });*/
+      
+      document.getElementById('login-msg-box').style.display="block";
+                     document.getElementById('login-msg-box').className = 'alert-danger mt-1 p-1 t-font-size-16';
+                     document.getElementById('login-msg-box').innerHTML    = nextProps.errors.msg;
     }
     else{
-      document.getElementById('register-msg-box').style.display="none";
+      document.getElementById('login-msg-box').style.display="none";
     }
   }
 
   componentDidMount() {
 
     document.body.classList.add("t-login-body");
+    document.body.classList.remove("t-sign-up-body");
     
+    if(Object.keys(this.props.success).length!=0){
+      
+      document.getElementById('login-msg-box').style.display = "block";
+      document.getElementById('login-msg-box').className = 'alert-success mt-1 p-1 t-font-size-16';
+      document.getElementById('login-msg-box').innerHTML = this.props.success.msg;
+    }
+    else{
+      //document.getElementById('login-msg-box').style.display="none";
+    }
     
     // If logged in and user navigates to Register page, should redirect them to dashboard
-    /*if (this.props.auth.isAuthenticated) {
-
-          this.props.history.push("/dashboard");
+    if (this.props.auth.isAuthenticated) {
+      
+         document.body.classList.remove("t-login-body");
+          this.props.history.push("/ui");
          
-     }*/
+     }
   }
   
   onChange = e => {
   
     this.setState({ [e.target.id]: e.target.value });
-    document.getElementById('register-msg-box').style.display="none";
+    document.getElementById('login-msg-box').style.display="none";
   };
   
   onSubmit = e => {
     e.preventDefault();
     
     const newUser = {
-      email: this.state.email,
+      username_or_email_or_phone: this.state.username_or_email_or_phone,
       password: this.state.password
     };
-    console.log(newUser);
-
-    this.props.registerUser(newUser, this.props.history); 
+    
+    //console.log(newUser);
+    
+    this.props.loginUser(newUser, this.props.history); 
   
   };
   
@@ -79,7 +100,7 @@ class Login extends Component {
 
                 <div className="row">
                 <div className ="col-md-7 mx-auto bg-white p-3 mt-4 border">
-                  <h5 className="p-2" id="register-msg-box" style={{display:'none'}}></h5>  
+                  <h5 className="p-2" id="login-msg-box" style={{display:'none'}}></h5>  
                   <h5 className="p-2 ml-5 font-weight-bold">Log In to Twitter</h5>
                         <form onSubmit={this.onSubmit} autoComplete="off">
                           
@@ -88,12 +109,11 @@ class Login extends Component {
                                     <div className="form-group">
                                      <input
                                         onChange={this.onChange}
-                                        value={this.state.email}
-                                        error={errors.email}
-                                        id="email"
-                                        type="email"
+                                        value={this.state.username_or_email_or_phone}
+                                        error={errors.username_or_email_or_phone}
+                                        id="username_or_email_or_phone"
+                                        type="username_or_email_or_phone"
                                         placeholder = "Phone, email or Username"
-                                        email="true"
                                         minLength="1"
                                         maxLength="30"
                                         required
@@ -140,8 +160,8 @@ class Login extends Component {
                                     </div>
                                     <div className="col-6 form-check">
                                           <input type="checkbox" id="exampleCheck1"/>
-                                          <label class="form-check-label t-font-size-14 ml-1 t-icon" for="exampleCheck1">Remember Me</label>
-                                          <label class="t-font-size-14 ml-1 t-icon t-app-theme-color">Forgot Password?</label>
+                                          <label className="form-check-label t-font-size-14 ml-1 t-icon">Remember Me</label>
+                                          <label className="t-font-size-14 ml-1 t-icon t-app-theme-color">Forgot Password?</label>
                                     </div>
                                 </div>    
                     </form>
@@ -163,15 +183,17 @@ class Login extends Component {
 }
 
 
-/*Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};*/
+  errors: PropTypes.object.isRequired,
+  success: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
-  //auth: state.auth,
-  errors: state.errors
+  auth: state.auth,
+  errors: state.errors,
+  success:state.success
 });
 
-export default connect(mapStateToProps,{  })(withRouter(Login));
+export default connect(mapStateToProps,{loginUser})(withRouter(Login));

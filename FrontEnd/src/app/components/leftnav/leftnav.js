@@ -1,11 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import {logoutUser} from "../../../redux/actions/authActions"
 
 class LeftNav extends React.Component {
     constructor(props) {
         super(props);
     }
+
+    onLogoutClick = e => {
+        e.preventDefault();
+        this.props.logoutUser();
+      };
 
     render() {
         let messageIcon = <i className="pr-3 far fa-envelope"></i>;
@@ -28,6 +34,7 @@ class LeftNav extends React.Component {
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/">                           <i className="pr-3 fas fa-list-ul"></i>    Lists        </Link>
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/">                           <i className="pr-3 far fa-user-circle"></i>Profile      </Link>
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/">                           <i className="pr-3 fas fa-ellipsis-h"></i> More         </Link>
+                                <Link className="t-leftnav-a nav-link" to="#" onClick={this.onLogoutClick}>                           <i className="pr-3 fas fa-ellipsis-h"></i> Logout         </Link>
                                 <button type="button" className="btn btn-primary t-leftnav-btn">Tweet</button>
                             </div>
                         </div>
@@ -42,4 +49,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(LeftNav);
+export default connect(mapStateToProps,{logoutUser})(LeftNav);
