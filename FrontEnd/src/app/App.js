@@ -9,6 +9,37 @@ import Main from './pages/main/main';
 import Loader from './components/loader/loader';
 import Messages from './components/messages/messages';
 
+import jwt_decode from "jwt-decode";
+import setAuthToken from "../config/setAuthToken";
+import { setCurrentUser, logoutUser } from "../redux/actions/authActions";
+import store from "../store";
+
+
+//import { Provider } from "react-redux";
+
+
+
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  console.log("Token ",token);
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());    // Redirect to login
+    window.location.href = "./login";
+  }
+}
+
+
+
 class App extends React.Component {
   constructor(props) {
      super(props);
@@ -24,6 +55,7 @@ class App extends React.Component {
       },800)
   }
   render() {
+    
     if(this.state.loading) {
       return (
         <div className="t-initial-loader">
