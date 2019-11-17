@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter  } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-//import { registerUser } from "../../actions/authActions";
+import { signUp } from "../../../redux/actions/authActions";
 import classnames from "classnames";
 import logo from '../../../assets/images/logo.png';
 
@@ -15,7 +15,9 @@ class SignUp extends Component {
       email: "",
       password: "",
       phone_no : "",
-      d_o_b    : "",
+      month    : "",
+      day      : "1",
+      year     : "",
       onToggle : "email",
       errors: {}
     };
@@ -30,8 +32,8 @@ class SignUp extends Component {
       });
       
       document.getElementById('register-msg-box').style.display="block";
-                     document.getElementById('register-msg-box').className = 'alert-danger';
-                     document.getElementById('register-msg-box').innerHTML    = nextProps.errors.message;
+                     document.getElementById('register-msg-box').className = 'alert-danger mt-1 p-1';
+                     document.getElementById('register-msg-box').innerHTML    = nextProps.errors.msg;
     }
     else{
       document.getElementById('register-msg-box').style.display="none";
@@ -44,11 +46,11 @@ class SignUp extends Component {
     dateMonthYearGenerator();
     
     // If logged in and user navigates to Register page, should redirect them to dashboard
-    /*if (this.props.auth.isAuthenticated) {
-
-          this.props.history.push("/dashboard");
-         
-     }*/
+    if (this.props.auth.isAuthenticated) {
+          
+          document.body.classList.remove("t-sign-up-body");
+          this.props.history.push("/ui");
+     }
   }
 
   onToggle = e =>{
@@ -70,25 +72,67 @@ class SignUp extends Component {
     this.setState({ [e.target.id]: e.target.value });
     document.getElementById('register-msg-box').style.display="none";
   };
+
+  onSelect = e =>{
+    
+     if(window.$('#year option:selected').text()!="")
+            window.$('#next-btn').prop('disabled', false );
+     else
+           window.$('#next-btn').prop('disabled', true ); 
+
+           
+       if(e.target.id=="month")
+             { 
+               this.setState({ [e.target.id]: parseInt(e.target.value)+1 });
+               this.setState({day:"1"});
+             } 
+       else if(e.target.id=="year")
+         { 
+           this.setState({ [e.target.id]: e.target.value });
+           this.setState({day:"1"});
+         } 
+       else          
+        this.setState({ [e.target.id]: e.target.value });
+
+  }
   
   onSubmit = e => {
     e.preventDefault();
     
+    let month,day;
+    if(this.state.month<10)
+        month = ("0" + this.state.month);//.slice(-2);
+    else
+        month = this.state.month;   
+        
+
+    if(this.state.day<10)
+        day = "0"+this.state.day;
+    else
+         day = this.state.day;   
+
     const newUser = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+      name: this.state.name,
+      phone_no: this.state.phone_no,
       email: this.state.email,
       password: this.state.password,
-      type_of_user: this.state.type_of_user
+      d_o_b: this.state.year+'-'+month+'-'+day
     };
     console.log(newUser);
 
-    this.props.registerUser(newUser, this.props.history); 
+    if(newUser.email!="" || newUser.phone_no!="")
+       {
+        this.props.signUp(newUser, this.props.history);      
+       }
+    else{
+         alert("Either enter email Id or Phone Number");
+         return false;
+    }   
+
+    
   
   };
   
-  
-
   render() {
     const { errors } = this.state;
     
@@ -99,15 +143,18 @@ class SignUp extends Component {
 
                 <div className="row">
                 <div className ="col-md-7 mx-auto bg-white p-3 mt-4 border t-sign-up-rounded">
+                <form onSubmit={this.onSubmit} autoComplete="off">
                   <div className="row">
                     <div className="col-6 px-0 mr-4">
                         <img src={logo} alt="logo" className="rounded mx-auto d-block float-right" height="25px"/>
                      </div>
                      <div className="col-5 px-0 ml-3">
                             <button
+                              id = "next-btn"
                               type="submit"
                               className="btn btn-sm t-btn-primary-sign-up float-right"
-                              disabled="true"
+                              disabled={true}
+                              
                             >
                               Next
                             </button>
@@ -115,23 +162,23 @@ class SignUp extends Component {
                   </div>
                   <h5 className="p-2" id="register-msg-box" style={{display:'none'}}></h5>  
                   <h5 className="p-2 font-weight-bold">Create your account</h5>
-                        <form onSubmit={this.onSubmit} autoComplete="off">
+                        
                           <div className="row">
                               <div className="col-md-12">
                                     <div className="form-group">
                                      <input
                                         onChange={this.onChange}
-                                        value={this.state.first_name}
-                                        error={errors.first_name}
+                                        value={this.state.name}
+                                        error={errors.name}
                                         id="name"
                                         type="text"
                                         placeholder="Name"
                                         required
-                                        pattern="^[a-zA-Z]+$"
+                                        pattern="^[a-zA-Z\s]+$"
                                         minLength="1"
                                         maxLength="10"
                                         className={classnames("form-control", {
-                                          invalid: errors.first_name
+                                          invalid: errors.name
                                         })}
                                       />
                                       
@@ -152,7 +199,7 @@ class SignUp extends Component {
                                         email="true"
                                         minLength="1"
                                         maxLength="30"
-                                        required
+                                  
                                         className={classnames("form-control", {
                                           invalid: errors.email
                                         })}
@@ -172,10 +219,10 @@ class SignUp extends Component {
                                         id="phone_no"
                                         type="phone_no"
                                         placeholder = "Phone"
-                                        email="true"
+                                        pattern="^[0-9]+$"
                                         minLength="1"
                                         maxLength="10"
-                                        required
+                                        
                                         className={classnames("form-control", {
                                           invalid: errors.phone_no
                                         })}
@@ -226,27 +273,27 @@ class SignUp extends Component {
                                 </div> 
                                 <div className="row">
                                   <div className="col-md-4">
-                                        <div class="form-group bg-light">
+                                        <div className="form-group bg-light">
                                                 <span className="text-muted ml-2 t-font-size-16">Month
-                                                  <select class="form-control bg-light" id="month">
+                                                  <select className="form-control bg-light" id="month" onChange={this.onSelect} required>
                                                   <option></option>
                                                   </select>
                                                   </span> 
                                               </div>
                                      </div>
                                      <div className="col-md-4">
-                                        <div class="form-group bg-light">
+                                        <div className="form-group bg-light">
                                                 <span className="text-muted ml-2 t-font-size-16">Day
-                                                    <select class="form-control bg-light" id="day">
+                                                    <select className="form-control bg-light" id="day" onChange={this.onSelect} required>
                                                         <option></option>
                                                     </select>
                                                   </span>
                                               </div>
                                      </div>
                                      <div className="col-md-4">
-                                        <div class="form-group bg-light">
+                                        <div className="form-group bg-light">
                                                 <span className="text-muted ml-2 t-font-size-16">Year
-                                                  <select class="t-form-control-dropdown bg-light" id="year">
+                                                  <select className="t-form-control-dropdown bg-light" id="year" onChange={this.onSelect} required>
                                                        <option></option>
                                                   </select>
                                                   </span>
@@ -326,15 +373,15 @@ let dateMonthYearGenerator = ()=>{
     } 
 }
 
-/*Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
+SignUp.propTypes = {
+  signUp: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
-};*/
+};
 
 const mapStateToProps = state => ({
-  //auth: state.auth,
+  auth: state.auth,
   errors: state.errors
 });
 
-export default connect(mapStateToProps,{  })(withRouter(SignUp));
+export default connect(mapStateToProps,{signUp})(withRouter(SignUp));
