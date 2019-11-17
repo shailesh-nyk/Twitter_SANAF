@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../../config/db_config_mysql');
-
+ 
 module.exports = db.sequelize.define(
   'user',
   {
