@@ -52,8 +52,8 @@ class conversation extends React.Component {
     renderUserName = (user) => {
         if (user) {
             return (
-                <div className="p-3">
-                    <h4>{user.name}</h4>
+                <div className="p-3 t-container-border">
+                    <h5>{user.name}</h5>
                     <small>@{user.handle}</small>
                     <i class="fas fa-info-circle" style={{ float: "right" }}></i>
                 </div>
@@ -100,7 +100,7 @@ class conversation extends React.Component {
         return (
             <div>
                 {user_message && this.renderUserName(user_message.user)}
-                <div className="overflow-auto" style={{ height: "550px" }}>
+                <div className="overflow-auto" style={{ height: "625px" }}>
                     {user_message == null ? this.renderStartConversationInfo() : this.renderMessages(user_message.messages)}
                 </div>
                 <div class="input-group p-2 bottom">

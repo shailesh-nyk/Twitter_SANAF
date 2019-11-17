@@ -1,0 +1,28 @@
+.t-tweet-comment-modal {
+    .t-tweet-container {
+        border-bottom: none;
+        .t-tweet-avatar {
+            width: 75px;
+        }
+    }
+    .t-vertical-line {
+        height:40px;
+        width: 75px;
+        display: flex;
+        justify-content: center;
+        div {
+            height:40px;
+            width: 3px;
+            background-color: $app-line-color; 
+        }
+    }
+    .t-comment-textarea {
+        border: none;
+        width: 100%;
+        min-height: 90px;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+

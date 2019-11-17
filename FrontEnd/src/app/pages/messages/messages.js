@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
 import ConversationHead from './../../components/conversationhead/conversationhead';
 import Conversation from './../../components/conversation/conversation';
+import UserSearch from './../../components/userSearch-modal/userSearch-modal';
 
 class Messages extends React.Component {
     constructor(props) {
@@ -70,7 +71,7 @@ class Messages extends React.Component {
             head: selHead
         })
     }
-
+ 
     render() {
         const { value, suggestions } = this.state;
         const inputProps = {
@@ -80,18 +81,18 @@ class Messages extends React.Component {
         };
         return (
             <div className="row t-messages-div">
-                <div className="col-6 border overflow-allow">
-                    <div class="d-flex bd-highlight mb-3">
-                        <div class="mr-auto p-2 bd-highlight t-primary-bold  t-medium-text">
+                <div className="col-6 overflow-allow t-container-border t-no-padding">
+                    <div class="d-flex bd-highlight mb-3  t-container-border">
+                        <div class="mr-auto bd-highlight t-primary-bold t-medium-text">
                             Messages
                         </div>
-                        <div class="p-2 bd-highlight">
-                            <button type="button">
-                                <i class="fas fa-plus-circle"></i>
-                            </button>
+                        <div class="bd-highlight">
+                            <span className="t-userSearch" data-toggle="modal" data-target="#userSearchModal" onClick={(e) => e.stopPropagation()}>
+                                <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} />
+                            </span>
                         </div>
                     </div>
-                    <div className="p-1 ">
+                    <div className="p-1">
                         <Autosuggest
                             suggestions={suggestions}
                             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -103,9 +104,10 @@ class Messages extends React.Component {
                     </div>
                     <ConversationHead query={this.state.value} changeHead={this.changeSelectedHead} />
                 </div>
-                <div className="col-6 border">
+                <div className="col-6 t-container-border t-no-padding">
                     <Conversation query={this.state.head} />
                 </div>
+                <UserSearch />
             </div>
         )
     }

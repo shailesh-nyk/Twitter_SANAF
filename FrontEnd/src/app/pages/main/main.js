@@ -31,7 +31,7 @@ class Main extends React.Component {
         })
     }
     render() {
-        
+
         return (
             <div className="t-app-container">
                 <LeftNav new_message={this.state.new_message} reset={this.reset} />
@@ -48,7 +48,7 @@ class Main extends React.Component {
                         </Switch>
                     </div>
                 </div>
-                {window.location.pathname.includes('/ui/messages') ? (<div className="p-3"></div>) : (<Search />)}
+                {window.location.pathname.includes('/ui/messages') ? (<div className="t-container-border" style={{padding : '3rem'}}></div>) : (<Search />)}
             </div>
         )
     }
