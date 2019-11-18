@@ -82,13 +82,13 @@ class Messages extends React.Component {
         return (
             <div className="row t-messages-div">
                 <div className="col-6 overflow-allow t-container-border t-no-padding">
-                    <div class="d-flex bd-highlight mb-3  t-container-border">
+                    <div class="d-flex bd-highlight mb-3  t-container-border t-find-better-way">
                         <div class="mr-auto bd-highlight t-primary-bold t-medium-text">
                             Messages
                         </div>
                         <div class="bd-highlight">
                             <span className="t-userSearch" data-toggle="modal" data-target="#userSearchModal" onClick={(e) => e.stopPropagation()}>
-                                <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} />
+                                <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} id="newConversation"/>
                             </span>
                         </div>
                     </div>

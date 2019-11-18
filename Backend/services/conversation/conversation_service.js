@@ -5,7 +5,7 @@ var Redis = require("ioredis");
 var redis = new Redis(6379, "54.172.121.236", { password: "kafkasucks" });
 
 module.exports.getHeads = function (req, callback) {
-    let user_id = mongoose.Types.ObjectId("5dca4f4de9a22e4b5c966d34");
+    let user_id = mongoose.Types.ObjectId("5dd2362783758161341f5c60"); //TODO : FZ
     redis.exists("conversation_heads" + user_id).then((exists) => {
         if (exists === 1) {
             redis.get("conversation_heads" + user_id, function (err, result) {
@@ -41,6 +41,8 @@ module.exports.getHeads = function (req, callback) {
 
 
 sendMessage = (socket, text) => {
+    console.log('\033[2J');
+    console.log('Messaged ', text, ' sent');
     socket.emit('private', { message: text });
 }
 module.exports.send = function (req, callback) {
@@ -63,13 +65,15 @@ module.exports.send = function (req, callback) {
         }
         if (result) {
             result.messages.push(messageObj);
-            result.save();
-            callback(null, {
-                success: true,
-                msg: "Message sent successfully!",
-                payload: result
+            result.save(function (err, resp) {
+                redis.del("conversation_heads" + users[0]);
+                callback(null, {
+                    success: true,
+                    msg: "Message sent successfully!",
+                    payload: resp
+                });
             });
-        }
+        } 
         else {
             newMessage.save(function (err, resp) {
                 if (err) {
@@ -79,6 +83,7 @@ module.exports.send = function (req, callback) {
                         payload: err
                     })
                 } else {
+                    redis.set("conversation_heads" + users[0], JSON.stringify(resp));
                     callback(null, {
                         success: true,
                         msg: "Message sent successfully!",

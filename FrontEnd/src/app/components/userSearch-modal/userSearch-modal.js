@@ -7,17 +7,18 @@ class UserSearch extends React.Component {
         super(props);
     }
     renderUsers = () => {
-        let users = this.props.users;
-        return users.map((user) => {
-            return (
-                <div data-id={user._id}>
-                    <div className="d-flex w-100 justify-content-between" >
-                        <img src={user.avatar} alt="Avatar" />
-                        <h6 className="mb-1 p-2">{user.name} @{user.handle} </h6>
-                    </div>
-                </div>
-            )
-        });
+        //TODO : FZ
+        //let users = this.props.users;
+        //return users.map((user) => {
+        //    return (
+        //        <div data-id={user._id}>
+        //            <div className="d-flex w-100 justify-content-between" >
+        //                <img src={user.avatar} alt="Avatar" />
+        //                <h6 className="mb-1 p-2">{user.name} @{user.handle} </h6>
+        //            </div>
+        //        </div>
+        //    )
+        //});
     }
     render() {
         return (
@@ -48,7 +49,7 @@ class UserSearch extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.conversationReducer.conversationheads
+        //users: state.conversationReducer.conversationheads
     }
 }
 const mapDispatchToProps = (dispatch) => {

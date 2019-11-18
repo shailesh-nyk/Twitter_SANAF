@@ -17,11 +17,16 @@ class conversationhead extends React.Component {
     }
     getUsers = () => {
         let users = [];
-        let user_id = "5dca4f4de9a22e4b5c966d34";
-        for (let i = 0; i < this.props.conversationheads.length; i++) {
-            for (let j = 0; j < this.props.conversationheads[i].users.length; j++) {
-                if (this.props.conversationheads[i].users[j]._id !== user_id) {
-                    users.push(this.props.conversationheads[i].users[j])
+        let user_id = "5dd2362783758161341f5c60"; //TODO : FZ
+        let propUsers = this.props.conversationheads;
+        if (!window.$.isArray(propUsers)) {
+            propUsers = [];
+            propUsers.push(this.props.conversationheads);
+        }
+        for (let i = 0; i < propUsers.length; i++) {
+            for (let j = 0; j < propUsers[i].users.length; j++) {
+                if (propUsers[i].users[j]._id !== user_id) {
+                    users.push(propUsers[i].users[j])
                 }
             }
         }

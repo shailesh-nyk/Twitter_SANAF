@@ -4,7 +4,7 @@ import { sendmessage } from './../../../redux/actions/conversation-action';
 
 class conversation extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -32,14 +32,14 @@ class conversation extends React.Component {
 
     renderStartConversationInfo = () => {
         return (
-            <div class="container h-100" style={{ paddingTop: "45%" }}>
+            <div class="container " style={{ paddingTop: "45%" }}>
                 <div class="row h-100 justify-content-center align-items-center">
                     <span>You don’t have a message selected</span>
                 </div>
                 <div class="row h-100 justify-content-center align-items-center">
                     <span >Choose one from your existing messages, or start a new one.</span>
                 </div>
-                <a href="/messages/compose" role="button" data-focusable="true" class="row h-100 justify-content-center align-items-center">
+                <a href="" onClick={(e)=> {e.preventDefault(); window.$("#newConversation").click()}} role="button" data-focusable="true" class="row h-100 justify-content-center align-items-center">
                     <div>
                         <span >
                             <span>New message</span>
@@ -83,7 +83,7 @@ class conversation extends React.Component {
     }
     sendMessage = () => {
         let that = this;
-        let user = "5dca4f4de9a22e4b5c966d34";
+        let user = "5dd2362783758161341f5c60"; // TODO : FZ
         let message = document.getElementById("inpMessage").value;
         let message_payload = {
             users: [user, that.props.query],
@@ -103,7 +103,7 @@ class conversation extends React.Component {
                 <div className="overflow-auto" style={{ height: "625px" }}>
                     {user_message == null ? this.renderStartConversationInfo() : this.renderMessages(user_message.messages)}
                 </div>
-                <div class="input-group p-2 bottom">
+                {user_message && <div class="input-group p-2 bottom">
                     <input type="text" class="form-control" onKeyUp={this.checkEnterKeyPress} id="inpMessage"
                         placeholder="Enter message" />
                     <div class="input-group-append">
@@ -111,7 +111,7 @@ class conversation extends React.Component {
                             <i class="far fa-paper-plane"></i>
                         </button>
                     </div>
-                </div>
+                </div>}
             </div>
         )
     }
