@@ -12,7 +12,8 @@ export const fetchConversationheadsThunkHelper = (conversationheads) => {
 export const fetchConversationheads = (id) => {
     return (dispatch) => {
         axios.get("http://localhost:8000/conversation/heads", {
-            params: { id }
+            params: { id },
+            withCredentials: false,
         })
             .then(function (response) {
                 dispatch(fetchConversationheadsThunkHelper(response.data.msgDesc));
@@ -27,17 +28,17 @@ export const fetchConversationheads = (id) => {
 export const sendmessage = (message_payload) => {
     return (dispatch) => {
         axios.post("http://localhost:8000/conversation/save", {
-            message :message_payload.message,
-            users : message_payload.users,
-
-        })
+            message: message_payload.message,
+            users: message_payload.users,
+        },
+            { withCredentials: false })
             .then(function (response) {
-                if(response.data.success){
+                if (response.data.success) {
                     dispatch(fetchConversationheads());
                 }
             })
             .catch(function (error) {
-                
+
             });
 
     }
