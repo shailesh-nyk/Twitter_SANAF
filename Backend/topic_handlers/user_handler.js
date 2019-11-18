@@ -1,5 +1,5 @@
-var userRegnService = require('../services/user/user_registration_service');
-var userLoginService = require('../services/user/user_login_service');
+var userRegnService = require('../services/user/mongo_user_registration_service');
+var userLoginService = require('../services/user/mongo_user_login_service');
 var userProfileService = require('../services/user/user_profile_service');
 var userService = require('../services/user/user_service');
 
