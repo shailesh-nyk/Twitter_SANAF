@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const dbConfig = {}
-const sequelize = new Sequelize('twitter', 'root', '', {
-  host: 'localhost',
+const sequelize = new Sequelize('twitter', 'admin', 'adminadmin', {
+  host: 'twitter.cte8btlknr8e.us-east-2.rds.amazonaws.com',
   dialect: 'mysql',
   operatorsAliases: false,
   logging:true,
