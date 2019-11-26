@@ -5,6 +5,7 @@ import conversationReducer from './conversation-reducer';
 import authReducer from "./authReducer";
 import errorReducer from "./errorReducer";
 import successReducer from "./successReducer";
+import userReducer from "./user-reducer";
 
 import {
     RESET_ALL_STATE
@@ -13,6 +14,7 @@ import {
 const appReducer = combineReducers({
     utilReducer,
     conversationReducer,
+    userReducer,
     auth: authReducer,
     errors: errorReducer,
     success: successReducer,

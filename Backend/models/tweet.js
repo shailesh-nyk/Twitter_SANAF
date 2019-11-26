@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var tweetSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'users' },
+    user: { type: Schema.Types.ObjectId, ref: 'user' },
     text: { type: String },
     image: { type: String, default: null },
     likes: [],
@@ -10,7 +10,7 @@ var tweetSchema = new Schema({
     parent_id: { type: Schema.Types.ObjectId, ref: 'tweet', default: null },
     comments: [{
         text: {type: String},
-        user: { type: Schema.Types.ObjectId, ref: 'users'},
+        user: { type: Schema.Types.ObjectId, ref: 'user'},
         postedOn: { type: Date }
     }],
     postedOn: { type: Date}

@@ -64,6 +64,9 @@
 .t-secondary {
    color: $app-secondary-text;
 }
+.t-medium-text{
+   font-size: 20px;
+}
 
 
 
@@ -117,4 +120,11 @@
 
 .t-font-size-16 {
    font-size: 16px;
- }  
+ }
+ 
+ .t-container-border {
+   border-top: 1px solid $app-border;
+   border-left: 1px solid $app-border;
+   border-right: 1px solid $app-border;
+   border-bottom: 1px solid $app-border;
+ } 

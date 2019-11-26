@@ -14,3 +14,4 @@ export const RESET_SUCCESS_STATE = "RESET_SUCCESS_STATE";
 export const RESET_ERROR_STATE = "RESET_ERROR_STATE";
 
 export const NEWSFEED = 'NEWSFEED';
+export const FOLLOWING = 'FOLLOWING';

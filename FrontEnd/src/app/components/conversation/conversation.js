@@ -4,7 +4,7 @@ import { sendmessage } from './../../../redux/actions/conversation-action';
 
 class conversation extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -32,14 +32,14 @@ class conversation extends React.Component {
 
     renderStartConversationInfo = () => {
         return (
-            <div class="container h-100" style={{ paddingTop: "45%" }}>
+            <div class="container " style={{ paddingTop: "45%" }}>
                 <div class="row h-100 justify-content-center align-items-center">
                     <span>You don’t have a message selected</span>
                 </div>
                 <div class="row h-100 justify-content-center align-items-center">
                     <span >Choose one from your existing messages, or start a new one.</span>
                 </div>
-                <a href="/messages/compose" role="button" data-focusable="true" class="row h-100 justify-content-center align-items-center">
+                <a href="" onClick={(e)=> {e.preventDefault(); window.$("#newConversation").click()}} role="button" data-focusable="true" class="row h-100 justify-content-center align-items-center">
                     <div>
                         <span >
                             <span>New message</span>
@@ -52,8 +52,8 @@ class conversation extends React.Component {
     renderUserName = (user) => {
         if (user) {
             return (
-                <div className="p-3">
-                    <h4>{user.name}</h4>
+                <div className="p-3 t-container-border">
+                    <h5>{user.name}</h5>
                     <small>@{user.handle}</small>
                     <i class="fas fa-info-circle" style={{ float: "right" }}></i>
                 </div>
@@ -83,7 +83,7 @@ class conversation extends React.Component {
     }
     sendMessage = () => {
         let that = this;
-        let user = "5dca4f4de9a22e4b5c966d34";
+        let user = this.props.user.id;
         let message = document.getElementById("inpMessage").value;
         let message_payload = {
             users: [user, that.props.query],
@@ -100,10 +100,10 @@ class conversation extends React.Component {
         return (
             <div>
                 {user_message && this.renderUserName(user_message.user)}
-                <div className="overflow-auto" style={{ height: "550px" }}>
+                <div className="overflow-auto" style={{ height: "625px" }}>
                     {user_message == null ? this.renderStartConversationInfo() : this.renderMessages(user_message.messages)}
                 </div>
-                <div class="input-group p-2 bottom">
+                {user_message && <div class="input-group p-2 bottom">
                     <input type="text" class="form-control" onKeyUp={this.checkEnterKeyPress} id="inpMessage"
                         placeholder="Enter message" />
                     <div class="input-group-append">
@@ -111,14 +111,15 @@ class conversation extends React.Component {
                             <i class="far fa-paper-plane"></i>
                         </button>
                     </div>
-                </div>
+                </div>}
             </div>
         )
     }
 }
 const mapStateToProps = (state) => {
     return {
-        conversationheads: state.conversationReducer.conversationheads
+        conversationheads: state.conversationReducer.conversationheads,
+        user : state.auth.user
     }
 }
 const mapDispatchToProps = (dispatch) => {
