@@ -1,41 +1,25 @@
-'use strict'
+var utils = require('../../middleware/utils');
 var TweetModel = require('../../models/tweet');
-const followerModel = require('../../models/sql/Follower');
+var UserModel = require('../../models/users');
 const jwt = require('jsonwebtoken');
 
 process.env.SECRET_KEY = 'secret';
 
 
-module.exports.getNewsFeedDummy = function(req, callback){
-    TweetModel.find({},function (err, result) {
-    if (err) {
-        callback(null, {
-                success: false,
-                msg: "Something went wrong",
-                payload: err
-        })
-    }
-    else if(result) {
-        callback(null,{
-            success: true,
-            msg: "Successfully fetched the tweet" ,
-            payload: result
-        }) 
-    } 
-    }).populate('user');
-};
-
 var getToken = (token) => {
     return token.substr(7);
 }
 
-module.exports.getNewsFeed = function(req,callback) {
-    // var token = getToken(req.headers.authorization);
-    // var payload = jwt.verify(token, process.env.SECRET_KEY);
-    var userId = "1";// payload.id;
-    getFollowingList(userId)
-    .then( (followingList) => {
-        TweetModel.find({ "user.id" : { $in : followingList}},function (err, result) {
+module.exports.getNewsFeed = function(req ,callback) {
+    UserModel.findById(req.user_id, 'following').exec()
+    .then( result => {
+        var d = new Date();
+        d.setDate(d.getDate() - 30);
+        let search = {
+           "userId" : { $in : result.following},
+           "postedOn" : { $gt : d}
+        }
+        TweetModel.find( search ,function (err, result) {
             if (err) {
                 callback(null, {
                         success: false,
@@ -44,35 +28,22 @@ module.exports.getNewsFeed = function(req,callback) {
                 })
             }
             else if(result) {
+                result.map(tweet => {
+                    tweet.set('timeElapsed', utils.getTimeElapsed(tweet.postedOn) , {strict: false});
+                    tweet.comments.map(comment => {
+                        comment.set('timeElapsed', utils.getTimeElapsed(comment.postedOn) , {strict: false});
+                    })
+                })
                 callback(null,{
                     success: true,
-                    msg: "Successfully fetched the tweet" ,
+                    msg: "Successfully fetched the newsfeed" ,
                     payload: result
                 }) 
             } 
-        })
+        }).populate('userId')
+        .sort({ postedOn : 'descending'})
     })
     .catch(err => {
         console.log("err in getNewsFeed ",err.message)
     });
-}
-
-var getFollowingList = (userId) => {
-    return new Promise(function(resolve,reject){
-        followerModel.findAll({ 
-            where : { FollowerId : userId},
-            attributes : ['UserID']
-        }).then( (results) => {
-            console.log("results are ",results);
-            var followingList = results.map( tweet => {
-                return tweet.dataValues.UserId;
-            })
-            console.log("following list is ",followingList);
-            resolve(followingList);
-        }).catch( (err) => {
-            console.log("err in getFollowingList ",err.message)
-            reject(err);
-        })
-
-    })
 }

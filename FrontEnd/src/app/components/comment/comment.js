@@ -11,12 +11,12 @@ class Comment extends React.Component {
         return ( 
             <div className="t-tweet-container t-comment-container">
                 <div>
-                    <img class="t-tweet-avatar" style={{width: '50px'}} src={config.base + "public/images/no-dp.png"}/>
+                    <img class="t-tweet-avatar" style={{width: '50px'}} src={config.base + this.props.data.user.avatar}/>
                 </div>
                 <div class="t-tweet-right">
                     <div>
-                        <span className="t-primary-bold"> {this.props.data.user} </span>
-                        <span className="t-secondary"> @handle </span>
+                        <span className="t-primary-bold"> {this.props.data.user.name} </span>
+                        <span className="t-secondary"> {this.props.data.user.handle} </span>
                         <span className="t-secondary" style={{marginLeft: "40px"}}> {this.props.data.timeElapsed}</span>
                     </div>
                     <div>

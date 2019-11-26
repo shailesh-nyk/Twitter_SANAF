@@ -8,7 +8,7 @@ const messageServiceMap = {
     'USER_LOGIN' : userLoginService.userLogin,
     'USER_PROFILE_GET' : userProfileService.getUserProfile,
     'USER_PROFILE_UPDATION' : userProfileService.editUserProfile,
-    'GET_NEWS_FEED' : userService.getNewsFeedDummy
+    'GET_NEWS_FEED' : userService.getNewsFeed
 }
 
 module.exports.handleRequest = function(req, callback){

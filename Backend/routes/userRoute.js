@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var kafka = require('../kafka/client');
+var jwt_decode = require('jwt-decode');
 
 router.post('/register', function(req, res) {
     let request = {
@@ -38,10 +39,12 @@ router.post('/userProfile', function(req, res) {
   kafka.make_request('user', request , res);
 });
 
+
+//GET NEWS FEED 
 router.get('/newsfeed', function(req, res) {
-  
+  let user_id = jwt_decode(req.headers.authorization).id;
   let request = {
-    body: req.body,
+    body: { user_id : user_id },
     message: 'GET_NEWS_FEED'
   }
   kafka.make_request('user', request , res);
