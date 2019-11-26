@@ -6,6 +6,7 @@ import authReducer from "./authReducer";
 import errorReducer from "./errorReducer";
 import successReducer from "./successReducer";
 import newsFeedReducer from './newsFeedReducer';
+import userReducer from './user-reducer';
 
 import {
     RESET_ALL_STATE
