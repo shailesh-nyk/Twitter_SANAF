@@ -4,36 +4,40 @@ import config from './../../../config/app-config';
 import axios from 'axios';
 import CommentModal from '../../components/comment-modal/comment-modal';
 import { Redirect } from 'react-router-dom';
-class Tweet extends React.Component { 
+import { connect } from 'react-redux';
+import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
+
+class Tweet extends React.Component {
     constructor(props) {
         super(props);
         this.commentOnTweet = this.commentOnTweet.bind(this);
     }
     componentWillMount() {
         this.setState({
-            data: this.props.data,
-            currentUser: "5dcb16cf1c9d44000050d8fc",
-            hasLiked: this.props.data.likes.includes("5dcb16cf1c9d44000050d8fc") ,
-            hasRT: this.props.data.retweetCount.includes("5dcb16cf1c9d44000050d8fc"),
-            hasCommented: this.props.data.comments.filter(x => x.user == "5dcb16cf1c9d44000050d8fc")
+            data: this.props.tweet,
+            currentUser: this.props.user.id,
+            hasLiked: this.props.tweet.likes.includes(this.props.user.id) ,
+            hasRT: this.props.tweet.retweetCount.includes(this.props.user.id),
+            hasCommented: this.props.tweet.comments.filter(x => x.userId == this.props.user.id)
         })
     }
     render() {
+        console.log(this.props);
         if(this.state.redirectToTweet) {
             return (
                 <Redirect to={`/ui/tweet/${this.state.data._id}`} />
             )
         }
-        return ( 
+        return (
             <div>
             <div className="t-tweet-container" onClick={() => this.redirectToTweet()}>
                 <div>
-                    <img class="t-tweet-avatar" src={config.base + this.state.data.user.avatar} onClick={(e) => e.stopPropagation()}/>
+                    <img class="t-tweet-avatar" src={config.base + this.state.data.userId.avatar} onClick={(e) => e.stopPropagation()}/>
                 </div>
                 <div class="t-tweet-right">
                     <div onClick={(e) => e.stopPropagation()}>
-                        <span className="t-primary-bold"> {this.state.data.user.name} </span>
-                        <span className="t-secondary"> @{this.state.data.user.handle}</span>
+                        <span className="t-primary-bold"> {this.state.data.userId.name} </span>
+                        <span className="t-secondary"> @{this.state.data.userId.handle}</span>
                         <span className="t-secondary" style={{marginLeft: "40px"}}> {this.state.data.timeElapsed}</span>
                     </div>
                     <div>
@@ -43,30 +47,32 @@ class Tweet extends React.Component {
                         ) : (null)}
                     </div>
                     <div className="t-tweet-actions t-secondary">
-                        <span className="t-comment" data-toggle="modal" data-target={"#commentModal"+this.state.data._id} onClick={(e) => e.stopPropagation()}> 
-                            <i class={this.state.hasCommented.length > 0 ? "fas fa-comment-alt t-commented" : "far fa-comment-alt"}></i> 
+                        <span className="t-comment" data-toggle="modal" data-target={"#commentModal"+this.state.data._id} onClick={(e) => e.stopPropagation()}>
+                            <i class={this.state.hasCommented.length > 0 ? "fas fa-comment-alt t-commented" : "far fa-comment-alt"}></i>
                             {this.state.data.comments.length}
-                        </span>  
-                        <span className="t-retweet" onClick={(e) => e.stopPropagation()}> 
-                            <i class="fas fa-retweet"></i> 
+                        </span>
+                        <span className="t-retweet" onClick={(e) => e.stopPropagation()}>
+                            <i class="fas fa-retweet"></i>
                             {this.state.data.retweetCount.length}
                         </span>
-                        <span className="t-like" onClick={(e) => this.likeTweet(e)}> 
-                            <i class={this.state.hasLiked ? "fas fa-heart t-liked" : "far fa-heart"}></i> 
-                            {this.state.data.likes.length} 
-                        </span>  
+                        <span className="t-like" onClick={(e) => this.likeTweet(e)}>
+                            <i class={this.state.hasLiked ? "fas fa-heart t-liked" : "far fa-heart"}></i>
+                            {this.state.data.likes.length}
+                        </span>
                     </div>
                 </div>
             </div>
             <CommentModal data={this.state.data} postComment={this.commentOnTweet}/>
             </div>
         )
-    }
+    }   
     redirectToTweet() {
         if(!window.location.pathname.includes('/ui/tweet/')) {
+            this.props.setTweetViewData(this.state.data);
             this.setState({
                 redirectToTweet: true
             })
+            
         }
     }
     likeTweet(e) {
@@ -78,26 +84,26 @@ class Tweet extends React.Component {
         if(this.state.hasLiked) {
             this.unlikeTweet(body);
         } else {
-            axios.put(config.api_host + '/tweet/like', body)
+            axios.put('/api/tweet/like', body)
             .then(resp => {
                     if(resp.data.success) {
                         this.getTweet();
-                    } 
+                    }
             });
         }
     }
 
     unlikeTweet(body) {
-        axios.delete(config.api_host + '/tweet/like', { data: body})
+        axios.delete('/api/tweet/like', { data: body})
         .then(resp => {
                 if(resp.data.success) {
                     this.getTweet();
-                } 
+                }
         });
     }
 
     getTweet() {
-        axios.get(config.api_host + '/tweet', {
+        axios.get('/api/tweet', {
             params: {
                 id: this.state.data._id
             }
@@ -109,24 +115,33 @@ class Tweet extends React.Component {
                         hasLiked: resp.data.payload.likes.includes(this.state.currentUser) ,
                         hasRT: resp.data.payload.retweetCount.includes(this.state.currentUser)
                     })
-                } 
+                }
         });
     }
 
     commentOnTweet(text) {
-        debugger;
         let body = {
             text : text,
             user : "5dcb16cf1c9d44000050d8fc",
             id: this.state.data._id
         }
-        axios.post(config.api_host + '/tweet/comment', body)
+        axios.post('/api/tweet/comment', body)
             .then(resp => {
                 if(resp.data.success) {
                     this.getTweet();
-                } 
+                }
         });
     }
 }
 
-export default Tweet;
+const mapStateToProps = state => {
+    return {
+        user: state.auth.user
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+       setTweetViewData: payload => dispatch(setTweetViewData(payload))
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Tweet);

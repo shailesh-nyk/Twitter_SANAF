@@ -21,8 +21,3 @@ export const clearMessage = () => {
         type: CLRMSG
     };
 }
-export const newsfeed = () => {
-    return {
-        type : NEWSFEED
-    };
-}

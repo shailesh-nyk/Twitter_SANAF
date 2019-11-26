@@ -27,12 +27,12 @@ class CommentModal extends React.Component {
                 <div class="modal-body t-tweet-comment-modal">
                     <div className="t-tweet-container">
                             <div>
-                                <img class="t-tweet-avatar" src={config.base + this.state.data.user.avatar}/>
+                                <img class="t-tweet-avatar" src={config.base + this.state.data.userId.avatar}/>
                             </div>
                             <div class="t-tweet-right">
                                 <div>
-                                    <span className="t-primary-bold"> {this.state.data.user.name} </span>
-                                    <span className="t-secondary"> @{this.state.data.user.handle}</span>
+                                    <span className="t-primary-bold"> {this.state.data.userId.name} </span>
+                                    <span className="t-secondary"> @{this.state.data.userId.handle}</span>
                                 </div>
                                 <div>
                                     <p>{this.state.data.text}</p>
@@ -44,12 +44,12 @@ class CommentModal extends React.Component {
                                 <div></div>
                             </div>
                             <div class="t-tweet-right t-secondary">
-                                 Replying to @{this.state.data.user.handle}
+                                 Replying to @{this.state.data.userId.handle}
                             </div>
                     </div>
                     <div className="t-tweet-container">
                             <div>
-                                <img class="t-tweet-avatar" src={config.base + this.state.data.user.avatar}/>
+                                <img class="t-tweet-avatar" src={config.base + this.state.data.userId.avatar}/>
                             </div>
                             <div class="t-tweet-right">
                                 <textarea id="comment-text" className="t-dark-container t-comment-textarea" placeholder="Type your comment here" required/>

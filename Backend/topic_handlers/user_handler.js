@@ -11,10 +11,11 @@ const messageServiceMap = {
     'USER_LOGIN' : userLoginService.userLogin,
     'USER_PROFILE_GET' : userProfileService.getUserProfile,
     'USER_PROFILE_UPDATION' : userProfileService.editUserProfile,
-    'GET_NEWS_FEED' : userService.getNewsFeedDummy,
+    'GET_NEWS_FEED' : userService.getNewsFeed,
     'FOLLOW' : userFollow.follow,
     'UNFOLLOW': userUnfollow.unfollow,
     'FOLLOWING' : userFollowing.getFollowing
+
 }
 
 module.exports.handleRequest = function(req, callback){

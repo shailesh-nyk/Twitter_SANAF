@@ -21,7 +21,6 @@ function mk_request(topic_name, msg_payload, callback){
 		if(err)
 			console.error(err);	
 		else{
-			console.log("response", response);
 			callback(null, response);
 		}
 	});
@@ -33,10 +32,9 @@ module.exports.make_request = function(topic, payload ,res){
 		console.log(result);
 		if (err){
 			console.log("Inside err");
-			res.send(result)
+			res.send(result);
 		}else{
-			console.log("Inside success");
-			res.send(result) 
-		}
+			res.send(result) ;
+		}	
 	})
 }

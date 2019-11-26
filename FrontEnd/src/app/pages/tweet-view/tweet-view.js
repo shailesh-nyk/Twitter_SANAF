@@ -5,29 +5,29 @@ import Tweet from '../../components/tweet/tweet';
 import config from '../../../config/app-config';
 import axios from 'axios';
 import Comment from './../../components/comment/comment';
+import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
 
 class TweetView extends React.Component { 
     constructor(props) {
         super(props);
-        this.state = {
-            currentUser: "Shailesh"
-        }
     }
     componentWillMount() {
-        this.getTweet();
+        if(!this.props.data) {
+            this.getTweet();
+        } 
     }
     render() {
-        if(this.state.data) {
+        if(this.props.data) {
             return(
                 <div>
                     <div className="t-topnav-container">
                         <i class="fas fa-arrow-left t-icon"></i> <span className="t-left-margin-24 t-primary-bold">TWEET</span>
                     </div>
                     <div className="t-tweet-view-container">
-                        <Tweet data={this.state.data}/>
+                        <Tweet tweet={this.props.data}/>
                     </div>
                     <div className="t-comments-view-container">
-                        {this.state.data.comments.map(comment => {
+                        {this.props.data.comments.map(comment => {
                             return (
                                 <Comment data={comment}/>
                             )
@@ -37,35 +37,34 @@ class TweetView extends React.Component {
             )
         } else {
             return (
-                <div>kefdskghsg</div>
+                <div>no data</div>
             )
         }
       
     }
     getTweet() {
-        axios.get(config.api_host + '/tweet', {
+        axios.get('/api/tweet', {
             params: {
                 id: this.props.match.params.tweet_id
             }
         })
         .then(resp => {
-                if(resp.data.success) {
-                    this.setState({
-                        data: resp.data.payload,
-                        hasLiked: resp.data.payload.likes.includes(this.state.currentUser) ,
-                        hasRT: resp.data.payload.retweetCount.includes(this.state.currentUser)
-                    })
-                } 
+            if(resp.data.success) {
+                this.props.setTweetViewData(resp.data.payload);
+            } 
         });
-    }
+    }   
 }
 const mapStateToProps = state => {
     return {
+        user: state.auth.user,
+        data : state.newsFeedReducer.tweetViewData
     }   
 }
 const mapDispatchToProps = dispatch => {
     return {
-       setMessage: payload => dispatch(setMessage(payload))
+       setMessage: payload => dispatch(setMessage(payload)),
+       setTweetViewData: payload => dispatch(setTweetViewData(payload))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TweetView);
