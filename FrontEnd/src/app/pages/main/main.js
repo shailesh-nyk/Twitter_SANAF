@@ -16,7 +16,7 @@ class Main extends React.Component {
         this.state = {
             new_message: false
         }
-        config.socket.emit("openSocket", "userid"); //TODO:FZ send the actual user id
+        config.socket.emit("openSocket", this.props.user.id);
         config.listen(config.socket, this.showNotification);
     }
     showNotification = (message) => {
@@ -55,6 +55,7 @@ class Main extends React.Component {
 }
 const mapStateToProps = state => {
     return {
+        user : state.auth.user
     }
 }
 const mapDispatchToProps = dispatch => {

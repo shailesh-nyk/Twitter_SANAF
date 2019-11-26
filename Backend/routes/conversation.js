@@ -20,5 +20,13 @@ router.post('/save', function(req, res) {
   kafka.make_request('conversation', request , res);
 })
 
+router.post('/create', function(req, res) {
+  let request = {
+    body: req.body,
+    message: 'CREATE_HEAD'
+  }
+  kafka.make_request('conversation', request , res);
+})
+
 
 module.exports = router;

@@ -34,7 +34,25 @@ export const sendmessage = (message_payload) => {
             { withCredentials: false })
             .then(function (response) {
                 if (response.data.success) {
-                    dispatch(fetchConversationheads());
+                    dispatch(fetchConversationheads(message_payload.users[0]));
+                }
+            })
+            .catch(function (error) {
+
+            });
+
+    }
+}
+
+export const createConvHead = (message_payload) => {
+    return (dispatch) => {
+        axios.post("http://localhost:8000/conversation/create", {
+            users: message_payload.users
+        },
+            { withCredentials: false })
+            .then(function (response) {
+                if (response.data.success) {
+                    dispatch(fetchConversationheads(message_payload.users[0]));
                 }
             })
             .catch(function (error) {

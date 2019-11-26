@@ -83,7 +83,7 @@ class conversation extends React.Component {
     }
     sendMessage = () => {
         let that = this;
-        let user = "5dd2362783758161341f5c60"; // TODO : FZ
+        let user = this.props.user.id;
         let message = document.getElementById("inpMessage").value;
         let message_payload = {
             users: [user, that.props.query],
@@ -118,7 +118,8 @@ class conversation extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        conversationheads: state.conversationReducer.conversationheads
+        conversationheads: state.conversationReducer.conversationheads,
+        user : state.auth.user
     }
 }
 const mapDispatchToProps = (dispatch) => {
