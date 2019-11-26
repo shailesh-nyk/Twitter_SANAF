@@ -13,7 +13,7 @@ class conversation extends React.Component {
             return messages.map((message) => {
                 let alignItem = "align-items-end";
                 let dateStyle = { fontSize: "xx-small", float: "right" };
-                let messageClass = "list-group-item list-group-item-action flex-column t-conversationhead-btn ";
+                let messageClass = "list-group-item t-font list-group-item-action flex-column t-conversationhead-btn ";
                 if (message.sender_id._id === this.props.query) {
                     alignItem = "align-items-start";
                     dateStyle.float = "none";
@@ -100,7 +100,7 @@ class conversation extends React.Component {
         return (
             <div>
                 {user_message && this.renderUserName(user_message.user)}
-                <div className="overflow-auto" style={{ height: "625px" }}>
+                <div className="overflow-auto" style={{ height: "625px" } }>
                     {user_message == null ? this.renderStartConversationInfo() : this.renderMessages(user_message.messages)}
                 </div>
                 {user_message && <div class="input-group p-2 bottom">
