@@ -14,6 +14,7 @@ import {
 const appReducer = combineReducers({
     utilReducer,
     conversationReducer,
+    userReducer,
     auth: authReducer,
     errors: errorReducer,
     success: successReducer,

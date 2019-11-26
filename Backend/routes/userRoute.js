@@ -50,4 +50,31 @@ router.get('/newsfeed', function(req, res) {
   kafka.make_request('user', request , res);
 })
 
+router.post('/follow', function(req, res) {
+  
+  let request = {
+    body: req.body,
+    message: 'FOLLOW'
+  }
+  kafka.make_request('user', request , res);
+})
+
+router.post('/unfollow', function(req, res) {
+  
+  let request = {
+    body: req.body,
+    message: 'UNFOLLOW'
+  }
+  kafka.make_request('user', request , res);
+})
+
+router.get('/following', function(req, res) {
+  
+  let request = {
+    body: req.query,
+    message: 'FOLLOWING'
+  }
+  kafka.make_request('user', request , res);
+})
+
 module.exports = router;

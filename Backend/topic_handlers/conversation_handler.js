@@ -3,6 +3,7 @@ var conversationService = require('../services/conversation/conversation_service
 const messageServiceMap = {
     'GET_CONVERSATION_HEADS' : conversationService.getHeads,
     'SEND_MESSAGE' : conversationService.send,
+    'CREATE_HEAD' : conversationService.createConvHead
 }
 
 module.exports.handleRequest = function(req, callback){

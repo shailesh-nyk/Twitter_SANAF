@@ -15,3 +15,4 @@ export const RESET_ERROR_STATE = "RESET_ERROR_STATE";
 
 export const NEWSFEED = 'NEWSFEED';
 export const SET_TWEET_VIEW_DATA =  'SET_TWEET_VIEW_DATA';
+export const FOLLOWING = 'FOLLOWING';
