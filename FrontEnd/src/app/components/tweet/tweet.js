@@ -13,13 +13,16 @@ class Tweet extends React.Component {
         this.commentOnTweet = this.commentOnTweet.bind(this);
     }
     componentWillMount() {
-        this.setState({
-            data: this.props.tweet,
-            currentUser: this.props.user.id,
-            hasLiked: this.props.tweet.likes.includes(this.props.user.id) ,
-            hasRT: this.props.tweet.retweetCount.includes(this.props.user.id),
-            hasCommented: this.props.tweet.comments.filter(x => x.userId == this.props.user.id)
-        })
+        if(this.props.tweet) {
+            this.setState({
+                data: this.props.tweet,
+                hasLiked: this.props.tweet.likes.includes(this.props.user.id) ,
+                hasRT: this.props.tweet.retweetCount.includes(this.props.user.id),
+                hasCommented: this.props.tweet.comments.filter(x => x.user._id == this.props.user.id)
+            })
+        } else {
+            this.getTweet();
+        }
     }
     render() {
         console.log(this.props);
@@ -80,7 +83,7 @@ class Tweet extends React.Component {
         e.stopPropagation();
         let body = {
             id: this.state.data._id,
-            user_id: this.state.currentUser
+            user_id: this.props.user.id
         }
         if(this.state.hasLiked) {
             this.unlikeTweet(body);
@@ -113,8 +116,9 @@ class Tweet extends React.Component {
                 if(resp.data.success) {
                     this.setState({
                         data: resp.data.payload,
-                        hasLiked: resp.data.payload.likes.includes(this.state.currentUser) ,
-                        hasRT: resp.data.payload.retweetCount.includes(this.state.currentUser)
+                        hasLiked: resp.data.payload.likes.includes(this.props.user.id) ,
+                        hasRT: resp.data.payload.retweetCount.includes(this.props.user.id),
+                        hasCommented: resp.data.payload.comments.filter(x => x.user._id == this.props.user.id)
                     })
                 }
         });
@@ -123,7 +127,7 @@ class Tweet extends React.Component {
     commentOnTweet(text) {
         let body = {
             text : text,
-            user : "5dcb16cf1c9d44000050d8fc",
+            user : this.props.user.id,
             id: this.state.data._id
         }
         axios.post('/api/tweet/comment', body)
