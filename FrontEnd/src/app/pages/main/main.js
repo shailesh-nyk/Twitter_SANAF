@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import LeftNav from '../../components/leftnav/leftnav';
 import Messages from './../messages/messages';
 import { Switch, Route, Redirect } from 'react-router-dom';
