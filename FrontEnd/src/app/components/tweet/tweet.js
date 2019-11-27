@@ -68,6 +68,7 @@ class Tweet extends React.Component {
     }   
     redirectToTweet() {
         if(!window.location.pathname.includes('/ui/tweet/')) {
+            this.incrementViewCount();
             this.props.setTweetViewData(this.state.data);
             this.setState({
                 redirectToTweet: true
@@ -131,6 +132,12 @@ class Tweet extends React.Component {
                     this.getTweet();
                 }
         });
+    }
+    incrementViewCount() {
+        let body = {
+            id: this.state.data._id
+        }
+        axios.put('/api/tweet/view', body);
     }
 }
 
