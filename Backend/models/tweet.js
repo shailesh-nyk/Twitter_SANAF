@@ -13,6 +13,7 @@ var tweetSchema = new Schema({
         user: { type: Schema.Types.ObjectId, ref: 'user'},
         postedOn: { type: Date }
     }],
+    views: { type: Number, default: 0},
     postedOn: { type: Date}
 })
 

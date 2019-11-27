@@ -52,4 +52,15 @@ router.post('/comment', function(req, res) {
   kafka.make_request('tweet', request , res);
 })
 
+
+//INCREMENT VIEW COUNT
+router.put('/view', function(req, res) {
+  console.log('INSIDE PUT ' + req.url);
+  let request = {
+    body: req.body,
+    message: 'INCREMENT_VIEW'
+  }
+  kafka.make_request('tweet', request , res);
+})
+
 module.exports = router;
