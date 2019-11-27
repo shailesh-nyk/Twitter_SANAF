@@ -103,6 +103,9 @@
    border-bottom: 1px solid $app-border;
    display: flex;
    align-items: center;
+   position: absolute;
+   top: 0;
+   font-weight: bold;
 }
 
 //For Border Corners

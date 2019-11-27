@@ -5,6 +5,7 @@ import Tweet from './../../components/tweet/tweet';
 import config from '../../../config/app-config';
 import axios from 'axios';
 import { getNewsFeed } from './../../../redux/actions/newsfeed-action';
+import { postTweet } from './../../../redux/actions/tweet-action';
 
 class NewsFeed extends React.Component {
     constructor(props) {
@@ -28,20 +29,14 @@ class NewsFeed extends React.Component {
     createTweet = () => {
         console.log("create tweet")
         this.setState( { tweetText:"", tweetImage: null });
-        let user = {
-            name : this.state.tweet.user.name,
-            handle : this.state.tweet.user.handle
-        }
-        const body = new FormData();
-        body.append('user',user);
-        body.append('text',this.state.tweetText);
-        body.append('image',this.state.tweetImage); 
-        // axios.post(config.api_host + '/tweet/', body)
-        //     .then(resp => {
-        //         if(resp.data.success) {
-        //             console.log("resp is ",JSON.stringify(resp))
-        //         } 
-        //     });
+        this.props.postTweet({
+            user: this.props.user.id,
+            text: this.state.tweetText
+        })
+        // const body = new FormData();
+        // body.append('user',user);
+        // body.append('text',this.state.tweetText);
+        // body.append('image',this.state.tweetImage); 
     }
 
     handleChange = (event) => {
@@ -50,22 +45,27 @@ class NewsFeed extends React.Component {
     
     render() {
         return (
-        <div className="t-wh-container">
-            <div className="t-top-nav" >Home</div>
+        <div>
+            <div className="t-topnav-container">Home</div>
             <div className="t-nf-container">
-                <div className="t-text-container" > 
+                <div> 
                     {/* change image with current user image    */}
-                    <img className="t-profile-img" src={config.base + 'public/images/tweets/5dca69b394399426a4a77bb1.png'}></img>
-                    <input className="t-textbox form-control" onChange={this.handleChange} type="text" id="text"
-                       placeholder= {this.state.defaultText } value = {this.state.tweetText}/>
+                    <img class="t-tweet-avatar" src={config.base + 'public/images/tweets/5dca69b394399426a4a77bb1.png'}/>
                 </div>
                 <div className="t-tweet-right">
-                <label for="tweetImage">
-                    <i class="fa fa-picture-o fa-lg t-favicon"></i> 
-                    <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
-                </label>
-                <button className="t-rounded-button" disabled= { this.state.tweetText=="" &&  this.state.tweetImage== null ? true : false}
-                    onClick = {this.createTweet} > Tweet</button>
+                    <div>
+                        <textarea className="t-textbox form-control" onChange={this.handleChange} id="text"
+                       placeholder= {this.state.defaultText } value = {this.state.tweetText}/>
+                    </div>
+                    <div class='t-create-tweet-action'>
+                        <label for="tweetImage">
+                            <i class="fa fa-picture-o fa-lg t-icon"></i> 
+                            <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
+                        </label>
+                        <button className="btn btn-primary" disabled= { this.state.tweetText=="" &&  this.state.tweetImage== null ? true : false}
+                            onClick = {this.createTweet} > Tweet
+                        </button>
+                    </div>
                 </div>
             </div>
             { this.props.newsFeed && this.props.newsFeed.map( tweet => {
@@ -85,7 +85,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        getNewsFeed: () => dispatch(getNewsFeed())
+        getNewsFeed: () => dispatch(getNewsFeed()),
+        postTweet: (payload) => dispatch(postTweet(payload))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);

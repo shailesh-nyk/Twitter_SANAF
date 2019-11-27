@@ -6,6 +6,7 @@ import CommentModal from '../../components/comment-modal/comment-modal';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
+import { bookmarkTweet } from '../../../redux/actions/tweet-action';
 
 class Tweet extends React.Component {
     constructor(props) {
@@ -62,6 +63,9 @@ class Tweet extends React.Component {
                             <i class={this.state.hasLiked ? "fas fa-heart t-liked" : "far fa-heart"}></i>
                             {this.state.data.likes.length}
                         </span>
+                        <span className="t-bookmark" onClick={(e) => this.bookmarkTweet(e)}>
+                            <i class="far fa-bookmark"></i>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -104,6 +108,13 @@ class Tweet extends React.Component {
                     this.getTweet();
                 }
         });
+    }
+
+    bookmarkTweet(e) {
+        e.stopPropagation();
+        this.props.bookmarkTweet({
+            tweet_id: this.state.data._id
+        })
     }
 
     getTweet() {
@@ -152,7 +163,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-       setTweetViewData: payload => dispatch(setTweetViewData(payload))
+       setTweetViewData: payload => dispatch(setTweetViewData(payload)),
+       bookmarkTweet: payload => dispatch(bookmarkTweet(payload))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Tweet);

@@ -16,3 +16,5 @@ export const RESET_ERROR_STATE = "RESET_ERROR_STATE";
 export const NEWSFEED = 'NEWSFEED';
 export const SET_TWEET_VIEW_DATA =  'SET_TWEET_VIEW_DATA';
 export const FOLLOWING = 'FOLLOWING';
+export const POST_TWEET = 'POST_TWEET';
+export const SET_BOOKMARKS = 'SET_BOOKMARKS';
