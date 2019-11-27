@@ -38,7 +38,7 @@ module.exports.userLogin = function(req, callback){
                         
                         if (bcrypt.compareSync(req.password, user.password)) {
                             
-                                let jwtPayload = {id:user._id,name:user.name}
+                                let jwtPayload = {id:user._id,name:user.name,city:user.city,state:user.state,zip:user.zip,phone_no:user.phone_no,avatar:user.avatar,description:user.description,handle:user.handle,d_o_b:user.d_o_b}
                                 let token = jwt.sign(jwtPayload, process.env.SECRET_KEY, {
                                 expiresIn: jwtExpiryInSeconds
                             })
