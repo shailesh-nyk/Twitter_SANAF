@@ -40,7 +40,7 @@ module.exports.getNewsFeed = function(req ,callback) {
                     payload: result
                 }) 
             } 
-        }).populate('userId')
+        }).populate( [{ path:'userId', select:'name handle avatar'}, { path:'comments.user', select:'name handle avatar'}])
         .sort({ postedOn : 'descending'})
     })
     .catch(err => {
