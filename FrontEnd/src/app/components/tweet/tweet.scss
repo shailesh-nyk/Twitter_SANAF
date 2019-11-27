@@ -14,7 +14,8 @@
     padding-left: 10px;
 }
 .t-tweet-avatar {
-    width: 100px;
+    width: 67px;
+    height: 67px;
     border-radius: 60px;
 }
 .t-tweet-pic {
@@ -42,6 +43,11 @@
 .t-like { 
     &:hover {
         color: $app-theme-red;
+    }
+}
+.t-bookmark { 
+    &:hover {
+        color: $app-warning;
     }
 }
 .t-liked {

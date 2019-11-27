@@ -1,12 +1,19 @@
-import { FOLLOWING } from "./action-types";
+import { FOLLOWING, SET_BOOKMARKS } from "./action-types";
 import config from './../../config/app-config'
 import axios from 'axios';
+import {startLoader, stopLoader, setMessage } from './util-action';
 
 
 export const fetchFollowingThunkHelper = (following) => {
     return {
         type: FOLLOWING,
         following
+    }
+}
+const getBookmarksDispatcher = (payload) => {
+    return {
+        type: SET_BOOKMARKS,
+        payload
     }
 }
 
@@ -23,5 +30,28 @@ export const fetchFollowing = (id) => {
                 dispatch(fetchFollowingThunkHelper({}));
             });
 
+    }
+}
+
+export const getBookmarks = () => {
+    return (dispatch) => {
+        axios.get("/user/bookmark")
+        .then(resp => {
+            dispatch(stopLoader());
+            if(resp.data.success) {
+                dispatch(getBookmarksDispatcher(resp.data.payload))
+            } else {
+                dispatch(setMessage({
+                    msg: resp.data.msg,
+                    name: 'danger'
+                }))
+            }
+        }, err => {
+            dispatch(stopLoader());
+            dispatch(setMessage({
+                msg: "Something went wrong",
+                name: 'danger'
+            }))
+        });
     }
 }

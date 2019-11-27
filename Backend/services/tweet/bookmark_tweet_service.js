@@ -1,13 +1,13 @@
-var TweetModel = require('../../models/tweet');
 var UserModel = require('../../models/users');
 var utils = require('../../middleware/utils');
 
-module.exports.postTweet = function(req, callback){
-        let newTweet = new TweetModel({
-            userId: req.user,
-            text: req.text
-        })
-        newTweet.save(function (err, resp) {
+module.exports.bookmarkTweet = function(req, callback){
+        let update = {
+            $push : {
+                bookmarks : req.tweet_id
+            }
+        }
+        UserModel.findByIdAndUpdate(req.user_id , update, function (err, resp) {
             if(err) {
                 callback(null,{
                     success: false,
@@ -17,8 +17,8 @@ module.exports.postTweet = function(req, callback){
             } else{
                 callback(null,{
                     success: true,
-                    msg: "Posted the tweet successfully!",
-                    payload: resp
+                    msg: "Bookmarked the tweet successfully!",
+                    payload: null
                 }) 
         }
         }); 

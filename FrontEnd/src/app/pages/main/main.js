@@ -7,7 +7,7 @@ import NewsFeed from './../newsfeed/newsfeed';
 import TweetView from './../tweet-view/tweet-view';
 import config from '../../../config/app-config';
 import Search from './../search/search';
-
+import BookMarks from './../bookmarks/bookmarks';
 
 class Main extends React.Component {
     constructor(props) {
@@ -44,6 +44,7 @@ class Main extends React.Component {
                             <Route path="/ui/newsfeed" component={NewsFeed} />
                             <Route path="/ui/messages" component={Messages} />
                             <Route path="/ui/tweet/:tweet_id" component={TweetView} />
+                            <Route path="/ui/bookmark" component={BookMarks} />
                         </Switch>
                     </div>
                 </div>
