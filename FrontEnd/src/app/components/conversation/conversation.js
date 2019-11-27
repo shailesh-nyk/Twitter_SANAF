@@ -7,7 +7,6 @@ class conversation extends React.Component {
     constructor(props) {
         super(props);
     }
-
     renderMessages = (messages) => {
         if (messages) {
             return messages.map((message) => {
@@ -24,7 +23,7 @@ class conversation extends React.Component {
                             <h6 class="mb-1">{message.text}</h6>
                         </div>
                         <small style={dateStyle}>{new Date(message.sent_at).toTimeString().split(" ")[0]}</small>
-                    </button>
+                    </button> 
                 )
             });
         }
