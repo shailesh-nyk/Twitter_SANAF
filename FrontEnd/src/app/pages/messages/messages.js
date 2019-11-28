@@ -71,7 +71,7 @@ class Messages extends React.Component {
             head: selHead
         })
     }
- 
+
     render() {
         const { value, suggestions } = this.state;
         const inputProps = {
@@ -88,7 +88,7 @@ class Messages extends React.Component {
                         </div>
                         <div class="bd-highlight">
                             <span className="t-userSearch" data-toggle="modal" data-target="#userSearchModal" onClick={(e) => e.stopPropagation()}>
-                                <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} id="newConversation"/>
+                                <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} id="newConversation" />
                             </span>
                         </div>
                     </div>

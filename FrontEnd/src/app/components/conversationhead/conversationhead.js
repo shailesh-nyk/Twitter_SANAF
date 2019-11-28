@@ -6,11 +6,7 @@ import config from '../../../config/app-config';
 class conversationhead extends React.Component {
     constructor(props) {
         super(props);
-        this.props.fetchConversationheads(this.props.user.id);
-        config.listen(config.socket, this.reloadConversation);
-    }
-    reloadConversation = () => {
-        this.props.fetchConversationheads(this.props.user.id);
+        this.props.fetchConversationheads(this.props.user.id);   
     }
     filterConversation = (query) => {
         var updatedList = this.getUsers();

@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { sendmessage } from './../../../redux/actions/conversation-action';
+import { sendmessage, fetchConversationheads } from './../../../redux/actions/conversation-action';
+import config from '../../../config/app-config';
 
 class conversation extends React.Component {
-
     constructor(props) {
         super(props);
+        config.listen(config.socket, this.reloadConversation);
+    }
+    reloadConversation = () => {
+        this.props.fetchConversationheads(this.props.user.id);
     }
     renderMessages = (messages) => {
         if (messages) {
@@ -23,7 +27,7 @@ class conversation extends React.Component {
                             <h6 class="mb-1">{message.text}</h6>
                         </div>
                         <small style={dateStyle}>{new Date(message.sent_at).toTimeString().split(" ")[0]}</small>
-                    </button> 
+                    </button>
                 )
             });
         }
@@ -38,7 +42,7 @@ class conversation extends React.Component {
                 <div class="row h-100 justify-content-center align-items-center">
                     <span >Choose one from your existing messages, or start a new one.</span>
                 </div>
-                <a href="" onClick={(e)=> {e.preventDefault(); window.$("#newConversation").click()}} role="button" data-focusable="true" class="row h-100 justify-content-center align-items-center">
+                <a href="" onClick={(e) => { e.preventDefault(); window.$("#newConversation").click() }} role="button" data-focusable="true" class="row h-100 justify-content-center align-items-center">
                     <div>
                         <span >
                             <span>New message</span>
@@ -93,13 +97,14 @@ class conversation extends React.Component {
     }
 
     render() {
+
         if (this.props.conversationheads) {
             var user_message = this.getConversation(this.props.query);
         }
         return (
             <div>
                 {user_message && this.renderUserName(user_message.user)}
-                <div className="overflow-auto" style={{ height: "625px" } }>
+                <div className="overflow-auto" style={{ height: "625px" }}>
                     {user_message == null ? this.renderStartConversationInfo() : this.renderMessages(user_message.messages)}
                 </div>
                 {user_message && <div class="input-group p-2 bottom">
@@ -118,12 +123,13 @@ class conversation extends React.Component {
 const mapStateToProps = (state) => {
     return {
         conversationheads: state.conversationReducer.conversationheads,
-        user : state.auth.user
+        user: state.auth.user
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        sendmessage: (message_payload) => dispatch(sendmessage(message_payload))
+        sendmessage: (message_payload) => dispatch(sendmessage(message_payload)),
+        fetchConversationheads: (id) => dispatch(fetchConversationheads(id))
     }
 }
 

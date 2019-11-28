@@ -50,7 +50,7 @@ const saveMessage = (message_payload, dispatch) => {
         { withCredentials: false })
         .then(function (response) {
             if (response.data.success) {
-                dispatch(fetchConversationheads(message_payload.users[0]));
+                dispatch(fetchConversationheads(message_payload.users[0]))
             }
         })
         .catch(function (error) {

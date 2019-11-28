@@ -19,7 +19,7 @@ class Main extends React.Component {
         config.listen(config.socket, this.showNotification);
     }
     showNotification = (message) => {
-        alert("Notification" + message);
+        //alert("Notification" + message);
         this.setState({
             new_message: true
         })
