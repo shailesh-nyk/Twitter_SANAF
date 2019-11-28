@@ -34,7 +34,6 @@ class Main extends React.Component {
         })
     }
     render() {
-
         return (
             <div className="t-app-container">
                 <LeftNav new_message={this.state.new_message} reset={this.reset} />

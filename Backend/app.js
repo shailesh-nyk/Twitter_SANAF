@@ -34,13 +34,14 @@ var requireAuth = passport.authenticate('jwt', {session: false});
 var indexRouter = require('./routes/index');
 var conversationRouter = require('./routes/conversation');
 var tweetRouter = require('./routes/tweet');
-
+var recommendationRouter = require('./routes/recommendation');
 var userRouter = require('./routes/userRoute');
 
 app.use('/api', indexRouter);
 app.use('/conversation', conversationRouter);
 app.use('/api/tweet', tweetRouter);
-app.use('/user',userRouter)
+app.use('/user',userRouter);
+app.use('/recommendation',recommendationRouter);
 
 
 module.exports = app;
