@@ -9,7 +9,7 @@ class conversation extends React.Component {
         config.listen(config.socket, this.reloadConversation);
     }
     reloadConversation = () => {
-        this.props.fetchConversationheads(this.props.user.id);
+        setTimeout(()=>this.props.fetchConversationheads(this.props.user.id),500);
     }
     renderMessages = (messages) => {
         if (messages) {
@@ -97,7 +97,6 @@ class conversation extends React.Component {
     }
 
     render() {
-
         if (this.props.conversationheads) {
             var user_message = this.getConversation(this.props.query);
         }
