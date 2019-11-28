@@ -17,7 +17,7 @@ module.exports.getHeads = function (req, callback) {
     //         });
     //     }
     //     else {
-    ConversationModel.find({ users: user_id }, (err, result) => {
+    ConversationModel.find({ users: { $in: user_id } }, (err, result) => {
         if (err) {
             callback(null, {
                 success: false,
@@ -30,7 +30,7 @@ module.exports.getHeads = function (req, callback) {
             callback(null, {
                 success: true,
                 msg: "Successfully fetched the conversation heads",
-                msgDesc: result
+                msgDesc: JSON.parse(JSON.stringify(result))
             })
         }
     }).populate('users messages.sender_id');

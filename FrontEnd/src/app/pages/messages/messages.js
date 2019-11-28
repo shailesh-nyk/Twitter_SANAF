@@ -16,18 +16,18 @@ class Messages extends React.Component {
     }
     getSuggestions = value => {
         const languages = [
-            {
-                name: 'C',
-                year: 1972
-            },
-            {
-                name: 'C#',
-                year: 2000
-            },
-            {
-                name: 'C++',
-                year: 1983
-            }
+            // {
+            //     name: 'C',
+            //     year: 1972
+            // },
+            // {
+            //     name: 'C#',
+            //     year: 2000
+            // },
+            // {
+            //     name: 'C++',
+            //     year: 1983
+            // }
         ];
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
@@ -71,7 +71,7 @@ class Messages extends React.Component {
             head: selHead
         })
     }
- 
+
     render() {
         const { value, suggestions } = this.state;
         const inputProps = {
@@ -88,7 +88,7 @@ class Messages extends React.Component {
                         </div>
                         <div class="bd-highlight">
                             <span className="t-userSearch" data-toggle="modal" data-target="#userSearchModal" onClick={(e) => e.stopPropagation()}>
-                                <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} id="newConversation"/>
+                                <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} id="newConversation" />
                             </span>
                         </div>
                     </div>

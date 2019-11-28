@@ -8,6 +8,7 @@ import TweetView from './../tweet-view/tweet-view';
 import config from '../../../config/app-config';
 import Search from './../search/search';
 import BookMarks from './../bookmarks/bookmarks';
+import { ToastsContainer, ToastsStore,ToastsContainerPosition } from 'react-toasts';
 
 class Main extends React.Component {
     constructor(props) {
@@ -19,10 +20,13 @@ class Main extends React.Component {
         config.listen(config.socket, this.showNotification);
     }
     showNotification = (message) => {
-        alert("Notification" + message);
+        let audio = new Audio("https://cdnjs.cloudflare.com/ajax/libs/ion-sound/3.0.7/sounds/water_droplet_2.mp3");
+        audio.play();
+        ToastsStore.info(message);
         this.setState({
             new_message: true
         })
+
     }
     reset = () => {
         this.setState({
@@ -48,14 +52,15 @@ class Main extends React.Component {
                         </Switch>
                     </div>
                 </div>
-                {window.location.pathname.includes('/ui/messages') ? (<div className="t-container-border" style={{padding : '3rem'}}></div>) : (<Search />)}
+                {window.location.pathname.includes('/ui/messages') ? (<div className="t-container-border" style={{ padding: '3rem' }}></div>) : (<Search />)}
+                <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.BOTTOM_CENTER} />
             </div>
         )
     }
 }
 const mapStateToProps = state => {
     return {
-        user : state.auth.user
+        user: state.auth.user
     }
 }
 const mapDispatchToProps = dispatch => {
