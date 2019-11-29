@@ -131,3 +131,8 @@
    border-right: 1px solid $app-border;
    border-bottom: 1px solid $app-border;
  } 
+
+ .t-rounded-border {
+   border: 1px solid $app-border;
+   border-radius: 15px;
+ }

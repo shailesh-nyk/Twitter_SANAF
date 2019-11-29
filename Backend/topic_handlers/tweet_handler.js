@@ -6,6 +6,7 @@ const messageServiceMap = {
     'COMMENTTWEET': require('../services/tweet/comment_tweet_service').commentTweet,
     'INCREMENT_VIEW': require('../services/tweet/increment_viewcount_service').incrementViewCount,
     'BOOKMARK_TWEET': require('../services/tweet/bookmark_tweet_service').bookmarkTweet,
+    'RETWEET': require('../services/tweet/retweet_service').reTweet,
 }
 
 module.exports.handleRequest = function(req, callback){

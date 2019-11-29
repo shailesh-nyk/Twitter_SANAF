@@ -13,8 +13,13 @@ class TweetView extends React.Component {
     }
     componentWillMount() {
         if(!this.props.data) {
-            this.getTweet();
+            this.getTweet(this.props.match.params.tweet_id);
         } 
+    }
+    componentWillReceiveProps(next) {
+        if (next.match.params.tweet_id !== this.props.match.params.tweet_id) {
+            this.getTweet(next.match.params.tweet_id);
+        }   
     }
     render() {
         if(this.props.data) {
@@ -42,10 +47,10 @@ class TweetView extends React.Component {
         }
       
     }
-    getTweet() {
+    getTweet(tweet_id) {
         axios.get('/api/tweet', {
             params: {
-                id: this.props.match.params.tweet_id
+                id: tweet_id
             }
         })
         .then(resp => {

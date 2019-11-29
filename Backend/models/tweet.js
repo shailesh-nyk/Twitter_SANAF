@@ -14,6 +14,8 @@ var tweetSchema = new Schema({
         postedOn: { type: Date }
     }],
     views: { type: Number, default: 0},
+    likeCount: { type: Number, default: 0},
+    retweetsCount: { type: Number, default: 0},
     postedOn: { type: Date}
 })
 
