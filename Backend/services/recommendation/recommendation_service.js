@@ -1,10 +1,7 @@
-var mongoose = require('mongoose');
-var UserModel = require('../../models/users');
-var Redis = require("ioredis");
 var UserModel = require('../../models/users');
 
 module.exports.getRecommendation = function (req, callback) {
-    let user_id = mongoose.Types.ObjectId('5dd2362783758161341f5c60');
+    let user_id = req.id;
     UserModel.find({ _id: user_id }, (err, result) => {
         if (err) {
             callback(null, {
@@ -25,11 +22,47 @@ module.exports.getRecommendation = function (req, callback) {
                     })
                 }
                 else {
-                    callback(null, JSON.parse(JSON.stringify(doc)));
+                    callback(null, {
+                        success: true,
+                        msg: 'Recommendation generated succesfully',
+                        payload: JSON.parse(JSON.stringify(doc))
+                    });
                 }
 
             }).skip(Math.random() * 100).limit(10);
+
         }
     });
+}
+
+module.exports.handleSearch = function (req, callback) {
+    let { query } = req;
+    query = new RegExp("^" + query, "i");
+    UserModel.find({
+        $or: [{ 'name': query },
+        { 'handle': query }]
+    }, (err, result) => {
+        if (err) {
+            callback(true, {
+                success: false,
+                msg: err.message,
+                payload: err
+            });
+        }
+        if (result) {
+            callback(false, {
+                success: true,
+                msg: "Search result",
+                payload: JSON.parse(JSON.stringify(result))
+            });
+        }
+        else {
+            callback(true, {
+                success: false,
+                msg: err.message,
+                payload: err
+            });
+        }
+    }).limit(5);
 }
 

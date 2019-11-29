@@ -3,6 +3,10 @@
     padding: 20px;
     border-left: 1px solid $app-border;
 }
+.t-rec-container{
+    height: 300px;
+    overflow: auto;
+}
 
 .t-btn-follow{
     width: 5rem;
@@ -13,7 +17,7 @@
     border-top-color: rgb(29, 161, 242);
     color: $app-text;
     padding: 0;
-    margin-left: 70px;
+    margin-left: auto;
 }
 .t-recommendation{
     background-color: #182634;
@@ -31,4 +35,7 @@
     border-bottom-right-radius: 20px !important;
     border-bottom-left-radius: 20px !important;
     color: $app-text;
+}
+.t-margin-right{
+    margin-right: auto;
 }

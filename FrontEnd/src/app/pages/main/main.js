@@ -26,7 +26,6 @@ class Main extends React.Component {
         this.setState({
             new_message: true
         })
-
     }
     reset = () => {
         this.setState({

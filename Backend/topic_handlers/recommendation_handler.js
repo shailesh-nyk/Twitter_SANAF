@@ -2,6 +2,7 @@ var recommendationService = require('../services/recommendation/recommendation_s
 
 const messageServiceMap = {
     'GET_RECOMMENDATION': recommendationService.getRecommendation,
+    'GET_SEARCH_RESULTS': recommendationService.handleSearch
 }
 
 module.exports.handleRequest = function (req, callback) {

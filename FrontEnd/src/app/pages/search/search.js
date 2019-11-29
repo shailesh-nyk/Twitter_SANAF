@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
 import config from '../../../config/app-config';
+import { getRecommendation, handleSearch } from './../../../redux/actions/recommendation-action';
+import { followUser } from './../../../redux/actions/user-action';
 
 class Search extends React.Component {
     constructor(props) {
@@ -9,98 +11,68 @@ class Search extends React.Component {
         this.state = {
             value: '',
             suggestions: [],
-            recommendations: [2]
         }
+        this.props.getRecommendation(this.props.user.id);
     }
     getSuggestions = value => {
-        const languages = [
-            {
-                name: 'C',
-                year: 1972
-            },
-            {
-                name: 'C#',
-                year: 2000
-            },
-            {
-                name: 'C++',
-                year: 1983
-            }
-        ];
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-
-        return inputLength === 0 ? [] : languages.filter(lang =>
-            lang.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
+        if (this.props.searchResults) {
+            let searchResults = this.props.searchResults;
+            const inputValue = value.trim().toLowerCase();
+            const inputLength = inputValue.length;
+            return inputLength === 0 ? [] : searchResults.filter(result =>
+                result.name.toLowerCase().slice(0, inputLength) === inputValue
+            );
+        }
     };
-
     getSuggestionValue = (suggestion) => {
         return suggestion.name
     }
-
     renderSuggestion(suggestion) {
         return (
-            <span>{suggestion.name}</span>
+            <div data-id={suggestion._id} class="d-flex">
+                <img src={config.image_server + suggestion.avatar} alt="Avatar" class="t-conversationhead-avatar t-margin-right" />
+                <div class="d-flex flex-column p-2">
+                    <span>{suggestion.name}</span>
+                    <small> @{suggestion.handle} </small>
+                </div>
+            </div>
         );
     }
-
     onChange = (event, { newValue }) => {
         this.setState({
             value: newValue
         });
     };
-
     onSuggestionsFetchRequested = ({ value }) => {
-        var that = this;
-        this.setState({
-            suggestions: that.getSuggestions(value)
-        });
+        this.props.handleSearch(value);
+        // var that = this;
+        // that.setState({
+        //     suggestions: that.getSuggestions(value)
+        // });
+    };
+    onSuggestionsClearRequested = () => {
+        // this.setState({
+        //     suggestions: []
+        // });
     };
 
-    onSuggestionsClearRequested = () => {
-        this.setState({
-            suggestions: []
-        });
-    };
     renderRecommendations = () => {
-        let users = [
-            {
-                _id: '123',
-                avatar: "no-dp.png",
-                name: "asdasd",
-                handle: "asdsadasd"
-            },
-            {
-                _id: '123',
-                avatar: "no-dp.png",
-                name: "asdasd",
-                handle: "asdsadasd"
-            },
-            {
-                _id: '123',
-                avatar: "no-dp.png",
-                name: "asdasd",
-                handle: "asdsadasd"
-            }
-        ]
+        let users = this.props.recommendation.slice(0, 2);
         let ret = [];
         ret.push(<p className="list-group-item list-group-item-action t-recommendation-title"> Who to follow</p>);
         ret.push(users.map((user) => {
             return (
-                <div onClick={this.handleHeadClick} data-id={user._id} class="t-recommendation d-flex p-2">
-                    <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar" />
-                    <div class="d-flex flex-column mx-2 px-2">
+                <div data-id={user._id} class="t-recommendation d-flex p-2">
+                    <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar t-margin-right" />
+                    <div class="d-flex flex-column p-2">
                         <span>{user.name}</span>
                         <small> @{user.handle} </small>
                     </div>
-                    <div className="d-flex mr-auto mx-2 px-2">
-                        <button className="btn t-btn-follow"> follow </button>
-                    </div>
+                    <button className="btn t-btn-follow" > follow </button>
                 </div>
             )
-        }));                                                                                   
-        ret.push(<p className="list-group-item list-group-item-action t-recommendation-footer" onClick={(e)=> e.target.style.display = "none"} data-toggle="collapse" data-target="#showMore"> Show more</p>);
+        }));
+        ret.push(<p className="list-group-item list-group-item-action t-recommendation-footer" onClick={(e) => e.target.style.display = "none"} data-toggle="collapse" data-target="#showMore"> Show more</p>);
         return ret;
     }
     renderShowMore = () => {
@@ -111,69 +83,61 @@ class Search extends React.Component {
         )
     }
     renderShowMoreList = () => {
-        let users = [
-            {
-                _id: '123',
-                avatar: "no-dp.png",
-                name: "asdasd",
-                handle: "asdsadasd"
-            },
-            {
-                _id: '123',
-                avatar: "no-dp.png",
-                name: "asdasd",
-                handle: "asdsadasd"
-            },
-            {
-                _id: '123',
-                avatar: "no-dp.png",
-                name: "asdasd",
-                handle: "asdsadasd"
-            }
-        ]
+        let users = this.props.recommendation.slice(5);
         return users.map((user) => {
             return (
-                <div onClick={this.handleHeadClick} data-id={user._id} class="t-recommendation d-flex p-2">
-                    <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar" />
-                    <div class="d-flex flex-column mx-2 px-2">
+                <div class="t-recommendation d-flex p-2">
+                    <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar t-margin-right" />
+                    <div class="d-flex flex-column p-2">
                         <span>{user.name}</span>
                         <small> @{user.handle} </small>
                     </div>
-                    <div className="d-flex mr-auto mx-2 px-2">
-                        <button className="btn t-btn-follow"> follow </button>
-                    </div>
+                    <button className="btn t-btn-follow" data-id={user._id} onClick={this.handleFollow}> follow </button>
                 </div>
             )
         })
-
+    }
+    handleFollow = (event) => {
+        this.props.followUser(this.props.user.id, event.target.dataset.id);
     }
     render() {
-        const { value, suggestions } = this.state;
+        const { value } = this.state;
         const inputProps = {
             placeholder: 'Search Twitter',
             value,
             onChange: this.onChange
         };
+        let searchResults = this.props.searchResults || [];
         return (
             <div className="t-search-container">
                 <Autosuggest
-                    suggestions={suggestions}
+                    suggestions={searchResults}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     getSuggestionValue={this.getSuggestionValue}
                     renderSuggestion={this.renderSuggestion}
                     inputProps={inputProps}
                 />
-                {this.state.recommendations && this.renderRecommendations() }
-                {this.state.recommendations && this.renderShowMore()}
+                <div className="t-rec-container rounded">
+                    {this.props.recommendation && this.renderRecommendations()}
+                    {this.props.recommendation && this.renderShowMore()}
+                </div>
             </div>
         )
     }
 }
 const mapStateToProps = state => {
     return {
-        user: state.auth.user
+        user: state.auth.user,
+        recommendation: state.recommendationReducer.recommendation,
+        searchResults: state.recommendationReducer.searchResults
     }
 }
-
-export default connect(mapStateToProps)(Search);
+const mapDispatchToProps = dispatch => {
+    return {
+        getRecommendation: (id) => dispatch(getRecommendation(id)),
+        followUser: (id, target_id) => dispatch(followUser(id, target_id)),
+        handleSearch: (query) => dispatch(handleSearch(query))
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
