@@ -7,11 +7,15 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
 import { bookmarkTweet } from '../../../redux/actions/tweet-action';
+import RetweetModal from '../retweet-modal/retweet-modal';
+import Retweet from '../retweet/retweet';
 
 class Tweet extends React.Component {
     constructor(props) {
         super(props);
         this.commentOnTweet = this.commentOnTweet.bind(this);
+        this.reTweet = this.reTweet.bind(this);
+
     }
     componentWillMount() {
         if(this.props.tweet) {
@@ -50,12 +54,15 @@ class Tweet extends React.Component {
                             <img class='t-tweet-pic' src={config.base + this.state.data.image}/>
                         ) : (null)}
                     </div>
+                    {this.state.data.parent_id ? (
+                         <Retweet retweetID={this.state.data.parent_id}/> 
+                    ) : (null)}
                     <div className="t-tweet-actions t-secondary">
                         <span className="t-comment" data-toggle="modal" data-target={"#commentModal"+this.state.data._id} onClick={(e) => e.stopPropagation()}>
                             <i class={this.state.hasCommented.length > 0 ? "fas fa-comment-alt t-commented" : "far fa-comment-alt"}></i>
                             {this.state.data.comments.length}
                         </span>
-                        <span className="t-retweet" onClick={(e) => e.stopPropagation()}>
+                        <span className="t-retweet" data-toggle="modal" data-target={"#retweetModal"+this.state.data._id} onClick={(e) => e.stopPropagation()}>
                             <i class="fas fa-retweet"></i>
                             {this.state.data.retweetCount.length}
                         </span>
@@ -70,6 +77,7 @@ class Tweet extends React.Component {
                 </div>
             </div>
             <CommentModal data={this.state.data} postComment={this.commentOnTweet}/>
+            <RetweetModal data={this.state.data} reTweet={this.reTweet}/>
             </div>
         )
     }   
@@ -142,6 +150,19 @@ class Tweet extends React.Component {
             id: this.state.data._id
         }
         axios.post('/api/tweet/comment', body)
+            .then(resp => {
+                if(resp.data.success) {
+                    this.getTweet();
+                }
+        });
+    }
+    reTweet(text) {
+        debugger;
+        let body = {
+            text : text,
+            tweet_id: this.state.data._id
+        }
+        axios.post('/api/tweet/retweet', body)
             .then(resp => {
                 if(resp.data.success) {
                     this.getTweet();

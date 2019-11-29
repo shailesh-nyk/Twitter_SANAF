@@ -74,4 +74,15 @@ router.post('/bookmark', function(req, res) {
   kafka.make_request('tweet', request , res);
 })
 
+//RETWEET
+router.post('/retweet', function(req, res) {
+  console.log('INSIDE POST ' + req.url);
+  req.body['user_id'] = jwt_decode(req.headers.authorization).id;
+  let request = {
+    body: req.body,
+    message: 'RETWEET'
+  }
+  kafka.make_request('tweet', request , res);
+})
+
 module.exports = router;
