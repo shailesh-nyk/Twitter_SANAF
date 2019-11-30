@@ -2,6 +2,7 @@
 import React from 'react';
 import config from '../../../config/app-config';
 import Retweet from '../retweet/retweet';
+import { connect } from 'react-redux';
 
 class RetweetModal extends React.Component { 
     constructor(props) {
@@ -26,7 +27,7 @@ class RetweetModal extends React.Component {
                 <div class="modal-body t-tweet-comment-modal">
                     <div className="t-tweet-container">
                             <div>
-                                <img class="t-tweet-avatar" src={config.base + this.state.data.userId.avatar}/>
+                                <img class="t-tweet-avatar" src={config.base + this.props.user.avatar}/>
                             </div>
                             <div class="t-tweet-right">
                                 <textarea id="retweet-text" className="t-dark-container t-comment-textarea" placeholder="Retweet with a comment" required/>
@@ -51,4 +52,9 @@ class RetweetModal extends React.Component {
     }
 }
 
-export default RetweetModal;
+const mapStateToProps = state => {
+    return {
+        user: state.auth.user
+    }
+}
+export default connect(mapStateToProps, null)(RetweetModal);
