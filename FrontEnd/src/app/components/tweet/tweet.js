@@ -29,8 +29,12 @@ class Tweet extends React.Component {
             this.getTweet();
         }
     }
+    componentWillReceiveProps(next) {
+        if(next.tweet._id !== this.props.tweet._id) {
+            this.getTweet(next.tweet._id);
+        }
+    }
     render() {
-        console.log(this.props);
         if(this.state.redirectToTweet) {
             return (
                 <Redirect to={`/ui/tweet/${this.state.data._id}`} />
@@ -55,7 +59,11 @@ class Tweet extends React.Component {
                         ) : (null)}
                     </div>
                     {this.state.data.parent_id ? (
-                         <Retweet retweetID={this.state.data.parent_id}/> 
+                        <div>
+                            <span class="t-secondary"> <i class="fas fa-retweet"></i> retweeted</span>
+                            <Retweet retweetID={this.state.data.parent_id}/> 
+                        </div>
+                         
                     ) : (null)}
                     <div className="t-tweet-actions t-secondary">
                         <span className="t-comment" data-toggle="modal" data-target={"#commentModal"+this.state.data._id} onClick={(e) => e.stopPropagation()}>
@@ -63,7 +71,7 @@ class Tweet extends React.Component {
                             {this.state.data.comments.length}
                         </span>
                         <span className="t-retweet" data-toggle="modal" data-target={"#retweetModal"+this.state.data._id} onClick={(e) => e.stopPropagation()}>
-                            <i class="fas fa-retweet"></i>
+                            <i class={this.state.hasRT ? "fas fa-retweet t-retweeted" : "fas fa-retweet"}></i>
                             {this.state.data.retweetCount.length}
                         </span>
                         <span className="t-like" onClick={(e) => this.likeTweet(e)}>
@@ -88,7 +96,6 @@ class Tweet extends React.Component {
             this.setState({
                 redirectToTweet: true
             })
-            
         }
     }
     likeTweet(e) {
@@ -125,10 +132,10 @@ class Tweet extends React.Component {
         })
     }
 
-    getTweet() {
+    getTweet(tweet_id) {
         axios.get('/api/tweet', {
             params: {
-                id: this.state.data._id
+                id: tweet_id ? tweet_id : this.state.data._id
             }
         })
         .then(resp => {
@@ -137,7 +144,7 @@ class Tweet extends React.Component {
                         data: resp.data.payload,
                         hasLiked: resp.data.payload.likes.includes(this.props.user.id) ,
                         hasRT: resp.data.payload.retweetCount.includes(this.props.user.id),
-                        hasCommented: resp.data.payload.comments.filter(x => x.user._id == this.props.user.id)
+                        hasCommented: resp.data.payload.comments.filter(x => x.user._id == this.props.user.id),
                     })
                 }
         });

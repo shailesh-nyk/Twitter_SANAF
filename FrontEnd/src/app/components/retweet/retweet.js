@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import ContainerLoader from '../container-loader/container-loader';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
 
 class Retweet extends React.Component {
     constructor(props) {
@@ -43,10 +45,12 @@ class Retweet extends React.Component {
                         </div>
                         {this.state.data.parent_id ? (
                              <div>
-                                 <span className="t-secondary">Retweeted</span> 
-                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to={`/ui/tweet/${this.state.data.parent_id}`}>
-                                  /ui/tweet/{this.state.data.parent_id}
-                                  <i class="fas fa-link"></i></Link>
+                                <span className="t-secondary">Retweeted</span> 
+                                <Link className="t-leftnav-a t-medium-text t-icon nav-link" to={`/ui/tweet/${this.state.data.parent_id}`}
+                                onClick={(e) => e.stopPropagation()}>
+                                  <i class="fas fa-link"></i>
+                                  &nbsp;View original tweet 
+                                </Link>
                              </div>
                         ) : (null)}
                     </div>
@@ -56,13 +60,19 @@ class Retweet extends React.Component {
         )
     }   
     redirectToTweet() {
-        if(!window.location.pathname.includes('/ui/tweet/')) {
+        // if(!window.location.pathname.includes('/ui/tweet/')) {
             this.incrementViewCount();
             this.props.setTweetViewData(this.state.data);
             this.setState({
                 redirectToTweet: true
             })
+        // }
+    }
+    incrementViewCount() {
+        let body = {
+            id: this.props.retweetID
         }
+        axios.put('/api/tweet/view', body);
     }
     getTweet() {
         axios.get('/api/tweet', {
@@ -80,4 +90,9 @@ class Retweet extends React.Component {
     }
 }
 
-export default Retweet;
+const mapDispatchToProps = dispatch => {
+    return {
+       setTweetViewData: payload => dispatch(setTweetViewData(payload))
+    };
+}
+export default connect(null, mapDispatchToProps)(Retweet);
