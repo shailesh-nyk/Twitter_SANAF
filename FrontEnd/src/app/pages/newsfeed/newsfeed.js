@@ -49,8 +49,7 @@ class NewsFeed extends React.Component {
             <div className="t-topnav-container">Home</div>
             <div className="t-nf-container">
                 <div> 
-                    {/* change image with current user image    */}
-                    <img class="t-tweet-avatar" src={config.base + 'public/images/tweets/5dca69b394399426a4a77bb1.png'}/>
+                    <img class="t-tweet-avatar" src={config.base + this.props.user.avatar}/>
                 </div>
                 <div className="t-tweet-right">
                     <div>

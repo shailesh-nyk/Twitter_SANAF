@@ -30,7 +30,7 @@ class Tweet extends React.Component {
         }
     }
     componentWillReceiveProps(next) {
-        if(next.tweet._id !== this.props.tweet._id) {
+        if(next.tweet !== this.props.tweet) {
             this.getTweet(next.tweet._id);
         }
     }
@@ -159,12 +159,15 @@ class Tweet extends React.Component {
         axios.post('/api/tweet/comment', body)
             .then(resp => {
                 if(resp.data.success) {
-                    this.getTweet();
+                    if(window.location.pathname.includes('/ui/tweet/')) { 
+                        this.props.updateTweetView(this.state.data._id);
+                    } else {
+                        this.getTweet();
+                    }
                 }
         });
     }
     reTweet(text) {
-        debugger;
         let body = {
             text : text,
             tweet_id: this.state.data._id

@@ -11,6 +11,7 @@ import ContainerLoader from './../../components/container-loader/container-loade
 class TweetView extends React.Component { 
     constructor(props) {
         super(props);
+        this.getTweet = this.getTweet.bind(this);
     }
     componentWillMount() {
         if(!this.props.data || this.props.data._id != this.props.match.params.tweet_id) {
@@ -31,7 +32,7 @@ class TweetView extends React.Component {
                         <i class="fas fa-arrow-left t-icon"></i> <span className="t-left-margin-24 t-primary-bold">TWEET</span>
                     </div>
                     <div className="t-tweet-view-container">
-                        <Tweet tweet={this.props.data}/>
+                        <Tweet tweet={this.props.data} updateTweetView={this.getTweet}/>
                     </div>
                     <div className="t-comments-view-container">
                         {this.props.data.comments.map(comment => {
