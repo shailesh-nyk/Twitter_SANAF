@@ -6,15 +6,16 @@ import config from '../../../config/app-config';
 import axios from 'axios';
 import Comment from './../../components/comment/comment';
 import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
+import ContainerLoader from './../../components/container-loader/container-loader';
 
 class TweetView extends React.Component { 
     constructor(props) {
         super(props);
     }
     componentWillMount() {
-        if(!this.props.data) {
+        if(!this.props.data || this.props.data._id != this.props.match.params.tweet_id) {
             this.getTweet(this.props.match.params.tweet_id);
-        } 
+        }   
     }
     componentWillReceiveProps(next) {
         if (next.match.params.tweet_id !== this.props.match.params.tweet_id) {
@@ -22,6 +23,7 @@ class TweetView extends React.Component {
         }   
     }
     render() {
+        
         if(this.props.data) {
             return(
                 <div>
@@ -37,12 +39,15 @@ class TweetView extends React.Component {
                                 <Comment data={comment}/>
                             )
                         })}
+                        {this.props.data.comments.length == 0 ? (
+                            <div class="t-secondary" style={{textAlign:"center", marginTop: "24px"}}>No comments on this tweet</div>
+                        ) : (null)}
                     </div>
                 </div>
             )
         } else {
             return (
-                <div>no data</div>
+                <ContainerLoader/>
             )
         }
       

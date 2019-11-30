@@ -14,17 +14,17 @@ module.exports.reTweet = function(req, callback){
                     payload: err
                 })
             } else{
+                updateOriginalTweet(req.tweet_id, req.user_id);
                 callback(null,{
                     success: true,
                     msg: "Retweeted successfully!",
                     payload: resp
                 }) 
-                updateOriginalTweet(req.tweet_id, req.user_id);
         }
         }); 
 };
 
-function updateOriginalTweet(id, user) {
+function updateOriginalTweet(id, user ) {
         let search = {
             "_id": id
         }
@@ -36,6 +36,12 @@ function updateOriginalTweet(id, user) {
                 "retweetsCount": 1
             }
         }
-        TweetModel.findOneAndUpdate(search, update);
+        TweetModel.findOneAndUpdate(search, update,  {safe: true, new: false, useFindAndModify: false}, function(err, result){
+            if(err) {
+                console.log("ERROR WHILE UPDATING =============================")
+            } else {
+                console.log("UPDATED SUCCESSFULLY =============================")
+            }
+        });
 }
 

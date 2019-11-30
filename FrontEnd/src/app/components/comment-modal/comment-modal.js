@@ -57,7 +57,7 @@ class CommentModal extends React.Component {
                     </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" onClick={() => this.postComment()}>Reply</button>
+                  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick={() => this.postComment()}>Reply</button>
                 </div>
               </div>
             </div>

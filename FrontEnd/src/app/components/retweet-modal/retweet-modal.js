@@ -32,15 +32,10 @@ class RetweetModal extends React.Component {
                                 <textarea id="retweet-text" className="t-dark-container t-comment-textarea" placeholder="Retweet with a comment" required/>
                             </div>
                     </div>
-                    <div className="t-tweet-container t-small-text">
-                            <div class="t-vertical-line">
-                                <div></div>
-                            </div>
-                            <div class="t-tweet-right t-secondary">
-                                 Retweeting
-                            </div>
+                    <div>
+                        <span class="t-secondary"> <i class="fas fa-retweet"></i> retweeting</span>
+                        <Retweet retweetID={this.state.data._id}/>  
                     </div>
-                    <Retweet retweetID={this.state.data._id}/>  
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" onClick={() => this.reTweet()}>Retweet</button>
@@ -52,9 +47,7 @@ class RetweetModal extends React.Component {
     }
     reTweet() {
         let text = document.getElementById("retweet-text").value;
-        if(text) {
-            this.props.reTweet(text);
-        }
+        this.props.reTweet(text);
     }
 }
 
