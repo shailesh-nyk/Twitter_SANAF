@@ -8,6 +8,7 @@ import TweetView from './../tweet-view/tweet-view';
 import config from '../../../config/app-config';
 import Search from './../search/search';
 import BookMarks from './../bookmarks/bookmarks';
+import HashTagView from './../hashtag/hashtag';
 import { ToastsContainer, ToastsStore,ToastsContainerPosition } from 'react-toasts';
 
 class Main extends React.Component {
@@ -47,6 +48,7 @@ class Main extends React.Component {
                             <Route path="/ui/messages" component={Messages} />
                             <Route path="/ui/tweet/:tweet_id" component={TweetView} />
                             <Route path="/ui/bookmark" component={BookMarks} />
+                            <Route path="/ui/hashtag/:hashtag_id" component={HashTagView} />
                         </Switch>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 var UserModel = require('../../models/users');
+var TweetModel = require('../../models/tweet');
 
 module.exports.getRecommendation = function (req, callback) {
     let user_id = req.id;
@@ -38,31 +39,59 @@ module.exports.getRecommendation = function (req, callback) {
 module.exports.handleSearch = function (req, callback) {
     let { query } = req;
     query = new RegExp("^" + query, "i");
-    UserModel.find({
-        $or: [{ 'name': query },
-        { 'handle': query }]
-    }, (err, result) => {
-        if (err) {
-            callback(true, {
-                success: false,
-                msg: err.message,
-                payload: err
-            });
-        }
-        if (result) {
+    Promise.all([
+        UserModel.find({
+            $or: [{ 'name': query },
+            { 'handle': query }]
+        }).limit(5),
+        TweetModel.find({
+            'text': query
+        }).limit(5)
+
+    ])
+        .then(results => {
+            let result = [];
+            result.push(...results[0]);
+            result.push(...results[1]);
             callback(false, {
                 success: true,
                 msg: "Search result",
-                payload: JSON.parse(JSON.stringify(result))
+                payload: result
             });
-        }
-        else {
+        })
+        .catch(err => {
             callback(true, {
                 success: false,
                 msg: err.message,
                 payload: err
             });
-        }
-    }).limit(5);
+        })
+
+    // UserModel.find({
+    //     $or: [{ 'name': query },
+    //     { 'handle': query }]
+    // }, (err, result) => {
+    //     if (err) {
+    //         callback(true, {
+    //             success: false,
+    //             msg: err.message,
+    //             payload: err
+    //         });
+    //     }
+    //     if (result) {
+    //         callback(false, {
+    //             success: true,
+    //             msg: "Search result",
+    //             payload: JSON.parse(JSON.stringify(result))
+    //         });
+    //     }
+    //     else {
+    //         callback(true, {
+    //             success: false,
+    //             msg: err.message,
+    //             payload: err
+    //         });
+    //     }
+    // }).limit(5);
 }
 

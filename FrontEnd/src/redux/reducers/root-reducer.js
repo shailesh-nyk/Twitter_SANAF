@@ -8,6 +8,7 @@ import successReducer from "./successReducer";
 import newsFeedReducer from './newsFeedReducer';
 import userReducer from './user-reducer';
 import recommendationReducer from './recommendation-reducer';
+import hashtagReducer from './hashtag-reducer';
 
 import {
   RESET_ALL_STATE
@@ -21,7 +22,8 @@ const appReducer = combineReducers({
   errors: errorReducer,
   success: successReducer,
   newsFeedReducer,
-  recommendationReducer
+  recommendationReducer,
+  hashtagReducer
 });
 
 const rootReducer = (state, action) => {
