@@ -29,7 +29,7 @@ class TweetView extends React.Component {
             return(
                 <div>
                     <div className="t-topnav-container">
-                        <i class="fas fa-arrow-left t-icon"></i> <span className="t-left-margin-24 t-primary-bold">TWEET</span>
+                        <i class="fas fa-arrow-left t-icon" onClick={() => this.goBack()}></i> <span className="t-left-margin-24 t-primary-bold">TWEET</span>
                     </div>
                     <div className="t-tweet-view-container">
                         <Tweet tweet={this.props.data} updateTweetView={this.getTweet}/>
@@ -52,6 +52,13 @@ class TweetView extends React.Component {
             )
         }
       
+    }
+    goBack() {
+        if(this.props.location.state.prev) {
+            this.props.history.push(this.props.location.state.prev);
+        } else {
+            this.props.history.goBack();
+        }
     }
     getTweet(tweet_id) {
         axios.get('/api/tweet', {

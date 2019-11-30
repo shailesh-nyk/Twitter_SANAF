@@ -37,7 +37,12 @@ class Tweet extends React.Component {
     render() {
         if(this.state.redirectToTweet) {
             return (
-                <Redirect to={`/ui/tweet/${this.state.data._id}`} />
+                <Redirect to={ {
+                    pathname: `/ui/tweet/${this.state.data._id}`,
+                    state:  {
+                        prev: window.location.pathname
+                    }
+                }}/>
             )
         }
         return (

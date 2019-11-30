@@ -39,7 +39,7 @@ class RetweetModal extends React.Component {
                     </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" onClick={() => this.reTweet()}>Retweet</button>
+                  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick={() => this.reTweet()}>Retweet</button>
                 </div>
               </div>
             </div>
