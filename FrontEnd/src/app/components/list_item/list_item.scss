@@ -1,0 +1,12 @@
+.t-list-item-container {
+    border-bottom: 1px solid $app-border;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    &:hover {
+        transition-property: background-color;
+        transition-duration: 0.3s;
+        background-color: $app-hover-bg;
+    }
+}
