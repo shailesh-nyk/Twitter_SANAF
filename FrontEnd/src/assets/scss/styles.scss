@@ -72,9 +72,12 @@
 
 //OVERRIDING BOOTSTRAP STYLES
 .btn {
-      border-radius: 100px;
-      font-weight: bold;
-      padding: 8px 18px;
+   border-radius: 100px;
+   font-weight: bold;
+   padding: 8px 18px;
+   &:hover {
+      color: #1da1f2;
+   }
 }
 
 .border-white {
