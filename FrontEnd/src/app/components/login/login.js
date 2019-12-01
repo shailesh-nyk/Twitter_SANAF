@@ -139,7 +139,7 @@ class Login extends Component {
                                         required
                                         pattern="^[a-zA-Z]+$"
                                         minLength="1"
-                                        maxLength="5"
+                                        maxLength="10"
                                         className={classnames("t-login-form-control", {
                                           invalid: errors.password
                                         })}
