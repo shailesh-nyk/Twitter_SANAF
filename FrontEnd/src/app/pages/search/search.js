@@ -4,6 +4,7 @@ import Autosuggest from 'react-autosuggest';
 import config from '../../../config/app-config';
 import { getRecommendation, handleSearch } from './../../../redux/actions/recommendation-action';
 import { followUser } from './../../../redux/actions/user-action';
+import { Redirect } from 'react-router-dom';
 
 class Search extends React.Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class Search extends React.Component {
         this.state = {
             value: '',
             suggestions: [],
+            redirectTo: null
         }
         this.props.getRecommendation(this.props.user.id);
     }
@@ -28,12 +30,31 @@ class Search extends React.Component {
         return suggestion.name
     }
     renderSuggestion(suggestion) {
+        if (suggestion.hasOwnProperty('tweets')) {
+            return this.renderHashtagSuggestion(suggestion);
+        }
+        else {
+            return this.renderUserSuggestion(suggestion);
+        }
+    }
+    renderUserSuggestion(suggestion) {
         return (
-            <div data-id={suggestion._id} class="d-flex">
+            <div data-id={suggestion._id} class="d-flex" onClick={(e) => { this.handleUserRedirect(e.currentTarget.dataset.id) }}>
                 <img src={config.image_server + suggestion.avatar} alt="Avatar" class="t-conversationhead-avatar t-margin-right" />
-                <div class="d-flex flex-column p-2">
-                    <span>{suggestion.name}</span>
+                <div class="d-flex flex-column p-2 t-margin-left" style={{ "textDecoration": "none" }}>
+                    <span className="t-medium-text">{suggestion.name}</span>
                     <small> @{suggestion.handle} </small>
+                </div>
+            </div>
+        );
+    }
+    renderHashtagSuggestion(suggestion) {
+        return (
+            <div data-id={suggestion._id} class="d-flex" onClick={(e) => { this.handleUserRedirect(e.currentTarget.dataset.id) }}>
+                <div class="d-flex flex-column p-2 t-margin-left">
+                    <small>Trending in US</small>
+                    <span className="t-medium-text">#{suggestion.name}</span>
+                    <small>{suggestion.tweets.length} Tweets</small>
                 </div>
             </div>
         );
@@ -55,7 +76,16 @@ class Search extends React.Component {
         //     suggestions: []
         // });
     };
-
+    handleUserRedirect = (id) => {
+        this.setState({
+            redirectTo: `/ui/hashtag/${id}`
+        })
+    }
+    handleHashtagRedirect = (id) => {
+        this.setState({
+            redirectTo: `/ui/hashtag/${id}`
+        })
+    }
     renderRecommendations = () => {
         let users = this.props.recommendation.slice(0, 2);
         let ret = [];
@@ -101,6 +131,11 @@ class Search extends React.Component {
         this.props.followUser(this.props.user.id, event.target.dataset.id);
     }
     render() {
+        if (this.state.redirectTo) {
+            return (
+                <Redirect to={this.state.redirectTo} />
+            )
+        }
         const { value } = this.state;
         const inputProps = {
             placeholder: 'Search Twitter',
@@ -115,7 +150,7 @@ class Search extends React.Component {
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     getSuggestionValue={this.getSuggestionValue}
-                    renderSuggestion={this.renderSuggestion}
+                    renderSuggestion={this.renderSuggestion.bind(this)}
                     inputProps={inputProps}
                 />
                 <div className="t-rec-container rounded">

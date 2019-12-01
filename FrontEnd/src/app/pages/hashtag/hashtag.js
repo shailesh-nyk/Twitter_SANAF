@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { newsfeed } from '../../../redux/actions/util-action';
 import Tweet from './../../components/tweet/tweet';
-import config from '../../../config/app-config';
-import axios from 'axios';
 import { getNewsFeed } from './../../../redux/actions/hashtag-action';
 
 class HashTag extends React.Component {
@@ -11,7 +8,7 @@ class HashTag extends React.Component {
         super(props);
     }
     componentWillMount() {
-        this.props.getNewsFeed(this.props.user.id);
+        this.props.getNewsFeed(this.props.match.params.hashtag_id);
     }
     render() {
         return (

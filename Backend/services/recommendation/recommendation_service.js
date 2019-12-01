@@ -1,5 +1,6 @@
 var UserModel = require('../../models/users');
 var TweetModel = require('../../models/tweet');
+var HashtagModel = require('../../models/hashtag');
 
 module.exports.getRecommendation = function (req, callback) {
     let user_id = req.id;
@@ -44,15 +45,25 @@ module.exports.handleSearch = function (req, callback) {
             $or: [{ 'name': query },
             { 'handle': query }]
         }).limit(5),
-        TweetModel.find({
-            'text': query
+        HashtagModel.find({
+            'hashtag': query
         }).limit(5)
 
     ])
         .then(results => {
             let result = [];
-            result.push(...results[0]);
-            result.push(...results[1]);
+            let user_results = [...results[0]];
+            let hashtag_results = JSON.parse(JSON.stringify([...results[1]]));
+
+            hashtag_results = hashtag_results.map(function (obj) {
+                obj['name'] = obj['hashtag'];
+                delete obj['hashtag'];
+                return obj;
+            });
+            
+            result.push(...user_results);
+            result.push(...hashtag_results);
+
             callback(false, {
                 success: true,
                 msg: "Search result",

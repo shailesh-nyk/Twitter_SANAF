@@ -1,43 +1,47 @@
 var utils = require('../../middleware/utils');
 var TweetModel = require('../../models/tweet');
 var UserModel = require('../../models/users');
+var HashtagModel = require('../../models/hashtag');
 
 
-module.exports.getFeed = function(req ,callback) {
+module.exports.getFeed = function (req, callback) {
     let hashtag_id = req.hashtag_id;
-    UserModel.findById(hashtag_id, 'following').exec()
-    .then( result => {
+    HashtagModel.findById(hashtag_id).exec().then(result => {
         var d = new Date();
         d.setDate(d.getDate() - 30);
         let search = {
-           "userId" : { $in : result.following},
-           "postedOn" : { $gt : d}
+            "_id": { $in: result.tweets },
+            "postedOn": { $gt: d }
         }
-        TweetModel.find( search ,function (err, result) {
+        TweetModel.find(search, function (err, result) {
             if (err) {
                 callback(null, {
-                        success: false,
-                        msg: "Something went wrong",
-                        payload: err
+                    success: false,
+                    msg: "Something went wrong",
+                    payload: err
                 })
             }
-            else if(result) {
+            else if (result) {
                 result.map(tweet => {
-                    tweet.set('timeElapsed', utils.getTimeElapsed(tweet.postedOn) , {strict: false});
+                    tweet.set('timeElapsed', utils.getTimeElapsed(tweet.postedOn), { strict: false });
                     tweet.comments.map(comment => {
-                        comment.set('timeElapsed', utils.getTimeElapsed(comment.postedOn) , {strict: false});
+                        comment.set('timeElapsed', utils.getTimeElapsed(comment.postedOn), { strict: false });
                     })
                 })
-                callback(null,{
+                callback(null, {
                     success: true,
-                    msg: "Successfully fetched the newsfeed" ,
+                    msg: "Successfully fetched the newsfeed",
                     payload: result
-                }) 
-            } 
-        }).populate( [{ path:'userId', select:'name handle avatar'}, { path:'comments.user', select:'name handle avatar'}])
-        .sort({ postedOn : 'descending'})
+                })
+            }
+        }).populate([{ path: 'userId', select: 'name handle avatar' }, { path: 'comments.user', select: 'name handle avatar' }])
+            .sort({ postedOn: 'descending' })
     })
-    .catch(err => {
-        console.log("err in getNewsFeed ",err.message)
-    });
+        .catch(err => {
+            callback(null, {
+                success: false,
+                msg: "Something went wrong",
+                payload: err
+            })
+        });
 }
