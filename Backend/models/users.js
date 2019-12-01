@@ -48,6 +48,10 @@ var userSchema = new Schema({
     default: null
   },
   following: [{ type: Schema.ObjectId, ref: 'user' }],
+  followedBy: [{ type: Schema.ObjectId, ref: 'user' }],
+  /* views: [{ type: Schema.ObjectId, ref: 'user' },
+           {createdOn : now()}
+          ], */
   bookmarks: []
 },
   {
