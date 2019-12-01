@@ -1,9 +1,7 @@
 const UserModel = require('../../models/users');
 
 module.exports.getFollowing = function (req, callback) {
-    console.log("following aish")
-    console.log(req)
-    const  id  = req._id;
+    const  id  = req.id;
     console.log(id);
     UserModel.findById(id,
         function (err, model) {

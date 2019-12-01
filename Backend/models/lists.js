@@ -9,9 +9,9 @@ var listSchema = new Schema({
     isPublic: {type: Boolean},
     subscribers: [{ type: Schema.Types.ObjectId, ref: 'user' }]
 },
-{
-    timestamps: true
-})
+    {
+        timestamps: true
+    })
 
 var ListModel = mongoose.model('lists', listSchema);
 
