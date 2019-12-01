@@ -29,6 +29,8 @@ module.exports.userLogin = function(req, callback){
           condType = "Username";
         }          
 
+        cond.accountStatus = "active" ;
+    
     UserModel.findOne(
         cond
     )
@@ -54,7 +56,7 @@ module.exports.userLogin = function(req, callback){
                         }
                     } else {
                         
-                        result = { success:false, msg:"We could not verify your credentials. Please double-check and try again."};
+                        result = { success:false, msg:"We could not verify your credentials or your account has been deactivated. Please double-check and try again."};
                         callback(null,result);
                     }
 
