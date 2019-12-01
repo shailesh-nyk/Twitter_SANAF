@@ -72,9 +72,12 @@
 
 //OVERRIDING BOOTSTRAP STYLES
 .btn {
-      border-radius: 100px;
-      font-weight: bold;
-      padding: 8px 18px;
+   border-radius: 100px;
+   font-weight: bold;
+   padding: 8px 18px;
+   &:hover {
+      color: #1da1f2;
+   }
 }
 
 .border-white {
@@ -136,3 +139,20 @@
    border: 1px solid $app-border;
    border-radius: 15px;
  }
+
+ //BOOTSTRAP TABS OVERRIDE 
+.nav-tabs {
+   .nav-item {
+      flex: 1 !important;
+      text-align: center;
+   }
+   .nav-link {
+      .active {
+         background-color: $app-hover-theme !important;
+      }
+   }
+}
+
+
+
+    

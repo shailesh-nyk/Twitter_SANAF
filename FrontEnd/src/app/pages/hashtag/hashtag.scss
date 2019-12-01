@@ -1,13 +1,6 @@
 @import '../src/assets/scss/var.scss';
 @import '../src/assets/scss/styles.scss';
 
-.t-nf-container {   
-    display: flex;
-    border-bottom: 7px solid $app-border;
-    color: $app-text;
-    padding-left: 20px;
-    padding-right: 20px;
-}
 .form-control:focus {
     border-color: inherit;
     -webkit-box-shadow: none;

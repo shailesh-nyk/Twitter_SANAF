@@ -102,8 +102,53 @@ class Profile extends Component {
             </React.Fragment>
         );
     }
+  }
 
-}
+ /*  componentWillMount() {
+
+    this.props.getUserProfile(this.props.user.id);
+   
+ 
+  } */
+  
+  
+  
+
+  /* render() {
+    const { errors } = this.state;
+    
+    return (
+      <React.Fragment>
+      <div>
+            <div className="t-topnav-container" >{this.state.name}</div>
+            <div className="t-nf-container t-profile-container">
+            <div className="t-text-container" > 
+                   
+                    <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
+                    <input className="t-textbox form-control"  type="text" id="text"/>
+            </div>
+              <div className="d-flex justify-content-end">
+                
+                  <button className="btn btn-primary" data-toggle="modal" data-target="#profileModal"> Edit Profile</button>
+              </div>
+              <div>
+                      {this.state.name}
+              </div>
+              <div>
+                      {this.state.description}
+              </div>
+              <div>
+                      66 Following 19 Followers
+              </div>
+             </div>  
+              <ProfileModal data={this.state.profile}></ProfileModal> 
+              <ProfileTweets></ProfileTweets>             
+      </div>
+      </React.Fragment>
+    );
+  }
+
+} */
 
 
 /* Profile.propTypes = {
