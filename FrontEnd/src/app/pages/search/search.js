@@ -78,24 +78,17 @@ class Search extends React.Component {
     };
     onSuggestionsFetchRequested = ({ value }) => {
         this.props.handleSearch(value);
-        // var that = this;
-        // that.setState({
-        //     suggestions: that.getSuggestions(value)
-        // });
     };
     onSuggestionsClearRequested = () => {
-        // this.setState({
-        //     suggestions: []
-        // });
     };
     handleUserRedirect = (id) => {
-        this.props.redirect({pathname :`/ui/userprofile/${id}`});
+        this.props.redirect({ pathname: `/ui/userprofile/${id}` });
     }
     handleHashtagRedirect = (data) => {
-        this.props.redirect({pathname :`/ui/hashtag/${data.id}`, state : { hashtag : data.name}});
+        this.props.redirect({ pathname: `/ui/hashtag/${data.id}`, state: { hashtag: data.name } });
     }
     handleListRedirect = (id) => {
-        this.props.redirect({pathname :`/ui/listview/${id}`});
+        this.props.redirect({ pathname: `/ui/listview/${id}` });
     }
     renderRecommendations = () => {
         let users = this.props.recommendation.slice(0, 2);
