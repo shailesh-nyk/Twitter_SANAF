@@ -38,11 +38,13 @@ var conversationRouter = require('./routes/conversation');
 var tweetRouter = require('./routes/tweet');
 
 var userRouter = require('./routes/userRoute');
+var graphRouter = require('./routes/graphsRoute');
 
 app.use('/api', indexRouter);
 app.use('/conversation', conversationRouter);
 app.use('/api/tweet', tweetRouter);
 app.use('/user',userRouter)
+app.use('/graphs',graphRouter)
 
 let users = {};
 app.set('users',users);
