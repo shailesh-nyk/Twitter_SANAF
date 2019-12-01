@@ -11,9 +11,7 @@ class Search extends React.Component {
         super(props);
         this.state = {
             value: '',
-            suggestions: [],
-            redirectTo: null,
-            redirectHashtag: null
+            suggestions: []
         }
         this.props.getRecommendation(this.props.user.id);
     }
@@ -33,6 +31,9 @@ class Search extends React.Component {
     renderSuggestion(suggestion) {
         if (suggestion.hasOwnProperty('tweets')) {
             return this.renderHashtagSuggestion(suggestion);
+        }
+        else if (suggestion.hasOwnProperty('list')) {
+            return this.renderListSuggestion(suggestion);
         }
         else {
             return this.renderUserSuggestion(suggestion);
@@ -60,6 +61,16 @@ class Search extends React.Component {
             </div>
         );
     }
+    renderListSuggestion(suggestion) {
+        return (
+            <div data-id={suggestion._id} data-name={suggestion.name} class="d-flex" onClick={(e) => { this.handleListRedirect(e.currentTarget.dataset.id) }}>
+                <div class="d-flex flex-column p-2 t-margin-left">
+                    <span className="t-medium-text">{suggestion.name}</span>
+                    <small>{suggestion.description}</small>
+                </div>
+            </div>
+        );
+    }
     onChange = (event, { newValue }) => {
         this.setState({
             value: newValue
@@ -78,16 +89,13 @@ class Search extends React.Component {
         // });
     };
     handleUserRedirect = (id) => {
-        this.setState({
-            redirectTo: `/ui/hashtag/${id}`
-        })
+        this.props.redirect({pathname :`/ui/userprofile/${id}`});
     }
     handleHashtagRedirect = (data) => {
-        debugger
-        this.setState({
-            redirectTo: `/ui/hashtag/${data.id}`,
-            redirectHashtag: data.name
-        })
+        this.props.redirect({pathname :`/ui/hashtag/${data.id}`, state : { hashtag : data.name}});
+    }
+    handleListRedirect = (id) => {
+        this.props.redirect({pathname :`/ui/listview/${id}`});
     }
     renderRecommendations = () => {
         let users = this.props.recommendation.slice(0, 2);
@@ -134,14 +142,6 @@ class Search extends React.Component {
         this.props.followUser(this.props.user.id, event.target.dataset.id);
     }
     render() {
-        if (this.state.redirectTo) {
-            return (
-                <Redirect to={{
-                    pathname: this.state.redirectTo,
-                    state: {hashtag : this.state.redirectHashtag}
-                }} />
-            )
-        }
         const { value } = this.state;
         const inputProps = {
             placeholder: 'Search Twitter',
