@@ -7,27 +7,31 @@ import errorReducer from "./errorReducer";
 import successReducer from "./successReducer";
 import newsFeedReducer from './newsFeedReducer';
 import userReducer from './user-reducer';
+import recommendationReducer from './recommendation-reducer';
+import hashtagReducer from './hashtag-reducer';
 
 import {
-    RESET_ALL_STATE
-  } from "../../redux/actions/action-types";
+  RESET_ALL_STATE
+} from "../../redux/actions/action-types";
 
 const appReducer = combineReducers({
-    utilReducer,
-    conversationReducer,
-    userReducer,
-    auth: authReducer,
-    errors: errorReducer,
-    success: successReducer,
-    newsFeedReducer
+  utilReducer,
+  conversationReducer,
+  userReducer,
+  auth: authReducer,
+  errors: errorReducer,
+  success: successReducer,
+  newsFeedReducer,
+  recommendationReducer,
+  hashtagReducer
 });
 
 const rootReducer = (state, action) => {
-    if (action.type === RESET_ALL_STATE) {
-      state = undefined;
-    }
-  
-    return appReducer(state, action);
-  };
+  if (action.type === RESET_ALL_STATE) {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
 
 export default rootReducer;

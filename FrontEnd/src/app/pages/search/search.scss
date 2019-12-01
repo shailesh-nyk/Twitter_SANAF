@@ -3,3 +3,42 @@
     padding: 20px;
     border-left: 1px solid $app-border;
 }
+.t-rec-container{
+    height: 300px;
+    overflow: auto;
+}
+
+.t-btn-follow{
+    width: 5rem;
+    height: 3rem;
+    border-bottom-color: rgb(29, 161, 242);
+    border-left-color: rgb(29, 161, 242);
+    border-right-color: rgb(29, 161, 242);
+    border-top-color: rgb(29, 161, 242);
+    color: $app-text;
+    padding: 0;
+    margin-left: auto;
+}
+.t-recommendation{
+    background-color: #182634;
+}
+.t-recommendation-title{
+    background-color: #182634;
+    border-bottom-color: $app-border;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    color: $app-text;
+}
+.t-recommendation-footer{
+    background-color: #182634;
+    border-bottom-color: $app-border;
+    border-bottom-right-radius: 20px !important;
+    border-bottom-left-radius: 20px !important;
+    color: $app-text;
+}
+.t-margin-right{
+    margin-right: auto;
+}
+.t-margin-left{
+    margin-right: auto;
+}
