@@ -21,7 +21,7 @@ class TopNavDashboard extends Component {
                             <ul className="navbar-nav ml-auto">
                                   <li className="nav-item active">
                                   
-                                  <Link className="nav-link" to="dashboard">Home <span className="sr-only">(current)</span></Link>
+                                  <Link className="nav-link" to="/ui">Home <span className="sr-only">(current)</span></Link>
                                   
                                     
                                   </li>
