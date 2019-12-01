@@ -1,6 +1,7 @@
 var UserModel = require('../../models/users');
 var TweetModel = require('../../models/tweet');
 var HashtagModel = require('../../models/hashtag');
+var ListModel = require('../../models/lists');
 
 module.exports.getRecommendation = function (req, callback) {
     let user_id = req.id;
@@ -47,6 +48,10 @@ module.exports.handleSearch = function (req, callback) {
         }).limit(5),
         HashtagModel.find({
             'hashtag': query
+        }).limit(5),
+        ListModel.find({
+            'name': query,
+            'isPublic': true
         }).limit(5)
 
     ])
@@ -54,15 +59,17 @@ module.exports.handleSearch = function (req, callback) {
             let result = [];
             let user_results = [...results[0]];
             let hashtag_results = JSON.parse(JSON.stringify([...results[1]]));
+            let list_results = [...results[2]];
 
             hashtag_results = hashtag_results.map(function (obj) {
                 obj['name'] = obj['hashtag'];
                 delete obj['hashtag'];
                 return obj;
             });
-            
+
             result.push(...user_results);
             result.push(...hashtag_results);
+            result.push(...list_results)
 
             callback(false, {
                 success: true,
