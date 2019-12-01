@@ -49,7 +49,7 @@ class NewsFeed extends React.Component {
             <div className="t-topnav-container">Home</div>
             <div className="t-nf-container">
                 <div> 
-                    <img class="t-tweet-avatar" src={config.base + this.props.user.avatar}/>
+                    <img class="t-tweet-avatar" src={config.image_server + this.props.user.avatar}/>
                 </div>
                 <div className="t-tweet-right">
                     <div>

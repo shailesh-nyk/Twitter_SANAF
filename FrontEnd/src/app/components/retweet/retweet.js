@@ -21,7 +21,12 @@ class Retweet extends React.Component {
         console.log(this.props);
         if(this.state.redirectToTweet) {
             return (
-                <Redirect to={`/ui/tweet/${this.state.data._id}`} />
+                <Redirect to={ {
+                    pathname: `/ui/tweet/${this.state.data._id}`,
+                    state:  {
+                        prev: window.location.pathname
+                    }
+                }}/>
             )
         }
         return (
@@ -29,7 +34,7 @@ class Retweet extends React.Component {
             {this.state.data ? (
                 <div className="t-tweet-container t-rounded-border" onClick={() => this.redirectToTweet()}>
                     <div>
-                        <img class="t-tweet-avatar" src={config.base + this.state.data.userId.avatar} onClick={(e) => e.stopPropagation()}/>
+                        <img class="t-tweet-avatar" src={config.image_server + this.state.data.userId.avatar} onClick={(e) => e.stopPropagation()}/>
                     </div>
                     <div class="t-tweet-right">
                         <div onClick={(e) => e.stopPropagation()}>
@@ -40,7 +45,7 @@ class Retweet extends React.Component {
                         <div>
                             <p>{this.state.data.text}</p>
                             {this.state.data.image ? (
-                                <img class='t-tweet-pic' src={config.base + this.state.data.image}/>
+                                <img class='t-tweet-pic' src={config.image_server + this.state.data.image}/>
                             ) : (null)}
                         </div>
                         {this.state.data.parent_id ? (

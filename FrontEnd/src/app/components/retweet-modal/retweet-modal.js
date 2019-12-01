@@ -27,7 +27,7 @@ class RetweetModal extends React.Component {
                 <div class="modal-body t-tweet-comment-modal">
                     <div className="t-tweet-container">
                             <div>
-                                <img class="t-tweet-avatar" src={config.base + this.props.user.avatar}/>
+                                <img class="t-tweet-avatar" src={config.image_server + this.props.user.avatar}/>
                             </div>
                             <div class="t-tweet-right">
                                 <textarea id="retweet-text" className="t-dark-container t-comment-textarea" placeholder="Retweet with a comment" required/>
