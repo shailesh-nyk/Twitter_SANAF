@@ -36,7 +36,7 @@ class NewsFeed extends React.Component {
                     </div>
                     <div class='t-create-tweet-action'>
                         <label for="tweetImage">
-                            <i class="fa fa-picture-o fa-lg t-icon"></i> 
+                            <i class="fa fa-picture-o fa-lg t-icon" style={this.state.tweetImage ? {color: "#00acee" } : {}}></i> 
                             <input name="file-to-upload" className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
                         </label>
                         <button className="btn btn-primary" disabled= { this.state.tweetText=="" &&  this.state.tweetImage== null ? true : false}

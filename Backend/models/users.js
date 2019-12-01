@@ -48,7 +48,8 @@ var userSchema = new Schema({
     default: null
   },
   following: [{ type: Schema.ObjectId, ref: 'user' }],
-  bookmarks: []
+  bookmarks: [],
+  lists: []
 },
   {
     timestamps: true
