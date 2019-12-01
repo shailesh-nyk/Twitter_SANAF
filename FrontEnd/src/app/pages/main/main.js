@@ -10,7 +10,7 @@ import Search from './../search/search';
 import Profile from '../../components/Profile/Profile'
 import BookMarks from './../bookmarks/bookmarks';
 import HashTagView from './../hashtag/hashtag';
-import { ToastsContainer, ToastsStore,ToastsContainerPosition } from 'react-toasts';
+import { ToastsContainer, ToastsStore, ToastsContainerPosition } from 'react-toasts';
 import List from './../list/list';
 import ListView from './../list-view/list-view';
 
@@ -36,12 +36,15 @@ class Main extends React.Component {
             new_message: false
         })
     }
+    redirectHelper = (props) =>{
+        this.props.history.push(props);
+    }
     shouldRenderSearchPage = () => {
         if (window.location.pathname.includes('/ui/messages')) {
             return <div className="t-container-border" style={{ padding: '3rem' }}></div>
         }
         else {
-            return <Search />
+            return <Search redirect={this.redirectHelper} />
         }
     }
     render() {

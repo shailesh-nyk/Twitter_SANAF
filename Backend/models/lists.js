@@ -4,14 +4,15 @@ var Schema = mongoose.Schema;
 var listSchema = new Schema({
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     name: { type: String },
-    list: [],  
+    list: [{ type: Schema.ObjectId, ref: 'user' }],
     description: { type: String },
-    isPublic: {type: Boolean},
-    subscriberCount: {type: Number, default: 0}
+    isPublic: { type: Boolean },
+    subscriberCount: { type: Number, default: 0 },
+    subscribers: [{ type: Schema.ObjectId, ref: 'user' }],
 },
-{
-    timestamps: true
-})
+    {
+        timestamps: true
+    })
 
 var ListModel = mongoose.model('lists', listSchema);
 
