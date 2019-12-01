@@ -36,7 +36,8 @@ module.exports.userRegistration = function(req, callback){
             d_o_b: req.d_o_b,
             password: req.password,
             email: req.email,
-            phone_no : req.phone_no
+            phone_no : req.phone_no,
+            handle : req.name+req.d_o_b
         });
 
              user.save()
