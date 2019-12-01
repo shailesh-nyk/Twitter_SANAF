@@ -33,7 +33,7 @@ var userSchema = new Schema({
   },
   avatar: {
     type: String,
-    default: null
+    default: "no-dp.png"
   },
   description: {
     type: String,
