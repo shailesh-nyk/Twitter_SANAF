@@ -53,6 +53,7 @@ export const createUserList = (payload) => {
         axios.post("/api/list", payload)
             .then(resp => {
                 dispatch(stopLoader());
+                dispatch(getUserLists());
                 if (resp.data.success) {
                     dispatch(setMessage({
                         msg: resp.data.msg,
