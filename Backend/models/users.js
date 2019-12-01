@@ -49,7 +49,12 @@ var userSchema = new Schema({
   },
   following: [{ type: Schema.ObjectId, ref: 'user' }],
   bookmarks: [],
-  lists: [{ type: Schema.ObjectId, ref: 'lists' }]
+  lists: [{ type: Schema.ObjectId, ref: 'lists' }],
+  accountStatus: {
+    type: String,
+    enum:['active','deactive'],
+    default:'active'
+  }
 },
   {
     timestamps: true

@@ -71,7 +71,7 @@ class Login extends Component {
       
       document.getElementById('login-msg-box').style.display = "block";
       document.getElementById('login-msg-box').className = 'alert-success mt-1 p-1 t-font-size-16';
-      document.getElementById('login-msg-box').innerHTML = "You Have Been Successfully Logged Out...";
+      document.getElementById('login-msg-box').innerHTML = "You have been Successfully Logged Out...";
       
      }
 
