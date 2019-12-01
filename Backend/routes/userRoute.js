@@ -54,7 +54,6 @@ router.get('/newsfeed', function(req, res) {
 })
 
 router.post('/follow', function(req, res) {
-  
   let request = {
     body: req.body,
     message: 'FOLLOW'
@@ -79,5 +78,17 @@ router.get('/following', function(req, res) {
   }
   kafka.make_request('user', request , res);
 })
+
+
+//GET BOOKMARKS 
+router.get('/bookmark', function(req, res) {
+  let user_id = jwt_decode(req.headers.authorization).id;
+  let request = {
+    body: { user_id : user_id },
+    message: 'GET_BOOKMARKS'
+  }
+  kafka.make_request('user', request , res);
+})
+
 
 module.exports = router;

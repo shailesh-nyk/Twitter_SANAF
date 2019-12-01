@@ -5,7 +5,7 @@ var userService = require('../services/user/user_service');
 var userFollow = require('../services/user/mongo_user_follow')
 var userUnfollow = require('../services/user/mongo_user_unfollow')
 var userFollowing = require('../services/user/mongo_user_fetch_following')
-
+var bookmarkService = require('../services/user/bookmarks_service');
 const messageServiceMap = {
     'USER_REGISTRATION' : userRegnService.userRegistration,
     'USER_LOGIN' : userLoginService.userLogin,
@@ -14,8 +14,8 @@ const messageServiceMap = {
     'GET_NEWS_FEED' : userService.getNewsFeed,
     'FOLLOW' : userFollow.follow,
     'UNFOLLOW': userUnfollow.unfollow,
-    'FOLLOWING' : userFollowing.getFollowing
-
+    'FOLLOWING' : userFollowing.getFollowing,
+    'GET_BOOKMARKS': bookmarkService.getBookmarks
 }
 
 module.exports.handleRequest = function(req, callback){

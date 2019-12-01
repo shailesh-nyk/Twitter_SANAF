@@ -4,7 +4,7 @@ var utils = require('../../middleware/utils');
 
 module.exports.postTweet = function(req, callback){
         let newTweet = new TweetModel({
-            user: req.user,
+            userId: req.user,
             text: req.text
         })
         newTweet.save(function (err, resp) {

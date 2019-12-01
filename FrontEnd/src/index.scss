@@ -3,6 +3,7 @@
 
 //COMPONENT STYLES
 @import '../src/app/components/loader/loader.scss';
+@import '../src/app/components/container-loader/container-loader.scss';
 @import '../src/app/components/messages/messages.scss';
 @import '../src//app/components/leftnav/leftnav.scss';
 @import '../src/app/components/conversationhead/conversationhead.scss';
@@ -23,6 +24,7 @@
 @import '../src/app/pages/tweet-view/tweet-view.scss';
 @import '../src/app/pages/search/search.scss';
 @import '../src/app/pages/messages/messages.scss';
+@import '../src/app/pages/hashtag/hashtag.scss';
 
 
 body {
@@ -44,7 +46,19 @@ i {
   margin-right: 6px;
 }
 
+::-webkit-scrollbar {
+  width: 6px;  /* for vertical scrollbars */
+  height: 6px; /* for horizontal scrollbars */
+}
 
+::-webkit-scrollbar-track {
+  background: rgba(56, 68, 77, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 68, 77, 0.5);
+  border-radius: 15px;
+}
 
 
 

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var kafka = require('../kafka/client');
+var jwt_decode = require('jwt-decode');
 
 //POST A NEW TWEET
 router.post('/', function(req, res) {
@@ -55,6 +56,38 @@ router.post('/comment', function(req, res) {
   let request = {
     body: req.body,
     message: 'COMMENTTWEET'
+  }
+  kafka.make_request('tweet', request , res);
+})
+
+
+//INCREMENT VIEW COUNT
+router.put('/view', function(req, res) {
+  console.log('INSIDE PUT ' + req.url);
+  let request = {
+    body: req.body,
+    message: 'INCREMENT_VIEW'
+  }
+  kafka.make_request('tweet', request , res);
+})
+
+//BOOKMARK A TWEET
+router.post('/bookmark', function(req, res) {
+  req.body['user_id'] = jwt_decode(req.headers.authorization).id;
+  let request = {
+    body: req.body, 
+    message: 'BOOKMARK_TWEET'
+  }
+  kafka.make_request('tweet', request , res);
+})
+
+//RETWEET
+router.post('/retweet', function(req, res) {
+  console.log('INSIDE POST ' + req.url);
+  req.body['user_id'] = jwt_decode(req.headers.authorization).id;
+  let request = {
+    body: req.body,
+    message: 'RETWEET'
   }
   kafka.make_request('tweet', request , res);
 })

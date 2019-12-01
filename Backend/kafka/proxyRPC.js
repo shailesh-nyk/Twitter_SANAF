@@ -1,6 +1,8 @@
 var userHandler = require('../topic_handlers/user_handler');
 var conversationHandler = require('../topic_handlers/conversation_handler');
 var tweetHandler = require('../topic_handlers/tweet_handler');
+var recommendationHandler = require('../topic_handlers/recommendation_handler');
+var hashtagHandler = require('../topic_handlers/hashtag_handler');
 
 
 module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
@@ -17,6 +19,12 @@ module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
             }
             case "tweet" : {
                 fname = tweetHandler.handleRequest ;  break; 
+            }
+            case "recommendation" : {
+                fname = recommendationHandler.handleRequest ;  break; 
+            }
+            case "hashtag" : {
+                fname = hashtagHandler.handleRequest ;  break; 
             }
             default: break;
         }
