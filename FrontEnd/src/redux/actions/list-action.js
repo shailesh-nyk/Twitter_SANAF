@@ -98,3 +98,61 @@ export const getListDetails = (payload) => {
             });
     }
 }
+
+export const removeUserFromList = (payload) => {
+    return (dispatch) => {
+        dispatch(startLoader());
+        axios.delete("/api/list" , { data: payload } )
+            .then(resp => {
+                dispatch(stopLoader());
+                if (resp.data.success) {
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'success'
+                    }))
+                } else {
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'danger'
+                    }))
+                }
+            }, err => {
+                dispatch(stopLoader());
+                dispatch(setMessage({
+                    msg: "Something went wrong",
+                    name: 'danger'
+                }))
+            });
+    }
+}
+
+
+export const editList = (payload) => {
+    return (dispatch) => {
+        dispatch(startLoader());
+        axios.put("/api/list" , payload )
+            .then(resp => {
+                dispatch(stopLoader());
+                if (resp.data.success) {
+                    dispatch(getListDetails({
+                        list_id: resp.data.payload._id
+                    }))
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'success'
+                    }))
+                } else {
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'danger'
+                    }))
+                }
+            }, err => {
+                dispatch(stopLoader());
+                dispatch(setMessage({
+                    msg: "Something went wrong",
+                    name: 'danger'
+                }))
+            });
+    }
+}
