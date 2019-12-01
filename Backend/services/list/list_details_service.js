@@ -6,13 +6,14 @@ var utils = require('../../middleware/utils');
 module.exports.getListDetails = function(req, callback){
      ListModel.findById(req.list_id)
     .lean()
-    .populate({path : "createdBy", select:'name handle avatar' })
+    .populate([{path : "createdBy", select:'name handle avatar' }, {path : "list", select:'name handle avatar' }])
     .exec()
     .then( resp => {
+        let userList = resp.list.map(list => list._id);
         var d = new Date();
         d.setDate(d.getDate() - 30);
         let search = {
-            "userId" : { $in : resp.list},
+            "userId" : { $in : userList},
             "postedOn" : { $gt : d }
         }
         TweetModel.find( search ,function (err, result) {
