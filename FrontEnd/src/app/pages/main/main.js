@@ -36,6 +36,14 @@ class Main extends React.Component {
             new_message: false
         })
     }
+    shouldRenderSearchPage = () => {
+        if (window.location.pathname.includes('/ui/messages')) {
+            return <div className="t-container-border" style={{ padding: '3rem' }}></div>
+        }
+        else {
+            return <Search />
+        }
+    }
     render() {
         return (
             <div className="t-app-container">
@@ -58,7 +66,7 @@ class Main extends React.Component {
                         </Switch>
                     </div>
                 </div>
-                {window.location.pathname.includes('/ui/messages') ? (<div className="t-container-border" style={{ padding: '3rem' }}></div>) : (<Search />)}
+                {this.shouldRenderSearchPage()}
                 <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.BOTTOM_CENTER} />
             </div>
         )

@@ -12,7 +12,8 @@ class Search extends React.Component {
         this.state = {
             value: '',
             suggestions: [],
-            redirectTo: null
+            redirectTo: null,
+            redirectHashtag: null
         }
         this.props.getRecommendation(this.props.user.id);
     }
@@ -50,7 +51,7 @@ class Search extends React.Component {
     }
     renderHashtagSuggestion(suggestion) {
         return (
-            <div data-id={suggestion._id} class="d-flex" onClick={(e) => { this.handleUserRedirect(e.currentTarget.dataset.id) }}>
+            <div data-id={suggestion._id} data-name={suggestion.name} class="d-flex" onClick={(e) => { this.handleHashtagRedirect(e.currentTarget.dataset) }}>
                 <div class="d-flex flex-column p-2 t-margin-left">
                     <small>Trending in US</small>
                     <span className="t-medium-text">#{suggestion.name}</span>
@@ -81,9 +82,11 @@ class Search extends React.Component {
             redirectTo: `/ui/hashtag/${id}`
         })
     }
-    handleHashtagRedirect = (id) => {
+    handleHashtagRedirect = (data) => {
+        debugger
         this.setState({
-            redirectTo: `/ui/hashtag/${id}`
+            redirectTo: `/ui/hashtag/${data.id}`,
+            redirectHashtag: data.name
         })
     }
     renderRecommendations = () => {
@@ -98,7 +101,7 @@ class Search extends React.Component {
                         <span>{user.name}</span>
                         <small> @{user.handle} </small>
                     </div>
-                    <button className="btn t-btn-follow" > follow </button>
+                    <button className="btn t-btn-follow" data-id={user._id} onClick={this.handleFollow}> follow </button>
                 </div>
             )
         }));
@@ -133,7 +136,10 @@ class Search extends React.Component {
     render() {
         if (this.state.redirectTo) {
             return (
-                <Redirect to={this.state.redirectTo} />
+                <Redirect to={{
+                    pathname: this.state.redirectTo,
+                    state: {hashtag : this.state.redirectHashtag}
+                }} />
             )
         }
         const { value } = this.state;
