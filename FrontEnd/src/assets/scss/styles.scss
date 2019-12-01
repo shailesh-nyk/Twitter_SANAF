@@ -139,3 +139,20 @@
    border: 1px solid $app-border;
    border-radius: 15px;
  }
+
+ //BOOTSTRAP TABS OVERRIDE 
+.nav-tabs {
+   .nav-item {
+      flex: 1 !important;
+      text-align: center;
+   }
+   .nav-link {
+      .active {
+         background-color: $app-hover-theme !important;
+      }
+   }
+}
+
+
+
+    

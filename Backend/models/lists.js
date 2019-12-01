@@ -6,7 +6,8 @@ var listSchema = new Schema({
     name: { type: String },
     list: [],  
     description: { type: String },
-    isPublic: {type: Boolean}
+    isPublic: {type: Boolean},
+    subscriberCount: {type: Number, default: 0}
 },
 {
     timestamps: true

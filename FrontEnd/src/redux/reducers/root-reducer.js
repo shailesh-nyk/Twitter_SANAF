@@ -10,6 +10,7 @@ import userReducer from './user-reducer';
 import userProfileReducer from './userProfileReducer';
 import recommendationReducer from './recommendation-reducer';
 import hashtagReducer from './hashtag-reducer';
+import listReducer from './list-reducer';
 
 import {
   RESET_ALL_STATE
@@ -25,7 +26,8 @@ const appReducer = combineReducers({
   newsFeedReducer,
   recommendationReducer,
   hashtagReducer,
-  userProfileReducer
+  userProfileReducer,
+  listReducer
 });
 
 const rootReducer = (state, action) => {
