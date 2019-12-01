@@ -36,12 +36,27 @@ var conversationRouter = require('./routes/conversation');
 var tweetRouter = require('./routes/tweet');
 var recommendationRouter = require('./routes/recommendation');
 var userRouter = require('./routes/userRoute');
+var graphRouter = require('./routes/graphsRoute');
 var hashtagRouter = require('./routes/hashtagRoute');
 var listRouter = require('./routes/list');
 
 app.use('/api', indexRouter);
 app.use('/conversation', conversationRouter);
 app.use('/api/tweet', tweetRouter);
+app.use('/user',userRouter)
+app.use('/graphs',graphRouter)
+
+let users = {};
+app.set('users',users);
+io.on('connection',function (socket) {
+  socket.on('openSocket', function(id) {
+    users[id] =  socket;
+    console.log('\033[2J');
+    console.log("------------------------");
+    console.log("User ",id," connected");
+    console.log("------------------------");
+});
+});
 app.use('/user',userRouter);
 app.use('/recommendation',recommendationRouter);
 app.use('/hashtag',hashtagRouter);
