@@ -2,9 +2,9 @@ var TweetModel = require('../../models/tweet');
 var UserModel = require('../../models/users');
 var utils = require('../../middleware/utils');
 
-module.exports.getTweet = function(req, callback){
+module.exports.getUsersTweets = function(req, callback){
     console.log(req.id)
-    TweetModel.where({ _id: req.id }).findOne(function (err, result) {
+    TweetModel.where({ userId: req.id }).find(function (err, result) {
     if (err) {
         callback(null, {
                 success: false,
@@ -13,10 +13,12 @@ module.exports.getTweet = function(req, callback){
         })
     }
     else if(result) {
-        result.set('timeElapsed', utils.getTimeElapsed(result.postedOn) , {strict: false});
-        result.comments.map(comment => {
+        for(i of result){
+         i.set('timeElapsed', utils.getTimeElapsed(i.postedOn) , {strict: false});
+         i.comments.map(comment => {
             comment.set('timeElapsed', utils.getTimeElapsed(comment.postedOn) , {strict: false});
-        })
+        }) 
+    }
         callback(null,{
             success: true,
             msg: "Successfully fetched the tweet" ,

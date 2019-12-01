@@ -8,7 +8,7 @@ import NewsFeed from './../newsfeed/newsfeed';
 import TweetView from './../tweet-view/tweet-view';
 import config from '../../../config/app-config';
 import Search from './../search/search';
-
+import Profile from '../../components/Profile/Profile'
 
 class Main extends React.Component {
     constructor(props) {
@@ -43,6 +43,7 @@ class Main extends React.Component {
                                 <Redirect to="/ui/newsfeed" />
                             )} />
                             <Route path="/ui/newsfeed" component={NewsFeed} />
+                            <Route path="/ui/profile" component={Profile} />
                             <Route path="/ui/messages" component={Messages} />
                             <Route path="/ui/tweet/:tweet_id" component={TweetView} />
                         </Switch>

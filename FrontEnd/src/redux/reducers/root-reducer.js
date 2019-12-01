@@ -7,7 +7,7 @@ import errorReducer from "./errorReducer";
 import successReducer from "./successReducer";
 import newsFeedReducer from './newsFeedReducer';
 import userReducer from './user-reducer';
-
+import userProfileReducer from './userProfileReducer';
 import {
     RESET_ALL_STATE
   } from "../../redux/actions/action-types";
@@ -19,7 +19,8 @@ const appReducer = combineReducers({
     auth: authReducer,
     errors: errorReducer,
     success: successReducer,
-    newsFeedReducer
+    newsFeedReducer,
+    userProfileReducer
 });
 
 const rootReducer = (state, action) => {

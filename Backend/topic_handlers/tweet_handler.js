@@ -3,7 +3,8 @@ const messageServiceMap = {
     'GETTWEET': require('../services/tweet/get_tweet_service').getTweet,
     'LIKETWEET': require('../services/tweet/like_tweet_service').likeTweet,
     'UNLIKETWEET': require('../services/tweet/like_tweet_service').unlikeTweet,
-    'COMMENTTWEET': require('../services/tweet/comment_tweet_service').commentTweet
+    'COMMENTTWEET': require('../services/tweet/comment_tweet_service').commentTweet,
+    'GETUSERSTWEETS': require('../services/tweet/get_users_tweets').getUsersTweets
 }
 
 module.exports.handleRequest = function(req, callback){
