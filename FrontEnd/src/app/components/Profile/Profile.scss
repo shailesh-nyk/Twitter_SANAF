@@ -1,0 +1,56 @@
+@import '../src/assets/scss/var.scss';
+@import '../src/assets/scss/styles.scss';
+
+.t-profile-container {
+    flex-direction: column;
+}
+.t-text-container {
+    display: flex;
+    flex-direction: row;   
+    color: $app-text
+}
+.t-wh-container {
+    width : 700px;
+    border-right: 1px solid $app-border;
+    border-left: 1px solid $app-border;
+}
+.form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+.t-textbox {
+    background-color: $app-bg;
+    border-color: $app-bg;
+    font-size: larger;
+    color: $app-text;
+    &:hover {
+        background-color: $app-bg; 
+        border-color: $app-bg;
+    }
+    &:focus {
+        background-color: $app-bg; 
+        border-color: $app-bg;
+        color: $app-text;
+    }
+}
+.t1-profile-img {
+    width : 150px;
+    height : 150px;
+    border-radius: 80px;
+}
+.t2-profile-img {
+    width : 80px;
+    height : 80px;
+    border-radius: 80px;
+}
+.t-favicon{
+    color: $app-theme;
+    padding-top:20px; 
+}
+.t-file-input{
+    display: none
+}
+
+
+

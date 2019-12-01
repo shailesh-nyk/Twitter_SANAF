@@ -3,6 +3,9 @@ var conversationHandler = require('../topic_handlers/conversation_handler');
 var tweetHandler = require('../topic_handlers/tweet_handler');
 var graphHandler = require('../topic_handlers/graph_handler');
 
+var recommendationHandler = require('../topic_handlers/recommendation_handler');
+var hashtagHandler = require('../topic_handlers/hashtag_handler');
+var listHandler = require('../topic_handlers/list_handler');
 
 module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
         let fname;
@@ -23,6 +26,15 @@ module.exports.handleTopicRequest = function(topic_name, payload, callback ) {
                 fname = graphHandler.handleRequest ;  break; 
             }
 
+            case "recommendation" : {
+                fname = recommendationHandler.handleRequest ;  break; 
+            }
+            case "hashtag" : {
+                fname = hashtagHandler.handleRequest ;  break; 
+            }
+            case "list" : {
+                fname = listHandler.handleRequest ;  break; 
+            }
             default: break;
         }
         fname(payload, callback);

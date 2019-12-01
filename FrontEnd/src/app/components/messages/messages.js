@@ -12,7 +12,7 @@ class Messages extends React.Component {
     render() {
         if(this.props.status.msg === '') {
             return ( 
-                <div className="g-alert-hidden"></div>
+                <div className="t-alert-hidden"></div>
             )
         } else {
             if(this.props.status.name === 'success') {
@@ -21,7 +21,7 @@ class Messages extends React.Component {
                 }, 3000)
             }
             return ( 
-                <div className={"alert g-alert-show g-alert-" + this.props.status.name + " alert-dismissible fade show"} role="alert">
+                <div className={"alert t-alert-show t-alert-" + this.props.status.name + " alert-dismissible fade show"} role="alert">
                 <strong>{this.props.status.msg}</strong>
                     <button type="button" className="close" aria-label="Close"
                         onClick={()=> this.props.dismissAlert()}>

@@ -17,34 +17,28 @@ module.exports.getHeads = function (req, callback) {
     //         });
     //     }
     //     else {
-            ConversationModel.find({ users: user_id }, (err, result) => {
-                if (err) {
-                    callback(null, {
-                        success: false,
-                        msg: "Something went wrong",
-                        msgDesc: err
-                    })
-                }
-                else if (result) {
-                    //redis.set("conversation_heads" + user_id, JSON.stringify(result));
-                    callback(null, {
-                        success: true,
-                        msg: "Successfully fetched the conversation heads",
-                        msgDesc: result
-                    })
-                }
-            }).populate('users messages.sender_id');
+    ConversationModel.find({ users: { $in: user_id } }, (err, result) => {
+        if (err) {
+            callback(null, {
+                success: false,
+                msg: "Something went wrong",
+                msgDesc: err
+            })
         }
+        else if (result) {
+            //redis.set("conversation_heads" + user_id, JSON.stringify(result));
+            callback(null, {
+                success: true,
+                msg: "Successfully fetched the conversation heads",
+                msgDesc: JSON.parse(JSON.stringify(result))
+            })
+        }
+    }).populate('users messages.sender_id');
+}
 
 //     })
 // };
 
-
-sendMessage = (socket, text) => {
-    console.log('\033[2J');
-    console.log('Messaged ', text, ' sent');
-    socket.emit('private', { message: text });
-}
 module.exports.send = function (req, callback) {
     let { users, message } = req;
     let messageObj = {
@@ -55,7 +49,7 @@ module.exports.send = function (req, callback) {
         users: users,
         messages: [messageObj]
     });
-    ConversationModel.findOne({ users: users }, (err, result) => {
+    ConversationModel.findOne({ users: { $in: users } }, (err, result) => {
         if (err) {
             callback(null, {
                 success: false,
@@ -93,10 +87,6 @@ module.exports.send = function (req, callback) {
             });
         }
     });
-
-    let receiverSocket = req.socket["userid"];
-    if (receiverSocket)
-        this.sendMessage(receiverSocket, message);
 };
 
 module.exports.createConvHead = function (req, callback) {

@@ -6,7 +6,7 @@ import config from '../../../config/app-config';
 class conversationhead extends React.Component {
     constructor(props) {
         super(props);
-        this.props.fetchConversationheads(this.props.user.id);
+        this.props.fetchConversationheads(this.props.user.id);   
     }
     filterConversation = (query) => {
         var updatedList = this.getUsers();
@@ -18,7 +18,7 @@ class conversationhead extends React.Component {
     }
     getUsers = () => {
         let users = [];
-        let user_id = this.props.user.id 
+        let user_id = this.props.user.id
         let propUsers = this.props.conversationheads;
         if (!window.$.isArray(propUsers)) {
             propUsers = [];
@@ -62,7 +62,7 @@ class conversationhead extends React.Component {
 const mapStateToProps = (state) => {
     return {
         conversationheads: state.conversationReducer.conversationheads,
-        user : state.auth.user
+        user: state.auth.user
 
     }
 }

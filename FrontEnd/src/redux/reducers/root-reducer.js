@@ -7,6 +7,9 @@ import errorReducer from "./errorReducer";
 import successReducer from "./successReducer";
 import newsFeedReducer from './newsFeedReducer';
 import userReducer from './user-reducer';
+import userProfileReducer from './userProfileReducer';
+import recommendationReducer from './recommendation-reducer';
+import hashtagReducer from './hashtag-reducer';
 
 import tweetsWithViewsReducer from "./tweetsWithViewsReducer";
 import tweetsWithLikesReducer from "./tweetsWithLikesReducer";
@@ -17,8 +20,8 @@ import tweetsFrequencyWiseHourlyReducer from "./tweetsFrequencyWiseHourlyReducer
 import tweetsWithProfileViewsReducer from "./tweetsWithProfileViewsReducer";
 
 import {
-    RESET_ALL_STATE
-  } from "../../redux/actions/action-types";
+  RESET_ALL_STATE
+} from "../../redux/actions/action-types";
 
 const appReducer = combineReducers({
     utilReducer,
@@ -36,14 +39,24 @@ const appReducer = combineReducers({
     tweetsWithProfileViews       : tweetsWithProfileViewsReducer, 
     newsFeedReducer,
 
+  utilReducer,
+  conversationReducer,
+  userReducer,
+  auth: authReducer,
+  errors: errorReducer,
+  success: successReducer,
+  newsFeedReducer,
+  recommendationReducer,
+  hashtagReducer,
+  userProfileReducer
 });
 
 const rootReducer = (state, action) => {
-    if (action.type === RESET_ALL_STATE) {
-      state = undefined;
-    }
-  
-    return appReducer(state, action);
-  };
+  if (action.type === RESET_ALL_STATE) {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
 
 export default rootReducer;

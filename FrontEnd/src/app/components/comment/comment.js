@@ -6,12 +6,14 @@ import config from '../../../config/app-config';
 class Comment extends React.Component { 
     constructor(props) {
         super(props);
+        console.log("in comment modal ")
+        console.log(this.props.data)
     }
     render() {
         return ( 
             <div className="t-tweet-container t-comment-container">
                 <div>
-                    <img class="t-tweet-avatar" style={{width: '50px'}} src={config.base + this.props.data.user.avatar}/>
+                    <img class="t-tweet-avatar" style={{width: '50px'}} src={config.image_server + this.props.data.user.avatar}/>
                 </div>
                 <div class="t-tweet-right">
                     <div>

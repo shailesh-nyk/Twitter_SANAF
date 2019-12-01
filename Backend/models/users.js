@@ -33,7 +33,7 @@ var userSchema = new Schema({
   },
   avatar: {
     type: String,
-    default: null
+    default: "no-dp.png"
   },
   description: {
     type: String,
@@ -47,7 +47,9 @@ var userSchema = new Schema({
     type: String,
     default: null
   },
-  following: [{ type: Schema.ObjectId, ref: 'user' }]
+  following: [{ type: Schema.ObjectId, ref: 'user' }],
+  bookmarks: [],
+  lists: []
 },
   {
     timestamps: true

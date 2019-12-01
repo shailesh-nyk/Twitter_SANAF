@@ -3,6 +3,7 @@ var UserModel = require('../../models/users');
 var utils = require('../../middleware/utils');
 
 module.exports.getTweet = function(req, callback){
+    console.log(req.id)
     TweetModel.where({ _id: req.id }).findOne(function (err, result) {
     if (err) {
         callback(null, {
@@ -16,6 +17,7 @@ module.exports.getTweet = function(req, callback){
         result.comments.map(comment => {
             comment.set('timeElapsed', utils.getTimeElapsed(comment.postedOn) , {strict: false});
         })
+        result.comments.reverse();
         callback(null,{
             success: true,
             msg: "Successfully fetched the tweet" ,

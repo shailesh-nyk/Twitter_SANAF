@@ -8,7 +8,6 @@ import Login from './components/login/login';
 import Main from './pages/main/main';
 import Loader from './components/loader/loader';
 import Messages from './components/messages/messages';
-
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../config/setAuthToken";
 import { setCurrentUser, logoutUser } from "../redux/actions/authActions";

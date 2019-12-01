@@ -3,6 +3,7 @@
 
 //COMPONENT STYLES
 @import '../src/app/components/loader/loader.scss';
+@import '../src/app/components/container-loader/container-loader.scss';
 @import '../src/app/components/messages/messages.scss';
 @import '../src//app/components/leftnav/leftnav.scss';
 @import '../src/app/components/conversationhead/conversationhead.scss';
@@ -12,6 +13,7 @@
 @import '../src/app/components/signUp/signUp.scss';
 @import '../src/app/components/login/login.scss';
 @import '../src/app/components/userSearch-modal/userSearch-modal.scss';
+@import '../src/app/components/Profile/Profile.scss';
 
 
 
@@ -25,6 +27,7 @@
 @import '../src/app/pages/tweet-view/tweet-view.scss';
 @import '../src/app/pages/search/search.scss';
 @import '../src/app/pages/messages/messages.scss';
+@import '../src/app/pages/hashtag/hashtag.scss';
 
 
 body {

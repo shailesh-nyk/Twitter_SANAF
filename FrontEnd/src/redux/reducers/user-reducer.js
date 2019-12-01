@@ -1,7 +1,8 @@
-import { FOLLOWING } from "../actions/action-types";
+import { FOLLOWING, SET_BOOKMARKS } from "../actions/action-types";
 
 const initialState = {
-    following: []
+    following: [],
+    bookmarks: null
 };
 
 export default function (state = initialState, action) {
@@ -10,6 +11,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 following: action.following
+            }
+        case SET_BOOKMARKS: 
+            return {
+                ...state,
+                bookmarks: action.payload
             }
         default:
             return state;

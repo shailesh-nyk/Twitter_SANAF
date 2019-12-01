@@ -27,21 +27,36 @@ export const fetchConversationheads = (id) => {
 
 export const sendmessage = (message_payload) => {
     return (dispatch) => {
-        axios.post("http://localhost:8000/conversation/save", {
+        axios.post(config.image_server + "send", {
             message: message_payload.message,
-            users: message_payload.users,
+            reciever_id: message_payload.users[1],
         },
             { withCredentials: false })
             .then(function (response) {
-                if (response.data.success) {
-                    dispatch(fetchConversationheads(message_payload.users[0]));
-                }
+                saveMessage(message_payload, dispatch);
             })
             .catch(function (error) {
 
             });
 
     }
+}
+
+const saveMessage = (message_payload, dispatch) => {
+    axios.post("http://localhost:8000/conversation/save", {
+        message: message_payload.message,
+        users: message_payload.users,
+    },
+        { withCredentials: false })
+        .then(function (response) {
+            if (response.data.success) {
+                dispatch(fetchConversationheads(message_payload.users[0]))
+            }
+        })
+        .catch(function (error) {
+
+        });
+
 }
 
 export const createConvHead = (message_payload) => {

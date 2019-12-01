@@ -4,11 +4,9 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 const app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
 var db_config = require('./config/db_config');
 var db_config_mysql = require('./config/db_config_mysql');
 
-app.set('socketio', io);
 db_config.connectDB();
 
 app.use(function(req, res, next) {
@@ -36,9 +34,11 @@ var requireAuth = passport.authenticate('jwt', {session: false});
 var indexRouter = require('./routes/index');
 var conversationRouter = require('./routes/conversation');
 var tweetRouter = require('./routes/tweet');
-
+var recommendationRouter = require('./routes/recommendation');
 var userRouter = require('./routes/userRoute');
 var graphRouter = require('./routes/graphsRoute');
+var hashtagRouter = require('./routes/hashtagRoute');
+var listRouter = require('./routes/list');
 
 app.use('/api', indexRouter);
 app.use('/conversation', conversationRouter);
@@ -57,5 +57,10 @@ io.on('connection',function (socket) {
     console.log("------------------------");
 });
 });
+app.use('/user',userRouter);
+app.use('/recommendation',recommendationRouter);
+app.use('/hashtag',hashtagRouter);
+app.use('/api/list', listRouter);
+
 
 module.exports = app;
