@@ -110,8 +110,12 @@ export const logoutUser = (history) => dispatch => {
   dispatch({
     type: RESET_ALL_STATE
   });
-  console.log("History in func ",history);
-  history.push("/login");
+
+  //history.push("/login");
+  history.push({
+    pathname: '/login',
+    comingFrom: 'logout'
+  })
 
 };
 
