@@ -100,7 +100,7 @@ export const setUserLoading = () => {
 };
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = (history) => dispatch => {
   // Remove token from local storage
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests
@@ -110,7 +110,9 @@ export const logoutUser = () => dispatch => {
   dispatch({
     type: RESET_ALL_STATE
   });
-  
+  console.log("History in func ",history);
+  history.push("/login");
+
 };
 
 /* // Reset All State

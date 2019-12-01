@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
-import {logoutUser} from "../../../redux/actions/authActions"
+import { Link,withRouter } from "react-router-dom";
+import {logoutUser} from "../../../redux/actions/authActions";
+import PropTypes from "prop-types";
 
 class LeftNav extends React.Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class LeftNav extends React.Component {
 
     onLogoutClick = e => {
         e.preventDefault();
-        this.props.logoutUser();
+        this.props.logoutUser(this.props.history);
       };
 
     render() {
@@ -44,9 +45,17 @@ class LeftNav extends React.Component {
         )
     }
 }
+
+LeftNav.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+  };
+
 const mapStateToProps = state => {
     return {
+        user: state.auth.user
     }
 }
 
-export default connect(mapStateToProps,{logoutUser})(LeftNav);
+export default connect(mapStateToProps,{logoutUser})(withRouter(LeftNav));
