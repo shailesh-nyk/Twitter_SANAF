@@ -10,6 +10,7 @@ import Search from './../search/search';
 import BookMarks from './../bookmarks/bookmarks';
 import HashTagView from './../hashtag/hashtag';
 import { ToastsContainer, ToastsStore,ToastsContainerPosition } from 'react-toasts';
+import Profile from '../../components/Profile/Profile'
 
 class Main extends React.Component {
     constructor(props) {
@@ -45,6 +46,7 @@ class Main extends React.Component {
                                 <Redirect to="/ui/newsfeed" />
                             )} />
                             <Route path="/ui/newsfeed" component={NewsFeed} />
+                            <Route path="/ui/profile" component={Profile} />
                             <Route path="/ui/messages" component={Messages} />
                             <Route path="/ui/tweet/:tweet_id" component={TweetView} />
                             <Route path="/ui/bookmark" component={BookMarks} />

@@ -10,6 +10,7 @@ import userReducer from './user-reducer';
 import recommendationReducer from './recommendation-reducer';
 import hashtagReducer from './hashtag-reducer';
 
+import userProfileReducer from './userProfileReducer';
 import {
   RESET_ALL_STATE
 } from "../../redux/actions/action-types";
@@ -23,7 +24,9 @@ const appReducer = combineReducers({
   success: successReducer,
   newsFeedReducer,
   recommendationReducer,
-  hashtagReducer
+  hashtagReducer,
+   
+    userProfileReducer
 });
 
 const rootReducer = (state, action) => {
