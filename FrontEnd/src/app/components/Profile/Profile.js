@@ -68,24 +68,22 @@ class Profile extends Component {
     
     return (
       <React.Fragment>
-        
-      
-      <div className="t-wh-container">
-            <div className="t-top-nav" >{this.state.name}</div>
+      <div>
+            <div className="t-topnav-container" >{this.state.name}</div>
             <div className="t-nf-container">
             <div className="t-text-container" > 
                     {/* change image with current user image    */}
                     <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
                     <input className="t-textbox form-control"  type="text" id="text"/>
-                    </div>
+            </div>
                    
-                    <div className="t-tweet-right">
+            <div className="t-tweet-right">
                 {/* <label for="tweetImage">
                     <i class="fa fa-picture-o fa-lg t-favicon"></i> 
                     <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
                 </label> */}
                 <button className="t-rounded-button" data-toggle="modal" data-target="#profileModal" > Edit Profile</button>
-                </div>
+            </div>
                 <div>
                         {this.state.name}
                     </div>
@@ -96,8 +94,8 @@ class Profile extends Component {
                         66 Following 19 Followers
                     </div>
              </div>  
-                                <ProfileModal data={this.state.profile}></ProfileModal> 
-                   <ProfileTweets></ProfileTweets>             
+              <ProfileModal data={this.state.profile}></ProfileModal> 
+              <ProfileTweets></ProfileTweets>             
       </div>
       </React.Fragment>
     );
