@@ -116,7 +116,7 @@ class Dashboard extends Component {
       },
       
       tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       credits: {
         enabled: false
@@ -170,7 +170,7 @@ class Dashboard extends Component {
       },
       
       tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       credits: {
         enabled: false
