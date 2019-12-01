@@ -49,7 +49,7 @@ var userSchema = new Schema({
   },
   following: [{ type: Schema.ObjectId, ref: 'user' }],
   bookmarks: [],
-  lists: []
+  lists: [{ type: Schema.ObjectId, ref: 'lists' }]
 },
   {
     timestamps: true

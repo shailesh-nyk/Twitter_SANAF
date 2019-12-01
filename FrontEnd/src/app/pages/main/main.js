@@ -11,6 +11,8 @@ import Profile from '../../components/Profile/Profile'
 import BookMarks from './../bookmarks/bookmarks';
 import HashTagView from './../hashtag/hashtag';
 import { ToastsContainer, ToastsStore,ToastsContainerPosition } from 'react-toasts';
+import List from './../list/list';
+import ListView from './../list-view/list-view';
 
 class Main extends React.Component {
     constructor(props) {
@@ -34,6 +36,14 @@ class Main extends React.Component {
             new_message: false
         })
     }
+    shouldRenderSearchPage = () => {
+        if (window.location.pathname.includes('/ui/messages')) {
+            return <div className="t-container-border" style={{ padding: '3rem' }}></div>
+        }
+        else {
+            return <Search />
+        }
+    }
     render() {
         return (
             <div className="t-app-container">
@@ -51,10 +61,12 @@ class Main extends React.Component {
                             <Route path="/ui/tweet/:tweet_id" component={TweetView} />
                             <Route path="/ui/bookmark" component={BookMarks} />
                             <Route path="/ui/hashtag/:hashtag_id" component={HashTagView} />
+                            <Route path="/ui/list" component={List} />
+                            <Route path="/ui/listview/:list_id" component={ListView} />
                         </Switch>
                     </div>
                 </div>
-                {window.location.pathname.includes('/ui/messages') ? (<div className="t-container-border" style={{ padding: '3rem' }}></div>) : (<Search />)}
+                {this.shouldRenderSearchPage()}
                 <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.BOTTOM_CENTER} />
             </div>
         )
