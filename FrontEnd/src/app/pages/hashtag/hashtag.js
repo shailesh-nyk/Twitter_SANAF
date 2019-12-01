@@ -6,14 +6,16 @@ import { getNewsFeed } from './../../../redux/actions/hashtag-action';
 class HashTag extends React.Component {
     constructor(props) {
         super(props);
+        
     }
     componentWillMount() {
         this.props.getNewsFeed(this.props.match.params.hashtag_id);
+        
     }
     render() {
         return (
             <div>
-                <div className="t-topnav-container">Home</div>
+                <div className="t-topnav-container"> {this.props.location.state && `#`+this.props.location.state.hashtag} </div>
                 {this.props.newsFeed && this.props.newsFeed.map(tweet => {
                     return <Tweet tweet={tweet} />
                 })}

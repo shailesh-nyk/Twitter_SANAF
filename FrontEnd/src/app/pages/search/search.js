@@ -11,8 +11,7 @@ class Search extends React.Component {
         super(props);
         this.state = {
             value: '',
-            suggestions: [],
-            redirectTo: null
+            suggestions: []
         }
         this.props.getRecommendation(this.props.user.id);
     }
@@ -33,6 +32,9 @@ class Search extends React.Component {
         if (suggestion.hasOwnProperty('tweets')) {
             return this.renderHashtagSuggestion(suggestion);
         }
+        else if (suggestion.hasOwnProperty('list')) {
+            return this.renderListSuggestion(suggestion);
+        }
         else {
             return this.renderUserSuggestion(suggestion);
         }
@@ -50,11 +52,21 @@ class Search extends React.Component {
     }
     renderHashtagSuggestion(suggestion) {
         return (
-            <div data-id={suggestion._id} class="d-flex" onClick={(e) => { this.handleUserRedirect(e.currentTarget.dataset.id) }}>
+            <div data-id={suggestion._id} data-name={suggestion.name} class="d-flex" onClick={(e) => { this.handleHashtagRedirect(e.currentTarget.dataset) }}>
                 <div class="d-flex flex-column p-2 t-margin-left">
                     <small>Trending in US</small>
                     <span className="t-medium-text">#{suggestion.name}</span>
                     <small>{suggestion.tweets.length} Tweets</small>
+                </div>
+            </div>
+        );
+    }
+    renderListSuggestion(suggestion) {
+        return (
+            <div data-id={suggestion._id} data-name={suggestion.name} class="d-flex" onClick={(e) => { this.handleListRedirect(e.currentTarget.dataset.id) }}>
+                <div class="d-flex flex-column p-2 t-margin-left">
+                    <span className="t-medium-text">{suggestion.name}</span>
+                    <small>{suggestion.description}</small>
                 </div>
             </div>
         );
@@ -77,14 +89,13 @@ class Search extends React.Component {
         // });
     };
     handleUserRedirect = (id) => {
-        this.setState({
-            redirectTo: `/ui/hashtag/${id}`
-        })
+        this.props.redirect({pathname :`/ui/userprofile/${id}`});
     }
-    handleHashtagRedirect = (id) => {
-        this.setState({
-            redirectTo: `/ui/hashtag/${id}`
-        })
+    handleHashtagRedirect = (data) => {
+        this.props.redirect({pathname :`/ui/hashtag/${data.id}`, state : { hashtag : data.name}});
+    }
+    handleListRedirect = (id) => {
+        this.props.redirect({pathname :`/ui/listview/${id}`});
     }
     renderRecommendations = () => {
         let users = this.props.recommendation.slice(0, 2);
@@ -98,7 +109,7 @@ class Search extends React.Component {
                         <span>{user.name}</span>
                         <small> @{user.handle} </small>
                     </div>
-                    <button className="btn t-btn-follow" > follow </button>
+                    <button className="btn t-btn-follow" data-id={user._id} onClick={this.handleFollow}> follow </button>
                 </div>
             )
         }));
@@ -131,11 +142,6 @@ class Search extends React.Component {
         this.props.followUser(this.props.user.id, event.target.dataset.id);
     }
     render() {
-        if (this.state.redirectTo) {
-            return (
-                <Redirect to={this.state.redirectTo} />
-            )
-        }
         const { value } = this.state;
         const inputProps = {
             placeholder: 'Search Twitter',

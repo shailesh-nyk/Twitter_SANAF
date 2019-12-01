@@ -71,6 +71,7 @@ router.post('/unfollow', function(req, res) {
 })
 
 router.get('/following', function(req, res) {
+  console.log(req.query)
   let request = {
     body: req.query,
     message: 'FOLLOWING'
@@ -89,5 +90,12 @@ router.get('/bookmark', function(req, res) {
   kafka.make_request('user', request , res);
 })
 
+router.put('/deactivateAccount', function(req, res) {
+  let request = {
+    body: req.query,
+    message: 'USER_ACCOUNT_DEACTIVATE'
+  }
+  kafka.make_request('user', request , res);
+});
 
 module.exports = router;

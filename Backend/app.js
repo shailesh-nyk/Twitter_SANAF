@@ -36,14 +36,19 @@ var conversationRouter = require('./routes/conversation');
 var tweetRouter = require('./routes/tweet');
 var recommendationRouter = require('./routes/recommendation');
 var userRouter = require('./routes/userRoute');
+var graphRouter = require('./routes/graphsRoute');
 var hashtagRouter = require('./routes/hashtagRoute');
+var listRouter = require('./routes/list');
 
 app.use('/api', indexRouter);
 app.use('/conversation', conversationRouter);
 app.use('/api/tweet', tweetRouter);
+app.use('/user',userRouter)
+app.use('/graphs',graphRouter)
 app.use('/user',userRouter);
 app.use('/recommendation',recommendationRouter);
 app.use('/hashtag',hashtagRouter);
+app.use('/api/list', listRouter);
 
 
 module.exports = app;

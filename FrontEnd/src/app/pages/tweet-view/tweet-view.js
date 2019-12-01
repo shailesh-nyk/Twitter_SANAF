@@ -54,7 +54,7 @@ class TweetView extends React.Component {
       
     }
     goBack() {
-        if(this.props.location.state.prev) {
+        if(this.props.location.state && this.props.location.state.prev) {
             this.props.history.push(this.props.location.state.prev);
         } else {
             this.props.history.goBack();
