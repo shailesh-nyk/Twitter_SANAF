@@ -213,7 +213,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getUserProfile: (_id) => dispatch(getUserProfile(_id)),
         followUser: (id, target_id) => dispatch(followUser(id, target_id)),
-        unFollowUser: (id, target_id) => dispatch(unFollowUser(id, target_id))
+        unFollowUser: (id, target_id) => dispatch(unFollowUser(id, target_id)),
         fetchFollowing:(history)    => dispatch(fetchFollowing(history)),
         fetchFollowedBy:(history)    => dispatch(fetchFollowedBy(history))
     };
