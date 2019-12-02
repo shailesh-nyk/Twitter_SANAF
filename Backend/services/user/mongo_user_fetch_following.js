@@ -1,8 +1,8 @@
 const UserModel = require('../../models/users');
 
 module.exports.getFollowing = function (req, callback) {
-    const  id  = "5dd302ad593b6b48581b886a";//req.id;
-    console.log(id);
+    const  id  = req.id;
+    //console.log("Request Body ",req);
     UserModel.findById(id,
         function (err, model) {
             let result = {"success":true, msg:"Following....",result:model.following}
@@ -21,7 +21,7 @@ module.exports.getFollowers = function (req, callback) {
     ).lean();
 
 module.exports.getFollowedBy = function (req, callback) {
-    const  id  = "5dd302ad593b6b48581b886a";//req.id;
+    const  id  = req.id;
     console.log(id);
     UserModel.findById(id,
         function (err, model) {

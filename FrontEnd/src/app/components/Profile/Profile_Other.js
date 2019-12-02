@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import TopNav from '../login/topNav';
-import { getUserProfile } from './../../../redux/actions/userProfile-action';
+import { getUserProfile,fetchFollowing,fetchFollowedBy } from './../../../redux/actions/userProfile-action';
 import config from '../../../config/app-config';
 import ProfileModal from "./ProfileModal";
 import Profile_Other_Tweets from './Profile_Other_Tweets'
@@ -35,7 +35,10 @@ class Profile_Other extends Component {
         if(null != this.props.match.params.profile_id) {
             this.props.getUserProfile(this.props.match.params.profile_id);
            
-        }  
+        }
+        
+             this.props.fetchFollowing(this.props.history);
+             this.props.fetchFollowedBy(this.props.history);
     } 
        
     componentWillReceiveProps(nextProps) {
@@ -83,7 +86,7 @@ class Profile_Other extends Component {
                     <i class="fa fa-picture-o fa-lg t-favicon"></i> 
                     <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
                 </label> */}
-                            <button className="btn btn-primary t-rounded-button" data-toggle="modal" data-target="#profileModal" > Edit Profile</button>
+                            {/* <button className="btn btn-primary t-rounded-button" data-toggle="modal" data-target="#profileModal" > Edit Profile</button> */}
                         </div>
                         
                         <div>
@@ -93,7 +96,15 @@ class Profile_Other extends Component {
                             {this.state.avatar}
                         </div>
                         <div>
-                            66 Following 19 Followers
+                        { 
+                             this.props.following.hasOwnProperty("result") &&
+                             this.props.following.result.length
+                             } Following 
+                             &nbsp;
+                             { 
+                             this.props.followedBy.hasOwnProperty("result") &&
+                             this.props.followedBy.result.length
+                             } Followers
                     </div>
                     </div>
                     <ProfileModal data={this.state.profile}></ProfileModal>
@@ -167,12 +178,16 @@ class Profile_Other extends Component {
 const mapStateToProps = state => {
     return {
         userProfile: state.userProfileReducer.userProfile,
-        user: state.auth.user
+        user: state.auth.user,
+        following : state.following,
+        followedBy : state.followedBy,
     }
 };
 const mapDispatchToProps = dispatch => {
     return {
-        getUserProfile: (_id) => dispatch(getUserProfile(_id))
+        getUserProfile: (_id) => dispatch(getUserProfile(_id)),
+        fetchFollowing:(history)    => dispatch(fetchFollowing(history)),
+        fetchFollowedBy:(history)    => dispatch(fetchFollowedBy(history))
     };
 }
 

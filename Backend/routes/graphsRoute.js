@@ -64,7 +64,7 @@ router.get('/tweets_frequency_wise_hourly', function(req, res) {
 router.get('/tweets_with_profile_views', function(req, res) {
   
   let request = {
-    body: req.body,
+    body: req.user,
     message: 'TWEETS_WITH_PROFILE_VIEWS'
   }
   kafka.make_request('graphs', request , res);
