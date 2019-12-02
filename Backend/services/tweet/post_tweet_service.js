@@ -19,22 +19,24 @@ module.exports.postTweet = function(req, callback){
                     payload: err
                 })
             } else{
-            invalidateRedis(req.user, resp, callback);   
+                invalidateRedis(req.user);
+                callback(null,{
+                    success: true,
+                    msg: "Posted the tweet successfully!",
+                    payload: resp
+                }) 
         }
         }); 
 };
 
-function invalidateRedis(id, resp, callback) {
+function invalidateRedis(id) {
     userService.getFollowers({id: id}, function(err, res) {
         let followers = JSON.parse(JSON.stringify(res));
         if(followers.length > 0) {
-                redis.del(followers, (err, o)=> {
-                    callback(null,{
-                        success: true,
-                        msg: "Posted the tweet successfully!",
-                        payload: resp
-                    }) 
-                })
+            redis.del(followers, (err, o)=> {
+                if(err) console.log("===============REDIS error while invalidating Cache");
+                else console.log("==================REDIS Cache cleared for " + o + "  records");
+            })
         }
     })
 }

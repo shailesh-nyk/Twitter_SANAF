@@ -41,33 +41,38 @@ class Search extends React.Component {
     }
     renderUserSuggestion(suggestion) {
         return (
-            <div data-id={suggestion._id} class="d-flex" onClick={(e) => { this.handleUserRedirect(e.currentTarget.dataset.id) }}>
-                <img src={config.image_server + suggestion.avatar} alt="Avatar" class="t-conversationhead-avatar t-margin-right" />
-                <div class="d-flex flex-column p-2 t-margin-left" style={{ "textDecoration": "none" }}>
-                    <span className="t-medium-text">{suggestion.name}</span>
-                    <small> @{suggestion.handle} </small>
+            <div data-id={suggestion._id} class="d-flex align-items-center justify-content-between" onClick={(e) => { this.handleUserRedirect(e.currentTarget.dataset.id) }}>
+                <div class="d-flex align-items-center">
+                    <img src={config.image_server + suggestion.avatar} alt="Avatar" class="t-conversationhead-avatar mr-2 p-2" />
+                    <div class="d-flex flex-column" style={{ "textDecoration": "none" }}>
+                        <span>{suggestion.name}</span>
+                        <small> @{suggestion.handle} </small>
+                    </div>
                 </div>
+                <span class="badge badge-primary">user</span>
             </div>
         );
     }
     renderHashtagSuggestion(suggestion) {
         return (
-            <div data-id={suggestion._id} data-name={suggestion.name} class="d-flex" onClick={(e) => { this.handleHashtagRedirect(e.currentTarget.dataset) }}>
+            <div data-id={suggestion._id} data-name={suggestion.name} class="d-flex align-items-center" onClick={(e) => { this.handleHashtagRedirect(e.currentTarget.dataset) }}>
                 <div class="d-flex flex-column p-2 t-margin-left">
                     <small>Trending in US</small>
-                    <span className="t-medium-text">#{suggestion.name}</span>
+                    <span className="t-medium-text t-primary-bold">#{suggestion.name}</span>
                     <small>{suggestion.tweets.length} Tweets</small>
                 </div>
+                <span class="badge badge-info">#tag</span>
             </div>
         );
     }
     renderListSuggestion(suggestion) {
         return (
-            <div data-id={suggestion._id} data-name={suggestion.name} class="d-flex" onClick={(e) => { this.handleListRedirect(e.currentTarget.dataset.id) }}>
-                <div class="d-flex flex-column p-2 t-margin-left">
+            <div data-id={suggestion._id} data-name={suggestion.name} class="d-flex align-items-center justify-content-between" onClick={(e) => { this.handleListRedirect(e.currentTarget.dataset.id) }}>
+                <div class="d-flex flex-column p-2">
                     <span className="t-medium-text">{suggestion.name}</span>
                     <small>{suggestion.description}</small>
                 </div>
+                <span class="badge badge-warning">list</span>
             </div>
         );
     }
@@ -103,13 +108,13 @@ class Search extends React.Component {
         ret.push(<p className="list-group-item list-group-item-action t-recommendation-title"> Who to follow</p>);
         ret.push(users.map((user) => {
             return (
-                <div data-id={user._id} class="t-recommendation d-flex p-2">
-                    <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar t-margin-right" />
+                <div data-id={user._id} class="t-recommendation d-flex p-2 align-items-center">
+                    <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar p-2" />
                     <div class="d-flex flex-column p-2">
                         <span>{user.name}</span>
                         <small> @{user.handle} </small>
                     </div>
-                    <button className="btn t-btn-follow" data-id={user._id} onClick={this.handleFollow}> follow </button>
+                    <button className="btn t-btn-follow p-2" data-id={user._id} onClick={this.handleFollow}> Follow </button>
                 </div>
             )
         }));
@@ -127,13 +132,13 @@ class Search extends React.Component {
         let users = this.props.recommendation.slice(5);
         return users.map((user) => {
             return (
-                <div class="t-recommendation d-flex p-2">
-                    <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar t-margin-right" />
+                <div class="t-recommendation d-flex p-2 align-items-center">
+                    <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar p-2" />
                     <div class="d-flex flex-column p-2">
                         <span>{user.name}</span>
                         <small> @{user.handle} </small>
                     </div>
-                    <button className="btn t-btn-follow" data-id={user._id} onClick={this.handleFollow}> follow </button>
+                    <button className="btn t-btn-follow p-2" data-id={user._id} onClick={this.handleFollow}> Follow </button>
                 </div>
             )
         })
