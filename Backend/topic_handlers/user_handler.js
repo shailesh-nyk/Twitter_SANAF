@@ -16,6 +16,7 @@ const messageServiceMap = {
     'FOLLOW' : userFollow.follow,
     'UNFOLLOW': userUnfollow.unfollow,
     'FOLLOWING' : userFollowing.getFollowing,
+    'FOLLOWED_BY' : userFollowing.getFollowedBy,
     'GET_BOOKMARKS': bookmarkService.getBookmarks,
     'USER_ACCOUNT_DEACTIVATE' : userAccountDeactivate.deactivateAccount,
     'USER_VIEW_INCREMENT' : userProfileService.incrementViewCount
