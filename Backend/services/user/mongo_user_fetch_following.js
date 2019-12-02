@@ -19,6 +19,8 @@ module.exports.getFollowers = function (req, callback) {
             callback(null, model.followedBy);
         }
     ).lean();
+}
+
 
 module.exports.getFollowedBy = function (req, callback) {
     const  id  = req.id;
