@@ -15,6 +15,8 @@ import List from './../list/list';
 import ListView from './../list-view/list-view';
 import PropTypes from "prop-types";
 import Profile_Other from '../../components/Profile/Profile_Other';
+import { getNewsFeed } from './../../../redux/actions/newsfeed-action';
+
 
 class Main extends React.Component {
     constructor(props) {
@@ -24,8 +26,8 @@ class Main extends React.Component {
         }
         config.socket.emit("openSocket", this.props.user.id);
         config.listen(config.socket, this.showNotification);
+        config.listenNewsfeed(config.socket, this.reloadNewsFeed);
     }
-
 
     componentDidMount(){
        
@@ -45,6 +47,12 @@ class Main extends React.Component {
         this.setState({
             new_message: true
         })
+    }
+    reloadNewsFeed = () => {
+        let audio = new Audio("https://cdnjs.cloudflare.com/ajax/libs/ion-sound/3.0.7/sounds/bell_ring.mp3");
+        audio.play();
+        this.props.getNewsFeed();
+        ToastsStore.info("Feed reloaded");
     }
     reset = () => {
         this.setState({
@@ -105,6 +113,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
+        getNewsFeed: () => dispatch(getNewsFeed()),
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
