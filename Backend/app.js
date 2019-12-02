@@ -41,14 +41,14 @@ var hashtagRouter = require('./routes/hashtagRoute');
 var listRouter = require('./routes/list');
 
 app.use('/api', indexRouter);
-app.use('/conversation', conversationRouter);
-app.use('/api/tweet', tweetRouter);
-app.use('/user',userRouter)
-app.use('/graphs',graphRouter)
+app.use('/conversation',requireAuth, conversationRouter);
+app.use('/api/tweet',requireAuth, tweetRouter);
+//app.use('/user',userRouter)
+app.use('/graphs',requireAuth,graphRouter)
 app.use('/user',userRouter);
-app.use('/recommendation',recommendationRouter);
-app.use('/hashtag',hashtagRouter);
-app.use('/api/list', listRouter);
+app.use('/recommendation',requireAuth,recommendationRouter);
+app.use('/hashtag',requireAuth,hashtagRouter);
+app.use('/api/list',requireAuth, listRouter);
 
 
 module.exports = app;
