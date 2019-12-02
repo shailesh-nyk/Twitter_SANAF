@@ -3,6 +3,12 @@
     padding: 20px;
     border-left: 1px solid $app-border;
 }
+.react-autosuggest__suggestions-container--open {
+    margin-right: 22px !important; 
+}
+.react-autosuggest__suggestion {
+    border-bottom: 1px solid $app-border;
+}
 .t-rec-container{
     height: 300px;
     overflow: auto;

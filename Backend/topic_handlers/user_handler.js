@@ -7,6 +7,7 @@ var userUnfollow = require('../services/user/mongo_user_unfollow')
 var userFollowing = require('../services/user/mongo_user_fetch_following')
 var bookmarkService = require('../services/user/bookmarks_service');
 var userAccountDeactivate = require('../services/user/mongo_user_deactivation_service');
+
 const messageServiceMap = {
     'USER_REGISTRATION' : userRegnService.userRegistration,
     'USER_LOGIN' : userLoginService.userLogin,
