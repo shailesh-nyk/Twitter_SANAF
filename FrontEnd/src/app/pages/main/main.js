@@ -8,6 +8,7 @@ import NewsFeed from './../newsfeed/newsfeed';
 import TweetView from './../tweet-view/tweet-view';
 import config from '../../../config/app-config';
 import Search from './../search/search';
+import Explore from './../explore/explore';
 
 
 class Main extends React.Component {
@@ -43,6 +44,7 @@ class Main extends React.Component {
                                 <Redirect to="/ui/newsfeed" />
                             )} />
                             <Route path="/ui/newsfeed" component={NewsFeed} />
+                            <Route path="/ui/explore" component={Explore} /> 
                             <Route path="/ui/messages" component={Messages} />
                             <Route path="/ui/tweet/:tweet_id" component={TweetView} />
                         </Switch>
