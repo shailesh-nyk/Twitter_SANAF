@@ -8,7 +8,7 @@ module.exports.follow = function (req, callback) {
         { safe: true, upsert: true, new: true },
         function (err, model) {
 
-            console.log("Hello",model);
+         //   console.log("Hello",model);
             _id = follow_id;
             
             UserModel.findByIdAndUpdate(

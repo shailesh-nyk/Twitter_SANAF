@@ -98,4 +98,12 @@ router.put('/deactivateAccount', function(req, res) {
   kafka.make_request('user', request , res);
 });
 
+router.post('/incrementViewCount', function(req,res) {
+  console.log('ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
+  let request = {
+    body: req.body,
+    message: 'USER_VIEW_INCREMENT'
+  }
+  kafka.make_request('user', request , res);
+});
 module.exports = router;

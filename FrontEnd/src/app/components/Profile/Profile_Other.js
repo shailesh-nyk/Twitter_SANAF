@@ -7,10 +7,11 @@ import TopNav from '../login/topNav';
 import { getUserProfile } from './../../../redux/actions/userProfile-action';
 import config from '../../../config/app-config';
 import ProfileModal from "./ProfileModal";
-import ProfileTweets from './ProfileTweets'
-class Profile extends Component {
-    constructor() {
-        super();
+import Profile_Other_Tweets from './Profile_Other_Tweets'
+import Axios from "axios";
+class Profile_Other extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             username_or_email_or_phone: "",
             password: "",
@@ -23,10 +24,20 @@ class Profile extends Component {
             profile: ""
 
         };
+        console.log("inside other profile")
+        console.log(this.props.match.params.profile_id)
+        console.log(this.props)
         //this.props.getUserProfile(this.props.user.id);
     }
 
-
+    componentWillMount() {
+        console.log("other component mounted")
+        if(null != this.props.match.params.profile_id) {
+            this.props.getUserProfile(this.props.match.params.profile_id);
+           
+        }  
+    } 
+       
     componentWillReceiveProps(nextProps) {
         if (nextProps != null) {
             console.log(nextProps.userProfile)
@@ -37,30 +48,18 @@ class Profile extends Component {
 
                 profile: nextProps.userProfile
             });
+            const payload = {
+                viewed_by:this.props.user.id,
+                user_id:this.props.match.params.profile_id
+            }
+            Axios.post('/user/incrementViewCount',payload).then(response=>{
+                console.log('-----------------------------------------------------------------')
+                console.log(response.data)
+            })
         }
     }
 
-    componentWillMount() {
-
-        this.props.getUserProfile(this.props.user.id);
-
-        // console.log(this.props.userProfile+"hjhjhhhhhhhhhhhhh")
-        /* 
-            document.body.classList.add("t-login-body");
-            document.body.classList.remove("t-sign-up-body");
-             */
-
-
-        // If logged in and user navigates to Register page, should redirect them to dashboard
-        /*if (this.props.auth.isAuthenticated) {
-          
-             document.body.classList.remove("t-login-body");
-              this.props.history.push("/ui");
-             
-         }*/
-    }
-
-
+    
 
 
     render() {
@@ -98,7 +97,7 @@ class Profile extends Component {
                     </div>
                     </div>
                     <ProfileModal data={this.state.profile}></ProfileModal>
-                    <ProfileTweets></ProfileTweets>
+                    <Profile_Other_Tweets id={this.props.match.params.profile_id} ></Profile_Other_Tweets>
                 </div>
             </React.Fragment>
         );
@@ -177,4 +176,4 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile_Other));

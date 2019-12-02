@@ -14,6 +14,7 @@ import { ToastsContainer, ToastsStore, ToastsContainerPosition } from 'react-toa
 import List from './../list/list';
 import ListView from './../list-view/list-view';
 import PropTypes from "prop-types";
+import Profile_Other from '../../components/Profile/Profile_Other';
 
 class Main extends React.Component {
     constructor(props) {
@@ -74,6 +75,7 @@ class Main extends React.Component {
                             )} />
                             <Route path="/ui/newsfeed" component={NewsFeed} />
                             <Route path="/ui/profile" component={Profile} />
+                            <Route path="/ui/userprofile/:profile_id" component={Profile_Other} />
                             <Route path="/ui/messages" component={Messages} />
                             <Route path="/ui/tweet/:tweet_id" component={TweetView} />
                             <Route path="/ui/bookmark" component={BookMarks} />
