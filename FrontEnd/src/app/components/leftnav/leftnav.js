@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link,withRouter } from "react-router-dom";
 import {logoutUser} from "../../../redux/actions/authActions";
 import PropTypes from "prop-types";
+import TweetModal from './../tweet-modal/tweet-modal';
 
 class LeftNav extends React.Component {
     constructor(props) {
@@ -36,11 +37,12 @@ class LeftNav extends React.Component {
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/profile">  <i className="pr-3 far fa-user-circle"></i>Profile      </Link>
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/dashboard"><i className="pr-3 fa fa-tachometer"></i> Dashboard         </Link>
                                 <Link className="t-leftnav-a nav-link" to="#" onClick={this.onLogoutClick}><i className="pr-3 fas fa-ellipsis-h"></i> Logout         </Link>
-                                <button type="button" className="btn btn-primary t-leftnav-btn">Tweet</button>
+                                <button type="button" className="btn btn-primary t-leftnav-btn" style={{marginTop:"24px"}} data-toggle="modal" data-target="#tweetModal">Tweet</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {/* <TweetModal/> */}
             </div>
         )
     }
