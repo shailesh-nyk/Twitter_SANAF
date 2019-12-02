@@ -29,11 +29,21 @@ class List extends React.Component {
                     {this.props.ownedList.map(list => {
                         return <ListItem data={list}/>
                     })}
+                    {this.props.ownedList.length == 0 ? (
+                        <div class='t-secondary t-small-text'>
+                            You haven't created any list
+                        </div>
+                    ) : (null)}
                 </div>
                 <div class="tab-pane fade" id="nav-subscribed" role="tabpanel" aria-labelledby="nav-subscribed-tab">
                     {this.props.subscribedList.map(list => {
                         return <ListItem data={list}/>
                     })}
+                     {this.props.subscribedList.length == 0 ? (
+                        <div class='t-secondary t-small-text'>
+                            You haven't subscribed to any list
+                        </div>
+                    ) : (null)}
                 </div>
             </div>
             </div>
