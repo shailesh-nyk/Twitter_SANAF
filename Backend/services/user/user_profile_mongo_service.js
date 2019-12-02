@@ -3,7 +3,7 @@
 const UserModel = require('../../models/users');
 var upload = require('../../middleware/FileUploadMiddleware')
 module.exports.getUserProfile = function(req, callback){
-    //console.log("new filename 2"+req.filename);
+    console.log("new filename 2"+req.filename);
     let result;
     //console.log("Aish")
    // console.log(req);

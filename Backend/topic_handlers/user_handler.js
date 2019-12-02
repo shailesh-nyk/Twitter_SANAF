@@ -1,6 +1,6 @@
 var userRegnService = require('../services/user/mongo_user_registration_service');
 var userLoginService = require('../services/user/mongo_user_login_service');
-var userProfileService = require('../services/user/user_profile_service');
+var userProfileService = require('../services/user/user_profile_mongo_service');
 var userService = require('../services/user/user_service');
 var userFollow = require('../services/user/mongo_user_follow')
 var userUnfollow = require('../services/user/mongo_user_unfollow')
