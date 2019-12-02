@@ -20,7 +20,6 @@ module.exports.getFollowers = function (req, callback) {
         }
     ).lean();
 }
-
 module.exports.getFollowedBy = function (req, callback) {
     const id = req.id;
     console.log(id);
