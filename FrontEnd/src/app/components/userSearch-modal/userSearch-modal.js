@@ -42,11 +42,13 @@ class UserSearch extends React.Component {
     }
     filterFollowing(query) {
         var updatedList = this.props.following;
-        updatedList = updatedList.filter(function (item) {
-            return item.name.toLowerCase().search(
-                query.toLowerCase()) !== -1;
-        });
-        return updatedList;
+        if (updatedList) {
+            updatedList = updatedList.filter(function (item) {
+                return item.name.toLowerCase().search(
+                    query.toLowerCase()) !== -1;
+            });
+            return updatedList;
+        }
     }
 
     render() {

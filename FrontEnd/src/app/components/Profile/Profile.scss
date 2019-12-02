@@ -97,4 +97,11 @@
 
 }
 
+.t-btn-hover{
+    &:hover{
+        background-color: #dc3545 !important;
+        color: $app-text !important;
+    }
+}
+
 
