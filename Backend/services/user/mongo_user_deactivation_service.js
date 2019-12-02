@@ -7,7 +7,7 @@ module.exports.deactivateAccount = function(req, callback){
     let result;
           
     UserModel.findOneAndUpdate(
-        {_id:"5dd302ad593b6b48581b886a"},{accountStatus:"deactive"},{new:true}
+        {_id:req.id},{accountStatus:"deactive"},{new:true}
        )
     .then(user => {
       

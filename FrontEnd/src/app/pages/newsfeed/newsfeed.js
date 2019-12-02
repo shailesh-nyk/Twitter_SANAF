@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { newsfeed } from '../../../redux/actions/util-action';
 import Tweet from './../../components/tweet/tweet';
 import config from '../../../config/app-config';
 import axios from 'axios';
@@ -63,31 +62,37 @@ class NewsFeed extends React.Component {
                         text: this.state.tweetText,
                         image: resp.data.fileName
                     })
+                    this.setState( { tweetText:"", tweetImage: null });
                 } else {
                     this.props.setMessage({
                         msg: "Image upload failed! Try again",
                         name: 'danger'
                     })
+                    this.setState( { tweetText:"", tweetImage: null });
                 }
+                this.setState( { tweetText:"", tweetImage: null });
             }, err => {
                 this.props.setMessage({
                     msg: "Image upload failed! Try again",
                     name: 'danger'
                 })
+                this.setState( { tweetText:"", tweetImage: null });
             })
             .catch(err => {
                 this.props.setMessage({
                     msg: "Image upload failed! Try again",
                     name: 'danger'
                 })
+                this.setState( { tweetText:"", tweetImage: null });
             })
         } else {
             this.props.postTweet({
                 user: this.props.user.id,
                 text: this.state.tweetText,
             })
+            this.setState( { tweetText:"", tweetImage: null });
         }
-        this.setState( { tweetText:"", tweetImage: null });
+        
     }
 
     handleChange = (event) => {

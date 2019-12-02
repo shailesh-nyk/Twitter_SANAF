@@ -12,6 +12,9 @@ import recommendationReducer from './recommendation-reducer';
 import hashtagReducer from './hashtag-reducer';
 import listReducer from './list-reducer';
 
+import followingReducer from './followingReducer';
+import followedByReducer from './followedByReducer';
+
 import tweetsWithViewsReducer from "./tweetsWithViewsReducer";
 import tweetsWithLikesReducer from "./tweetsWithLikesReducer";
 import tweetsWithRetweetsReducer from "./tweetsWithRetweetsReducer";
@@ -38,6 +41,8 @@ const appReducer = combineReducers({
     tweetsFrequencyWiseMonthly : tweetsFrequencyWiseMonthlyReducer,
     tweetsFrequencyWiseHourly : tweetsFrequencyWiseHourlyReducer,
     tweetsWithProfileViews       : tweetsWithProfileViewsReducer, 
+    following                    : followingReducer,
+    followedBy                    : followedByReducer,
     newsFeedReducer,
 
   utilReducer,

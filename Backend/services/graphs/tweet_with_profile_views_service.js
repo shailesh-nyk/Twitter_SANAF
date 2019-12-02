@@ -22,7 +22,7 @@ module.exports.tweetsWithProfileViews = function(req, callback){
       '$unwind' : '$views'
     },
       { "$match": {
-          "_id" : mongoose.Types.ObjectId('5dd2362783758161341f5c60'),
+          "_id" : req.id,//mongoose.Types.ObjectId('5dd2362783758161341f5c60'),
           "views.createdOn": { 
               "$gte": new Date(previousMonth), "$lt": new Date(currDt)
           }

@@ -3,7 +3,11 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var kafka = require('../kafka/client');
 var jwt_decode = require('jwt-decode');
-var upload = require('../middleware/FileUploadMiddleware')
+var upload = require('../middleware/FileUploadMiddleware');
+var passport = require('passport');
+require('./../config/passport')(passport);
+var requireAuth = passport.authenticate('jwt', {session: false});
+
 router.post('/register', function(req, res) {
     let request = {
       body: req.body,
@@ -21,7 +25,7 @@ router.post('/login', function(req, res) {
   kafka.make_request('user', request , res);
 });
 
-router.get('/userProfile', function(req, res) {
+router.get('/userProfile',requireAuth, function(req, res) {
   
   let request = {
     body: req.query,
@@ -30,7 +34,7 @@ router.get('/userProfile', function(req, res) {
   kafka.make_request('user', request , res);
 });
 
-router.post('/userProfile', upload.single('avatar'),function(req, res) {
+router.post('/userProfile',requireAuth, upload.single('avatar'),function(req, res) {
   
   let request = {
     body: {body:req.body,
@@ -44,7 +48,7 @@ router.post('/userProfile', upload.single('avatar'),function(req, res) {
 
 
 //GET NEWS FEED 
-router.get('/newsfeed', function(req, res) {
+router.get('/newsfeed',requireAuth, function(req, res) {
   let user_id = jwt_decode(req.headers.authorization).id;
   let request = {
     body: { user_id : user_id },
@@ -53,7 +57,7 @@ router.get('/newsfeed', function(req, res) {
   kafka.make_request('user', request , res);
 })
 
-router.post('/follow', function(req, res) {
+router.post('/follow',requireAuth, function(req, res) {
   let request = {
     body: req.body,
     message: 'FOLLOW'
@@ -61,7 +65,7 @@ router.post('/follow', function(req, res) {
   kafka.make_request('user', request , res);
 })
 
-router.post('/unfollow', function(req, res) {
+router.post('/unfollow',requireAuth, function(req, res) {
   
   let request = {
     body: req.body,
@@ -70,18 +74,36 @@ router.post('/unfollow', function(req, res) {
   kafka.make_request('user', request , res);
 })
 
-router.get('/following', function(req, res) {
+router.get('/following',requireAuth, function(req, res) {
+  //console.log("Redvbvd mdmdd",req.user);
+  let request = {
+    body: req.user,
+    message: 'FOLLOWING'
+  }
+  kafka.make_request('user', request , res);
+})
+
+router.get('/followers', function(req, res) {
   console.log(req.query)
   let request = {
     body: req.query,
-    message: 'FOLLOWING'
+    message: 'FOLLOWERS'
+  }
+  kafka.make_request('user', request , res);
+})
+
+router.get('/followedBy', function(req, res) {
+
+  let request = {
+    body: req.user,
+    message: 'FOLLOWED_BY'
   }
   kafka.make_request('user', request , res);
 })
 
 
 //GET BOOKMARKS 
-router.get('/bookmark', function(req, res) {
+router.get('/bookmark',requireAuth, function(req, res) {
   let user_id = jwt_decode(req.headers.authorization).id;
   let request = {
     body: { user_id : user_id },
@@ -90,18 +112,18 @@ router.get('/bookmark', function(req, res) {
   kafka.make_request('user', request , res);
 })
 
-router.put('/deactivateAccount', function(req, res) {
+router.put('/deactivateAccount',requireAuth, function(req, res) {
   let request = {
-    body: req.query,
+    body: req.user,
     message: 'USER_ACCOUNT_DEACTIVATE'
   }
   kafka.make_request('user', request , res);
 });
 
-router.post('/incrementViewCount', function(req,res) {
+router.post('/incrementViewCount',requireAuth, function(req,res) {
   console.log('ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
   let request = {
-    body: req.body,
+    body: req.user,
     message: 'USER_VIEW_INCREMENT'
   }
   kafka.make_request('user', request , res);
