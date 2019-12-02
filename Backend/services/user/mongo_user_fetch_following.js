@@ -16,10 +16,10 @@ module.exports.getFollowers = function (req, callback) {
     const id = req.id;
     UserModel.findById(id, 'followedBy',
         function (err, model) {
-            callback(null, model.followedBy);
+            callback(null, model);
         }
     ).lean();
-}
+} 
 module.exports.getFollowedBy = function (req, callback) {
     const id = req.id;
     console.log(id);
