@@ -27,9 +27,9 @@ class CreateListModal extends React.Component {
                             <label for="create-list-desc">Description:</label>
                             <input type="name" class="form-control"  id="create-list-desc"/>
                         </div>
-                        <div class="form-group">
-                            <label for="create-list-public">Make Public:</label>
-                            <input type="checkbox" class="form-control" id="create-list-public"/>
+                        <div class="form-group" style={{display:"flex"}}>
+                            <label style={{flex: "1"}} for="create-list-public">Make Public:</label>
+                            <input style={{flex: "1"}} type="checkbox" class="form-control" id="create-list-public"/>
                         </div>
                 </div>
                 <div class="modal-footer">

@@ -21,7 +21,7 @@ class EditListModal extends React.Component {
     render() {
         const { value } = this.state;
         const inputProps = {
-            placeholder: 'Search Users',
+            placeholder: 'Search users to add',
             value,
             onChange: this.onChange
         };
@@ -39,35 +39,10 @@ class EditListModal extends React.Component {
                 <form onSubmit={(e) => this.editList(e)}>
                 <div class="modal-body">
                 <div class="accordion" id="accordionExample">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Edit Details
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="create-list-name">Name:</label>
-                                        <input type="name" class="form-control" id="edit-list-name" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="create-list-desc">Description:</label>
-                                        <input type="name" class="form-control"  id="edit-list-desc"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="create-list-public">Make Public:</label>
-                                        <input type="checkbox" class="form-control" id="edit-list-public"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
                             <h2 class="mb-0 d-flex justify-content-between align-items-center">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <button class="btn btn-link collapsed" type="button" aria-expanded="false" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo" >
                                     Members
                                 </button>
                                 <Autosuggest
@@ -78,10 +53,10 @@ class EditListModal extends React.Component {
                                     renderSuggestion={this.renderSuggestion.bind(this)}
                                     inputProps={inputProps}
                                 />
-                                <i className="fas fa-user-plus t-icon t-secondary"></i>
+                                <i className="fas fa-user-plus t-secondary"></i>
                             </h2>
                             </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
                             <div class="card-body" style={{minHeight: "250px"}}>
                                 {this.props.data.list.map( user => {
                                     return (
@@ -103,6 +78,32 @@ class EditListModal extends React.Component {
                             </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Edit Details
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="create-list-name">Name:</label>
+                                        <input type="name" class="form-control" id="edit-list-name" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-list-desc">Description:</label>
+                                        <input type="name" class="form-control"  id="edit-list-desc"/>
+                                    </div>
+                                    <div class="form-group" style={{display:"flex"}}>
+                                        <label style={{flex: "1"}} for="create-list-public">Make Public:</label>
+                                        <input style={{flex: "1"}} type="checkbox" class="form-control" id="edit-list-public"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   
                     </div>
                  
                 </div>
