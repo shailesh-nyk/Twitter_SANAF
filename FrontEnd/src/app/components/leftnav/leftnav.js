@@ -42,7 +42,7 @@ class LeftNav extends React.Component {
                         </div>
                     </div>
                 </div>
-                {/* <TweetModal/> */}
+                <TweetModal/>
             </div>
         )
     }
