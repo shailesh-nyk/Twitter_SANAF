@@ -19,6 +19,7 @@ export default function (state = initialState, action) {
             ...state,
             listViewData: action.payload
         }
+        
         default:
             return state;
     }

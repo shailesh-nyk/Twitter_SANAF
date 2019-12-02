@@ -12,7 +12,7 @@ class ProfileTweets extends Component {
     }
     componentDidMount=()=>{
         
-        Axios.get('/api/tweet/user?id='+this.props.user.id).then(response=>{
+        Axios.get('/api/tweet/user?id='+this.props.id).then(response=>{
             console.log(response.data.payload);
             this.setState({
                 data:response.data.payload

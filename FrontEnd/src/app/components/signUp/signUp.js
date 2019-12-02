@@ -176,7 +176,7 @@ class SignUp extends Component {
                                         required
                                         pattern="^[a-zA-Z\s]+$"
                                         minLength="1"
-                                        maxLength="10"
+                                        maxLength="20"
                                         className={classnames("form-control", {
                                           invalid: errors.name
                                         })}
@@ -251,7 +251,7 @@ class SignUp extends Component {
                                         required
                                         pattern="^[a-zA-Z]+$"
                                         minLength="1"
-                                        maxLength="5"
+                                        maxLength="10"
                                         className={classnames("form-control", {
                                           invalid: errors.password
                                         })}

@@ -3,10 +3,10 @@
 const UserModel = require('../../models/users');
 var upload = require('../../middleware/FileUploadMiddleware')
 module.exports.getUserProfile = function(req, callback){
-    console.log("new filename 2"+req.filename);
+    //console.log("new filename 2"+req.filename);
     let result;
-    console.log("Aish")
-    console.log(req);
+    //console.log("Aish")
+   // console.log(req);
     UserModel.findOne({
         
                 _id:req._id
@@ -102,3 +102,22 @@ module.exports.editUserProfile = function(req, callback){
         
                         
 };
+
+module.exports.incrementViewCount = function(req, callback) {
+    console.log(req)
+    console.log('------------------------------------------------------------------------------------')
+   
+    UserModel.findByIdAndUpdate(
+        req.user_id,
+        { $push: { "views": req.viewed_by } },
+        { safe: true, upsert: true, new: true },
+        function (err, model) {
+
+         //   console.log("Hello",model);
+        
+            callback(null,model);
+        }
+    );
+   
+   
+}

@@ -6,8 +6,6 @@ import config from '../../../config/app-config';
 class Comment extends React.Component { 
     constructor(props) {
         super(props);
-        console.log("in comment modal ")
-        console.log(this.props.data)
     }
     render() {
         return ( 

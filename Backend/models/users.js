@@ -48,8 +48,16 @@ var userSchema = new Schema({
     default: null
   },
   following: [{ type: Schema.ObjectId, ref: 'user' }],
+  followedBy: [{ type: Schema.ObjectId, ref: 'user' }],
+  views: [{ type: Schema.ObjectId, ref: 'user' }],
+ 
   bookmarks: [],
-  lists: [{ type: Schema.ObjectId, ref: 'lists' }]
+  lists: [{ type: Schema.ObjectId, ref: 'lists' }],
+  accountStatus: {
+    type: String,
+    enum:['active','deactive'],
+    default:'active'
+  }
 },
   {
     timestamps: true

@@ -19,7 +19,7 @@ class Login extends Component {
   
 
   componentWillReceiveProps(nextProps) {
-
+    console.log("From Logout.... Next Props");
     if (nextProps.auth.isAuthenticated) {
 
       document.body.classList.remove("t-login-body");
@@ -38,6 +38,7 @@ class Login extends Component {
                      document.getElementById('login-msg-box').innerHTML    = nextProps.errors.msg;
     }
     else{
+      console.log("From Logout....");
       document.getElementById('login-msg-box').style.display="none";
     }
   }
@@ -64,6 +65,16 @@ class Login extends Component {
           this.props.history.push("/ui");
          
      }
+
+
+     if(this.props.location.hasOwnProperty("comingFrom")){
+      
+      document.getElementById('login-msg-box').style.display = "block";
+      document.getElementById('login-msg-box').className = 'alert-success mt-1 p-1 t-font-size-16';
+      document.getElementById('login-msg-box').innerHTML = "You have been Successfully Logged Out...";
+      
+     }
+
   }
   
   onChange = e => {
@@ -139,7 +150,7 @@ class Login extends Component {
                                         required
                                         pattern="^[a-zA-Z]+$"
                                         minLength="1"
-                                        maxLength="5"
+                                        maxLength="10"
                                         className={classnames("t-login-form-control", {
                                           invalid: errors.password
                                         })}

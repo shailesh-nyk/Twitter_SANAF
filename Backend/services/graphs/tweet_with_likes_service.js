@@ -11,8 +11,8 @@ module.exports.tweetsWithLikes = function(req, callback){
     
     TweetModel.find({
 
-    },'likesCount')
-    .sort({'likesCount': 'desc' })
+    },'likeCount')
+    .sort({'likeCount': 'desc' })
     .limit(10)
     .populate( [{ path:'userId', select:'name handle'}])
     .then(tweets=>{
@@ -25,7 +25,7 @@ module.exports.tweetsWithLikes = function(req, callback){
                
             let data = {
                         name : item.userId.handle,
-                        y    : item.likesCount
+                        y    : item.likeCount
                        }
 
             if(index==0)

@@ -3,7 +3,6 @@ var UserModel = require('../../models/users');
 var utils = require('../../middleware/utils');
 
 module.exports.getTweet = function(req, callback){
-    console.log(req.id)
     TweetModel.where({ _id: req.id }).findOne(function (err, result) {
     if (err) {
         callback(null, {

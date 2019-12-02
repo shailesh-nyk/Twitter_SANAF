@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserLists } from './../../../redux/actions/list-action';
-import store from './../../../store';
+import { getUserLists, createUserList } from './../../../redux/actions/list-action';
 import ListItem from '../../components/list_item/list_item';
+import CreateListModal from '../../components/create-list-modal/create-list-modal';
 
 class List extends React.Component {
     constructor(props) {
         super(props);
+        this.createList = this.createList.bind(this);
     }
     componentWillMount(){
         this.props.getUserLists();
@@ -14,7 +15,8 @@ class List extends React.Component {
     render() {
         return (
         <div>
-            <div className="t-topnav-container">My Lists</div>
+            <div className="t-topnav-container d-flex justify-content-between" >My Lists
+                 <button class='btn btn btn-outline-primary' data-toggle="modal"  data-target="#createListModal">New List</button></div>
             <div>
             <nav class="t-tab-pane">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -35,8 +37,12 @@ class List extends React.Component {
                 </div>
             </div>
             </div>
+            <CreateListModal createList={this.createList}/>
         </div>
        )
+    }
+    createList(body) {
+        this.props.createUserList(body);
     }
 }
 
@@ -49,7 +55,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        getUserLists: () => dispatch(getUserLists())
+        getUserLists: () => dispatch(getUserLists()),
+        createUserList : (payload) =>  dispatch(createUserList(payload))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(List);

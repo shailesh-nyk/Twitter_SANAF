@@ -1,8 +1,26 @@
 @import '../src/assets/scss/var.scss';
 @import '../src/assets/scss/styles.scss';
 
-.t-profile-container {
+.t-nf-container {
+    display: flex;
     flex-direction: column;
+    border-bottom: 7px solid $app-border;
+    color: $app-text;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 60px;
+}
+.t-top-nav {
+    font-size: 20px;
+    font-weight: 900;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom: 1px solid $app-border;
+    background-color: $app-bg;
+    position: fixed;
+    width: inherit;
+    border-right: 2px solid $app-border;
 }
 .t-text-container {
     display: flex;
@@ -52,5 +70,31 @@
     display: none
 }
 
+.t-rounded-button {
+    display: inline-block;
+    padding: 7px 20px;
+	border-radius: 25px;
+    text-decoration: none;
+    color: $app-text;
+    border-color: $app-theme;
+    font-size: large;
+    background-color: $app-theme;
+    transition: .4s;
+    font-weight: 800;
+    float : right;
+    &:hover {
+        background-color: $app-theme-hover;
+    }
+    &:focus {
+        outline: none
+    }
+    &:disabled {
+        background-color: $app-button-disabled;
+        border-color: $app-button-disabled;
+        color: $app-secondary-text;
+    }
+
+
+}
 
 

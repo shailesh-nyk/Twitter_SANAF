@@ -68,12 +68,12 @@ class Dashboard extends Component {
     }
     
     // If logged in and user navigates to Register page, should redirect them to dashboard
-    /*if (this.props.auth.isAuthenticated) {
+    if (!this.props.auth.isAuthenticated) {
       
-         document.body.classList.remove("t-login-body");
-          this.props.history.push("/ui");
+         //document.body.classList.remove("t-login-body");
+          this.props.history.push("/login");
          
-     }*/
+     }
 
   }
   
@@ -116,7 +116,7 @@ class Dashboard extends Component {
       },
       
       tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       credits: {
         enabled: false
@@ -170,7 +170,7 @@ class Dashboard extends Component {
       },
       
       tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       credits: {
         enabled: false

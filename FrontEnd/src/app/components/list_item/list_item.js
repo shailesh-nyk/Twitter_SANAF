@@ -31,7 +31,7 @@ class ListItem extends React.Component {
                         {this.props.data.description}
                     </div>
                     <div className="t-secondary t-small-text">
-                       Members: {this.props.data.list.length} &nbsp; &nbsp; Subscribers: {this.props.data.subscriberCount}
+                       Members: {this.props.data.list.length} &nbsp; &nbsp; Subscribers: {this.props.data.subscribers.length}
                     </div>
                 </div>
             </div>
