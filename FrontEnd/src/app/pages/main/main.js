@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LeftNav from '../../components/leftnav/leftnav';
 import Messages from './../messages/messages';
-import { Switch, Route, Redirect} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import NewsFeed from './../newsfeed/newsfeed';
 import TweetView from './../tweet-view/tweet-view';
 import config from '../../../config/app-config';
@@ -27,21 +27,21 @@ class Main extends React.Component {
     }
 
 
-    componentDidMount(){
-       
+    componentDidMount() {
+
         if (!this.props.auth.isAuthenticated) {
-            console.log("Main....Compo",this.props.auth.isAuthenticated);
+            console.log("Main....Compo", this.props.auth.isAuthenticated);
             console.log(this.props.history);
-              this.props.history.push("/login");
-        
-         }
+            this.props.history.push("/login");
+
+        }
     }
 
 
     showNotification = (message) => {
         let audio = new Audio("https://cdnjs.cloudflare.com/ajax/libs/ion-sound/3.0.7/sounds/water_droplet_2.mp3");
         audio.play();
-        ToastsStore.info(message);
+        ToastsStore.info("New message recieved");
         this.setState({
             new_message: true
         })
@@ -51,7 +51,7 @@ class Main extends React.Component {
             new_message: false
         })
     }
-    redirectHelper = (props) =>{
+    redirectHelper = (props) => {
         this.props.history.push(props);
     }
     shouldRenderSearchPage = () => {
@@ -95,11 +95,11 @@ class Main extends React.Component {
 Main.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
-  };
+};
 
 const mapStateToProps = state => {
     return {
-        auth : state.auth,
+        auth: state.auth,
         user: state.auth.user
     }
 }

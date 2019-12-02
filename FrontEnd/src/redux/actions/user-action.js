@@ -3,6 +3,7 @@ import config from './../../config/app-config'
 import axios from 'axios';
 import { startLoader, stopLoader, setMessage } from './util-action';
 import { getRecommendation } from './recommendation-action';
+import { getUserProfile } from "./userProfile-action";
 
 
 export const fetchFollowingThunkHelper = (following) => {
@@ -66,6 +67,25 @@ export const followUser = (id, target_id) => {
             { withCredentials: false })
             .then(function (response) {
                 dispatch(getRecommendation(id));
+                dispatch(getUserProfile(target_id));
+            })
+            .catch(function (error) {
+
+            });
+
+    }
+}
+
+export const unFollowUser = (id, target_id) => {
+    return (dispatch) => {
+        axios.post(config.base + "user/unfollow", {
+            user_id: id,
+            follow_id: target_id
+        },
+            { withCredentials: false })
+            .then(function (response) {
+                dispatch(getRecommendation(id));
+                dispatch(getUserProfile(target_id));
             })
             .catch(function (error) {
 

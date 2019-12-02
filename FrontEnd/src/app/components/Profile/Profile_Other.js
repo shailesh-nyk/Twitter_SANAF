@@ -9,6 +9,8 @@ import config from '../../../config/app-config';
 import ProfileModal from "./ProfileModal";
 import Profile_Other_Tweets from './Profile_Other_Tweets'
 import Axios from "axios";
+import { followUser,handleUnFollow, unFollowUser } from './../../../redux/actions/user-action';
+
 class Profile_Other extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +23,8 @@ class Profile_Other extends Component {
             city: "",
             handle: "",
             avatar: "",
-            profile: ""
+            profile: "",
+            following: false
 
         };
         console.log("inside other profile")
@@ -32,12 +35,12 @@ class Profile_Other extends Component {
 
     componentWillMount() {
         console.log("other component mounted")
-        if(null != this.props.match.params.profile_id) {
+        if (null != this.props.match.params.profile_id) {
             this.props.getUserProfile(this.props.match.params.profile_id);
-           
-        }  
-    } 
-       
+
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps != null) {
             console.log(nextProps.userProfile)
@@ -49,18 +52,38 @@ class Profile_Other extends Component {
                 profile: nextProps.userProfile
             });
             const payload = {
-                viewed_by:this.props.user.id,
-                user_id:this.props.match.params.profile_id
+                viewed_by: this.props.user.id,
+                user_id: this.props.match.params.profile_id
             }
-            Axios.post('/user/incrementViewCount',payload).then(response=>{
+            Axios.post('/user/incrementViewCount', payload).then(response => {
                 console.log('-----------------------------------------------------------------')
                 console.log(response.data)
             })
         }
     }
 
-    
-
+    isFollowing() {
+        if (this.props.user && this.props.userProfile) {
+            if (this.props.userProfile.followedBy.includes(this.props.user.id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    handleFollow = (event) => {
+        this.props.followUser(this.props.user.id, this.props.match.params.profile_id);
+    }
+    handleHover = (e, isEnter) => {
+        if (isEnter) {
+            e.target.innerText = "Unfollow";
+        }
+        else {
+            e.target.innerText = "Following";
+        }
+    }
+    handleUnFollow = () => {
+        this.props.unFollowUser(this.props.user.id, this.props.match.params.profile_id);
+    }
 
     render() {
         const { errors } = this.state;
@@ -83,9 +106,13 @@ class Profile_Other extends Component {
                     <i class="fa fa-picture-o fa-lg t-favicon"></i> 
                     <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
                 </label> */}
-                            <button className="btn btn-primary t-rounded-button" data-toggle="modal" data-target="#profileModal" > Edit Profile</button>
+                            <button className="btn btn-primary t-btn-hover t-rounded-button" style={{ display: this.isFollowing() ? "inline-block" : "none" }}
+                                onMouseEnter={(e) => this.handleHover(e, 1)} onMouseOut={(e) => this.handleHover(e, 0)}
+                                onClick={this.handleUnFollow}
+                            >Following</button>
+                            <button className="btn btn-primary t-rounded-button" style={{ display: this.isFollowing() ? "none" : "inline-block" }} onClick={this.handleFollow}>Follow</button>
                         </div>
-                        
+
                         <div>
                             {this.state.name}
                         </div>
@@ -102,51 +129,51 @@ class Profile_Other extends Component {
             </React.Fragment>
         );
     }
-  }
+}
 
- /*  componentWillMount() {
+/*  componentWillMount() {
 
-    this.props.getUserProfile(this.props.user.id);
-   
+   this.props.getUserProfile(this.props.user.id);
+  
  
-  } */
-  
-  
-  
+ } */
 
-  /* render() {
-    const { errors } = this.state;
-    
-    return (
-      <React.Fragment>
-      <div>
-            <div className="t-topnav-container" >{this.state.name}</div>
-            <div className="t-nf-container t-profile-container">
-            <div className="t-text-container" > 
-                   
-                    <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
-                    <input className="t-textbox form-control"  type="text" id="text"/>
+
+
+
+/* render() {
+  const { errors } = this.state;
+  
+  return (
+    <React.Fragment>
+    <div>
+          <div className="t-topnav-container" >{this.state.name}</div>
+          <div className="t-nf-container t-profile-container">
+          <div className="t-text-container" > 
+                 
+                  <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
+                  <input className="t-textbox form-control"  type="text" id="text"/>
+          </div>
+            <div className="d-flex justify-content-end">
+              
+                <button className="btn btn-primary" data-toggle="modal" data-target="#profileModal"> Edit Profile</button>
             </div>
-              <div className="d-flex justify-content-end">
-                
-                  <button className="btn btn-primary" data-toggle="modal" data-target="#profileModal"> Edit Profile</button>
-              </div>
-              <div>
-                      {this.state.name}
-              </div>
-              <div>
-                      {this.state.description}
-              </div>
-              <div>
-                      66 Following 19 Followers
-              </div>
-             </div>  
-              <ProfileModal data={this.state.profile}></ProfileModal> 
-              <ProfileTweets></ProfileTweets>             
-      </div>
-      </React.Fragment>
-    );
-  }
+            <div>
+                    {this.state.name}
+            </div>
+            <div>
+                    {this.state.description}
+            </div>
+            <div>
+                    66 Following 19 Followers
+            </div>
+           </div>  
+            <ProfileModal data={this.state.profile}></ProfileModal> 
+            <ProfileTweets></ProfileTweets>             
+    </div>
+    </React.Fragment>
+  );
+}
 
 } */
 
@@ -172,7 +199,9 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        getUserProfile: (_id) => dispatch(getUserProfile(_id))
+        getUserProfile: (_id) => dispatch(getUserProfile(_id)),
+        followUser: (id, target_id) => dispatch(followUser(id, target_id)),
+        unFollowUser: (id, target_id) => dispatch(unFollowUser(id, target_id))
     };
 }
 
