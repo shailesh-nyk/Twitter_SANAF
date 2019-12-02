@@ -22,7 +22,14 @@ router.get('/', function(req, res) {
   }
   kafka.make_request('tweet', request , res);
 })
-
+router.get('/user',function(req,res) {
+  console.log('INISDE get all tweets of users');
+  let request = {
+    body: req.query,
+    message: 'GETUSERSTWEETS'
+  }
+  kafka.make_request('tweet', request, res);
+})
 //LIKE TWEET 
 router.put('/like', function(req, res) {
   console.log('INSIDE PUT ' + req.url);
