@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import TopNav from '../login/topNav';
-import { getUserProfile } from './../../../redux/actions/userProfile-action';
+import { getUserProfile,fetchFollowing,fetchFollowedBy } from './../../../redux/actions/userProfile-action';
+import {deactivateAccount} from "../../../redux/actions/authActions";
 import config from '../../../config/app-config';
 import ProfileModal from "./ProfileModal";
 import ProfileTweets from './ProfileTweets'
@@ -29,20 +30,26 @@ class Profile extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps != null) {
-            console.log(nextProps.userProfile)
-            this.setState({
-                name: nextProps.userProfile.name,
-                handle: nextProps.userProfile.handle,
-                avatar: nextProps.userProfile.avatar,
+            
+            if(nextProps.userProfile!=null)
+            {
+                this.setState({
+                    name: nextProps.userProfile.name,
+                    handle: nextProps.userProfile.handle,
+                    avatar: nextProps.userProfile.avatar,
 
-                profile: nextProps.userProfile
-            });
+                    profile: nextProps.userProfile
+                });
+            }   
         }
     }
 
     componentWillMount() {
 
-        this.props.getUserProfile(this.props.user.id);
+        //if(this.props.hasOwnProperty("user"))
+             this.props.getUserProfile(this.props.user.id);
+             this.props.fetchFollowing(this.props.history);
+             this.props.fetchFollowedBy(this.props.history);
 
         // console.log(this.props.userProfile+"hjhjhhhhhhhhhhhhh")
         /* 
@@ -60,6 +67,12 @@ class Profile extends Component {
          }*/
     }
 
+    onClickDeactivate = e => {
+  
+        e.preventDefault();
+        this.props.deactivateAccount(this.props.history);
+
+      };
 
 
 
@@ -84,6 +97,7 @@ class Profile extends Component {
                     <i class="fa fa-picture-o fa-lg t-favicon"></i> 
                     <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
                 </label> */}
+                            <button className="btn btn-sm btn-primary t-rounded-button" onClick={this.onClickDeactivate}> Deactivate</button>
                             <button className="btn btn-primary t-rounded-button" data-toggle="modal" data-target="#profileModal" > Edit Profile</button>
                         </div>
                         
@@ -94,7 +108,15 @@ class Profile extends Component {
                             {this.state.avatar}
                         </div>
                         <div>
-                            66 Following 19 Followers
+                            { 
+                             this.props.following.hasOwnProperty("result") &&
+                             this.props.following.result.length
+                             } Following 
+                             &nbsp;
+                             { 
+                             this.props.followedBy.hasOwnProperty("result") &&
+                             this.props.followedBy.result.length
+                             } Followers
                     </div>
                     </div>
                     <ProfileModal data={this.state.profile}></ProfileModal>
@@ -152,13 +174,10 @@ class Profile extends Component {
 } */
 
 
-/* Profile.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  success: PropTypes.object.isRequired
-};
- */
+/*Profile.propTypes = {
+  deactivateAccount: PropTypes.func.isRequired
+};*/
+
 /* const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
@@ -168,12 +187,19 @@ class Profile extends Component {
 const mapStateToProps = state => {
     return {
         userProfile: state.userProfileReducer.userProfile,
-        user: state.auth.user
+        user: state.auth.user,
+        following : state.following,
+        followedBy : state.followedBy,
+        errors: PropTypes.object.isRequired,
+        success: PropTypes.object.isRequired
     }
 };
 const mapDispatchToProps = dispatch => {
     return {
-        getUserProfile: (_id) => dispatch(getUserProfile(_id))
+        getUserProfile: (_id) => dispatch(getUserProfile(_id)),
+        deactivateAccount:(history) => dispatch(deactivateAccount(history)),
+        fetchFollowing:(history)    => dispatch(fetchFollowing(history)),
+        fetchFollowedBy:(history)    => dispatch(fetchFollowedBy(history))
     };
 }
 

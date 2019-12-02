@@ -71,7 +71,13 @@ class Login extends Component {
       
       document.getElementById('login-msg-box').style.display = "block";
       document.getElementById('login-msg-box').className = 'alert-success mt-1 p-1 t-font-size-16';
-      document.getElementById('login-msg-box').innerHTML = "You have been Successfully Logged Out...";
+      let msgToDisplay = "";
+      if(this.props.location.comingFrom=="deactivateAccount")
+             msgToDisplay = "Your account has been deactivated";
+      else
+            msgToDisplay = "You have been Successfully Logged Out...";
+      
+      document.getElementById('login-msg-box').innerHTML = msgToDisplay;
       
      }
 
