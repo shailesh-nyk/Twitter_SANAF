@@ -6,9 +6,10 @@ var ExtractJwt = require('passport-jwt').ExtractJwt;
 module.exports = function (passport) {
     var opts = {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: "Passphrase for encryption should be 45-50 char long",
+        secretOrKey: "secret",
     };
     passport.use(new JwtStrategy(opts, function (jwt_payload, callback) {
          console.log("===========call inside passport middleware");
+         callback(null,jwt_payload);
     }));
 };

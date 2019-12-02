@@ -6,6 +6,10 @@ const messageServiceMap = {
     'COMMENTTWEET': require('../services/tweet/comment_tweet_service').commentTweet,
     'ADDHASHTAG' : require('../services/hashtag/add_hashtag_service').addHashtag,
     'SEARCHHASHTAG' : require('../services/hashtag/search_hashtag_service').searchHashtag,
+    'INCREMENT_VIEW': require('../services/tweet/increment_viewcount_service').incrementViewCount,
+    'BOOKMARK_TWEET': require('../services/tweet/bookmark_tweet_service').bookmarkTweet,
+    'RETWEET': require('../services/tweet/retweet_service').reTweet,
+    'GETUSERSTWEETS': require('../services/tweet/get_users_tweets').getUsersTweets
 }
 
 module.exports.handleRequest = function(req, callback){

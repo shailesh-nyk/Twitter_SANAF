@@ -1,7 +1,7 @@
 
 import React from 'react';
 import config from '../../../config/app-config';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 class CommentModal extends React.Component { 
     constructor(props) {
@@ -27,7 +27,7 @@ class CommentModal extends React.Component {
                 <div class="modal-body t-tweet-comment-modal">
                     <div className="t-tweet-container">
                             <div>
-                                <img class="t-tweet-avatar" src={config.base + this.state.data.userId.avatar}/>
+                                <img class="t-tweet-avatar" src={config.image_server + this.state.data.userId.avatar}/>
                             </div>
                             <div class="t-tweet-right">
                                 <div>
@@ -49,7 +49,7 @@ class CommentModal extends React.Component {
                     </div>
                     <div className="t-tweet-container">
                             <div>
-                                <img class="t-tweet-avatar" src={config.base + this.state.data.userId.avatar}/>
+                                <img class="t-tweet-avatar" src={config.image_server + this.props.user.avatar}/>
                             </div>
                             <div class="t-tweet-right">
                                 <textarea id="comment-text" className="t-dark-container t-comment-textarea" placeholder="Type your comment here" required/>
@@ -57,7 +57,7 @@ class CommentModal extends React.Component {
                     </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" onClick={() => this.postComment()}>Reply</button>
+                  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick={() => this.postComment()}>Reply</button>
                 </div>
               </div>
             </div>
@@ -72,4 +72,9 @@ class CommentModal extends React.Component {
     }
 }
 
-export default CommentModal;
+const mapStateToProps = state => {
+    return {
+        user: state.auth.user
+    }
+}
+export default connect(mapStateToProps, null)(CommentModal);

@@ -100,7 +100,7 @@ export const setUserLoading = () => {
 };
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = (history) => dispatch => {
   // Remove token from local storage
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests
@@ -110,8 +110,69 @@ export const logoutUser = () => dispatch => {
   dispatch({
     type: RESET_ALL_STATE
   });
-  
+
+  //history.push("/login");
+  history.push({
+    pathname: '/login',
+    comingFrom: 'logout'
+  })
+
 };
+
+// Account Deactivation
+export const deactivateAccount = (history) => dispatch => {
+  axios
+    .put("/user/deactivateAccount")
+    .then(res => {
+                  
+                   let  dispatchType = GET_ERRORS;
+
+                    if(res.data.success)
+                     {
+                          //dispatchType = GET_SUCCESS_MSG;
+                          // Remove token from local storage
+                          localStorage.removeItem("jwtToken");
+                          // Remove auth header for future requests
+                          setAuthToken(false);
+                          // Set current user to empty object {} which will set isAuthenticated to false
+                          dispatch(setCurrentUser({}));
+                          
+                          dispatch({
+                            type: RESET_ALL_STATE
+                          });
+
+
+                          history.push({
+                            pathname: '/login',
+                            comingFrom: 'deactivateAccount'
+                          });
+
+                         
+
+                          //history.push("/login");
+                    
+                     
+                     }
+                     else{
+                          dispatch({
+                            type: dispatchType,
+                            payload: res.data
+                          })
+                     }
+                  
+
+                }
+         ) // re-direct to login on successful register
+    .catch(err => 
+      { console.log("In Errro");
+        dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })}
+    );
+
+};
+
 
 /* // Reset All State
 export const resetState = () => { console.log('hi');

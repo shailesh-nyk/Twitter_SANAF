@@ -14,7 +14,7 @@ import setAuthToken from "../config/setAuthToken";
 import { setCurrentUser, logoutUser } from "../redux/actions/authActions";
 import store from "../store";
 
-
+import Dashboard from './components/dashboard/dashboard';
 //import { Provider } from "react-redux";
 
 
@@ -73,6 +73,7 @@ class App extends React.Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Route path="/ui" component={Main}/>
+            <Route exact path="/dashboard" component={Dashboard} />
           </Switch>
           <Loader/>
           <Messages/>

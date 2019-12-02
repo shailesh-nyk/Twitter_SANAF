@@ -1,19 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { sendmessage } from './../../../redux/actions/conversation-action';
+import { sendmessage, fetchConversationheads } from './../../../redux/actions/conversation-action';
+import config from '../../../config/app-config';
 
 class conversation extends React.Component {
-
     constructor(props) {
         super(props);
+        config.listen(config.socket, this.reloadConversation);
     }
-
+    reloadConversation = () => {
+        setTimeout(()=>this.props.fetchConversationheads(this.props.user.id),500);
+    }
     renderMessages = (messages) => {
         if (messages) {
             return messages.map((message) => {
                 let alignItem = "align-items-end";
                 let dateStyle = { fontSize: "xx-small", float: "right" };
-                let messageClass = "list-group-item list-group-item-action flex-column t-conversationhead-btn ";
+                let messageClass = "list-group-item t-font list-group-item-action flex-column t-conversationhead-btn ";
                 if (message.sender_id._id === this.props.query) {
                     alignItem = "align-items-start";
                     dateStyle.float = "none";
@@ -39,7 +42,7 @@ class conversation extends React.Component {
                 <div class="row h-100 justify-content-center align-items-center">
                     <span >Choose one from your existing messages, or start a new one.</span>
                 </div>
-                <a href="" onClick={(e)=> {e.preventDefault(); window.$("#newConversation").click()}} role="button" data-focusable="true" class="row h-100 justify-content-center align-items-center">
+                <a href="" onClick={(e) => { e.preventDefault(); window.$("#newConversation").click() }} role="button" data-focusable="true" class="row h-100 justify-content-center align-items-center">
                     <div>
                         <span >
                             <span>New message</span>
@@ -119,12 +122,13 @@ class conversation extends React.Component {
 const mapStateToProps = (state) => {
     return {
         conversationheads: state.conversationReducer.conversationheads,
-        user : state.auth.user
+        user: state.auth.user
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        sendmessage: (message_payload) => dispatch(sendmessage(message_payload))
+        sendmessage: (message_payload) => dispatch(sendmessage(message_payload)),
+        fetchConversationheads: (id) => dispatch(fetchConversationheads(id))
     }
 }
 
