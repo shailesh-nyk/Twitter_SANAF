@@ -9,7 +9,12 @@ const config = {
         socket.on('private', function (data) {
             callback(data.message);
         });
-    }
+    },
+    listenNewsfeed: function (socket,callback) {
+        socket.on('newsfeed', function (data) {
+            callback();
+        });
+    },
 }
 
 

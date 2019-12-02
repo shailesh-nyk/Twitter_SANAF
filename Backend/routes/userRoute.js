@@ -83,14 +83,24 @@ router.get('/following',requireAuth, function(req, res) {
   kafka.make_request('user', request , res);
 })
 
-router.get('/followedBy',requireAuth, function(req, res) {
-  
+router.get('/followers', function(req, res) {
+  console.log(req.query)
+  let request = {
+    body: req.query,
+    message: 'FOLLOWERS'
+  }
+  kafka.make_request('user', request , res);
+})
+
+router.get('/followedBy', function(req, res) {
+
   let request = {
     body: req.user,
     message: 'FOLLOWED_BY'
   }
   kafka.make_request('user', request , res);
 })
+
 
 //GET BOOKMARKS 
 router.get('/bookmark',requireAuth, function(req, res) {
