@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ContainerLoader from '../../components/container-loader/container-loader';
-import { getListDetails, editList } from './../../../redux/actions/list-action';
+import { getListDetails, editList, subscribeToList, unsubscribeToList } from './../../../redux/actions/list-action';
 import Tweet from './../../components/tweet/tweet';
 import list_image from '../../../assets/images/list_image.png';
 import EditListModal from './../../components/edit-list-modal/edit-list-modal';
@@ -50,9 +50,9 @@ class ListView extends React.Component {
         if(this.state.owned) {
             actionButton = <button class='btn btn btn-outline-primary' data-toggle="modal"  data-target="#editListModal">Edit List</button>
         } else if(this.state.subscribed) {
-            actionButton = <button class='btn btn btn-outline-primary'>Unsubscribe</button>
+            actionButton = <button class='btn btn btn-outline-primary' onClick={() => this.unsubscribe()}>Unsubscribe</button>
         } else {
-            actionButton = <button class='btn btn btn-outline-primary'>Subscribe</button>
+            actionButton = <button class='btn btn btn-outline-primary' onClick={() => this.subscribe()}>Subscribe</button>
         }
         if(this.props.data) {
             return(
@@ -101,6 +101,18 @@ class ListView extends React.Component {
             this.props.history.goBack();
         }
     }
+    subscribe() {
+        this.props.subscribeToList({
+            list_id: this.props.data._id,
+            user_id: this.props.user.id
+        })
+    }
+    unsubscribe() {
+        this.props.unsubscribeToList({
+            list_id: this.props.data._id,
+            user_id: this.props.user.id
+        })
+    }
 }
 const mapStateToProps = state => {
     return {
@@ -111,7 +123,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getListDetails: payload => dispatch(getListDetails(payload)),
-        editList: payload => dispatch(editList(payload))
+        editList: payload => dispatch(editList(payload)), 
+        subscribeToList: payload => dispatch(subscribeToList(payload)), 
+        unsubscribeToList: payload => dispatch(unsubscribeToList(payload)), 
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ListView);

@@ -102,10 +102,13 @@ export const getListDetails = (payload) => {
 export const removeUserFromList = (payload) => {
     return (dispatch) => {
         dispatch(startLoader());
-        axios.delete("/api/list" , { data: payload } )
+        axios.delete("/api/list/member" , { data: payload } )
             .then(resp => {
                 dispatch(stopLoader());
                 if (resp.data.success) {
+                    dispatch(getListDetails({
+                        list_id: payload.list_id
+                    }))
                     dispatch(setMessage({
                         msg: resp.data.msg,
                         name: 'success'
@@ -136,6 +139,96 @@ export const editList = (payload) => {
                 if (resp.data.success) {
                     dispatch(getListDetails({
                         list_id: resp.data.payload._id
+                    }))
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'success'
+                    }))
+                } else {
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'danger'
+                    }))
+                }
+            }, err => {
+                dispatch(stopLoader());
+                dispatch(setMessage({
+                    msg: "Something went wrong",
+                    name: 'danger'
+                }))
+            });
+    }
+}
+
+export const subscribeToList = (payload) => {
+    return (dispatch) => {
+        dispatch(startLoader());
+        axios.post("/api/list/subscribe" , payload )
+            .then(resp => {
+                dispatch(stopLoader());
+                if (resp.data.success) {
+                    dispatch(getListDetails({
+                        list_id: payload.list_id
+                    }))
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'success'
+                    }))
+                } else {
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'danger'
+                    }))
+                }
+            }, err => {
+                dispatch(stopLoader());
+                dispatch(setMessage({
+                    msg: "Something went wrong",
+                    name: 'danger'
+                }))
+            });
+    }
+}
+
+export const unsubscribeToList = (payload) => {
+    return (dispatch) => {
+        dispatch(startLoader());
+        axios.post("/api/list/unsubscribe" , payload )
+            .then(resp => {
+                dispatch(stopLoader());
+                if (resp.data.success) {
+                    dispatch(getListDetails({
+                        list_id: payload.list_id
+                    }))
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'success'
+                    }))
+                } else {
+                    dispatch(setMessage({
+                        msg: resp.data.msg,
+                        name: 'danger'
+                    }))
+                }
+            }, err => {
+                dispatch(stopLoader());
+                dispatch(setMessage({
+                    msg: "Something went wrong",
+                    name: 'danger'
+                }))
+            });
+    }
+}
+
+export const addUserToList = (payload) => {
+    return (dispatch) => {
+        dispatch(startLoader());
+        axios.put("/api/list/member" , payload)
+            .then(resp => {
+                dispatch(stopLoader());
+                if (resp.data.success) {
+                    dispatch(getListDetails({
+                        list_id: payload.list_id
                     }))
                     dispatch(setMessage({
                         msg: resp.data.msg,
