@@ -18,7 +18,8 @@ const messageServiceMap = {
     'FOLLOWING' : userFollowing.getFollowing,
     'GET_BOOKMARKS': bookmarkService.getBookmarks,
     'USER_ACCOUNT_DEACTIVATE' : userAccountDeactivate.deactivateAccount,
-    'USER_VIEW_INCREMENT' : userProfileService.incrementViewCount
+    'USER_VIEW_INCREMENT' : userProfileService.incrementViewCount,
+    'FOLLOWERS': userFollowing.getFollowers
 }
 
 module.exports.handleRequest = function(req, callback){

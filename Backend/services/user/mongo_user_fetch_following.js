@@ -9,3 +9,12 @@ module.exports.getFollowing = function (req, callback) {
         }
     ).populate('following');
 }
+
+module.exports.getFollowers = function (req, callback) {
+    const  id  = req.id;
+    UserModel.findById(id, 'followedBy',
+        function (err, model) {
+            callback(null, model.followedBy);
+        }
+    ).lean();
+}
