@@ -3,7 +3,7 @@ import React from 'react';
 import config from './../../../config/app-config';
 import axios from 'axios';
 import CommentModal from '../../components/comment-modal/comment-modal';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
 import { bookmarkTweet } from '../../../redux/actions/tweet-action';
@@ -53,8 +53,8 @@ class Tweet extends React.Component {
                 </div>
                 <div class="t-tweet-right">
                     <div onClick={(e) => e.stopPropagation()}>
-                        <span className="t-primary-bold"> {this.state.data.userId.name} </span>
-                        <span className="t-secondary"> @{this.state.data.userId.handle}</span>
+                        <Link className="t-profile-link t-primary-bold" to={'/ui/userprofile/' + this.state.data.userId._id} >{this.state.data.userId.name}</Link>
+                        <span className="t-secondary" style={{marginLeft: "16px"}}> @{this.state.data.userId.handle}</span>
                         <span className="t-secondary" style={{marginLeft: "40px"}}> {this.state.data.timeElapsed}</span>
                     </div>
                     <div>

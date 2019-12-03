@@ -65,7 +65,7 @@ class Profile extends Component {
                     <div className="p-3" style={{borderBottom: "1px solid #38444d"}}>
                         <div className="d-flex justify-content-between align-items-center">
                             <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
-                            <span style={{fontStyle: "italic"}}>"{this.state.profile.description}"</span>
+                            <span style={{fontStyle: "italic", flex:"1", textAlign:"center"}}>"{this.state.profile.description}"</span>
                         </div>
                         <div className="d-flex justify-content-end align-items-center">
                             <button className="btn btn-sm btn-secondary mr-3" onClick={this.onClickDeactivate}> Deactivate</button>
