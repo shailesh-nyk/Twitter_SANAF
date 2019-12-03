@@ -7,7 +7,14 @@ module.exports.unfollow = function (req, callback) {
         { $pull: { "following": follow_id } },
         { safe: true, upsert: true, new: true },
         function (err, model) {
-            callback(null,model);
+            UserModel.findByIdAndUpdate(
+                follow_id,
+                { $pull: { "followedBy": user_id } },
+                { safe: true, upsert: true, new: true },
+                function (err, model) {
+                    callback(null, model);
+                }
+            );
         }
     );
 }
