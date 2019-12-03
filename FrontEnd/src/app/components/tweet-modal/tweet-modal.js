@@ -22,13 +22,17 @@ class TweetModal extends React.Component {
         window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
         const recognition = new window.SpeechRecognition();
         recognition.interimResults = true;
-        //recognition.maxAlternatives = 100;
-        recognition.continuous = true;
-            recognition.onresult = (event) => {
-            this.setState({
-               tweetText1: event.results[0][0].transcript,
-               listening: false
-            })
+        recognition.onresult = (event) => {
+            if(event.results[0].isFinal) {
+                 this.setState({
+                    tweetText: event.results[0][0].transcript,
+                    listening: false
+                 })
+            } else {
+                this.setState({
+                    tweetText: event.results[0][0].transcript
+                })
+            }
         }
         recognition.start();
         this.setState({
@@ -68,7 +72,7 @@ class TweetModal extends React.Component {
                                 </label>
                                
                         </div>
-                        <i class="fas fa-microphone  t-icon" style={this.state.listening ? {color:"red"} : {color:"white"}} onClick={() => this.speech()}></i>
+                        <i title="Talk to tweet" class="fas fa-microphone  t-icon" style={this.state.listening ? {color:"red"} : {color:"white"}} onClick={() => this.speech()}></i>
                         <span className="t-small-text"> {280 - this.state.tweetText1.length} characters left </span>
                         <button className="btn btn-primary" data-dismiss="modal" disabled= { this.state.tweetText1=="" &&  this.state.tweetImage1== null ? true : false}
                                     onClick = {this.createTweet} > Tweet

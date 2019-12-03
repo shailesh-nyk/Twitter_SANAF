@@ -40,7 +40,7 @@ class NewsFeed extends React.Component {
                             <i class="fa fa-picture-o fa-lg t-icon" style={this.state.tweetImage ? {color: "#00acee" } : {}}></i> 
                             <input name="file-to-upload" className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
                         </label>
-                        <i class="fas fa-microphone  t-icon" style={this.state.listening ? {color:"red"} : {color:"white"}} onClick={() => this.speech()}></i>
+                        <i title="Talk to tweet" class="fas fa-microphone  t-icon" style={this.state.listening ? {color:"red"} : {color:"white"}} onClick={() => this.speech()}></i>
                         <span className="t-small-text"> {280 - this.state.tweetText.length} characters left </span>
                         <button className="btn btn-primary" disabled= { this.state.tweetText=="" &&  this.state.tweetImage== null ? true : false}
                             onClick = {this.createTweet} > Tweet
@@ -56,15 +56,19 @@ class NewsFeed extends React.Component {
     }
     speech() {
         window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
-        const recognition = new window.SpeechRecognition();
-        recognition.interimResults = true;
-        //recognition.maxAlternatives = 100;
-        recognition.continuous = true;
+            const recognition = new window.SpeechRecognition();
+            recognition.interimResults = true;
             recognition.onresult = (event) => {
-            this.setState({
-               tweetText: event.results[0][0].transcript,
-               listening: false
-            })
+            if(event.results[0].isFinal) {
+                this.setState({
+                    tweetText: event.results[0][0].transcript,
+                    listening: false
+                    })
+            } else {
+                this.setState({
+                    tweetText: event.results[0][0].transcript
+                    })
+            }
         }
         recognition.start();
         this.setState({
