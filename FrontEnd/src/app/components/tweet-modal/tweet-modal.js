@@ -35,7 +35,7 @@ class TweetModal extends React.Component {
                         </div>
                         <div className="t-tweet-right">
                             <div>
-                                <textarea className="t-textbox form-control" onChange={this.handleChange} id="text1"
+                                <textarea maxLength="280" className="t-textbox form-control" onChange={this.handleChange} id="text1"
                                     placeholder= {this.state.defaultText } value = {this.state.tweetText1}/>
                             </div>
                             
@@ -50,6 +50,7 @@ class TweetModal extends React.Component {
                                 </label>
                                
                         </div>
+                        <span className="t-small-text"> {280 - this.state.tweetText1.length} characters left </span>
                         <button className="btn btn-primary" data-dismiss="modal" disabled= { this.state.tweetText1=="" &&  this.state.tweetImage1== null ? true : false}
                                     onClick = {this.createTweet} > Tweet
                         </button>

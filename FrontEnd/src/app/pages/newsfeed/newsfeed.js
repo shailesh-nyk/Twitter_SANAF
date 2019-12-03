@@ -30,7 +30,7 @@ class NewsFeed extends React.Component {
                 </div>
                 <div className="t-tweet-right">
                     <div>
-                        <textarea className="t-textbox form-control" onChange={this.handleChange} id="text"
+                    <textarea maxLength="280" className="t-textbox form-control" onChange={this.handleChange} id="text"
                        placeholder= {this.state.defaultText } value = {this.state.tweetText}/>
                     </div>
                     <div class='t-create-tweet-action'>
@@ -38,6 +38,7 @@ class NewsFeed extends React.Component {
                             <i class="fa fa-picture-o fa-lg t-icon" style={this.state.tweetImage ? {color: "#00acee" } : {}}></i> 
                             <input name="file-to-upload" className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
                         </label>
+                        <span className="t-small-text"> {280 - this.state.tweetText.length} characters left </span>
                         <button className="btn btn-primary" disabled= { this.state.tweetText=="" &&  this.state.tweetImage== null ? true : false}
                             onClick = {this.createTweet} > Tweet
                         </button>
