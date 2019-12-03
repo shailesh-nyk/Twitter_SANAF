@@ -1,15 +1,12 @@
 import React, { Component, Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import classnames from "classnames";
-import TopNav from '../login/topNav';
-import { getUserProfile,fetchFollowing,fetchFollowedBy } from './../../../redux/actions/userProfile-action';
+import { getUserProfile, fetchFollowing, fetchFollowedBy } from './../../../redux/actions/userProfile-action';
 import config from '../../../config/app-config';
 import ProfileModal from "./ProfileModal";
 import Profile_Other_Tweets from './Profile_Other_Tweets'
 import Axios from "axios";
-import { followUser,handleUnFollow, unFollowUser } from './../../../redux/actions/user-action';
+import { followUser, handleUnFollow, unFollowUser } from './../../../redux/actions/user-action';
 
 class Profile_Other extends Component {
     constructor(props) {
@@ -30,18 +27,17 @@ class Profile_Other extends Component {
         console.log("inside other profile")
         console.log(this.props.match.params.profile_id)
         console.log(this.props)
-        //this.props.getUserProfile(this.props.user.id);
     }
 
     componentWillMount() {
         console.log("other component mounted")
         if (null != this.props.match.params.profile_id) {
-            this.props.getUserProfile(this.props.match.params.profile_id);  
+            this.props.getUserProfile(this.props.match.params.profile_id);
         }
-             this.props.fetchFollowing(this.props.history);
-             this.props.fetchFollowedBy(this.props.history);
-    } 
-       
+        this.props.fetchFollowing(this.props.history);
+        this.props.fetchFollowedBy(this.props.history);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps != null) {
             console.log(nextProps.userProfile)
@@ -49,14 +45,13 @@ class Profile_Other extends Component {
                 name: nextProps.userProfile.name,
                 handle: nextProps.userProfile.handle,
                 avatar: nextProps.userProfile.avatar,
-
                 profile: nextProps.userProfile
             });
             const payload = {
                 viewed_by: this.props.user.id,
                 user_id: this.props.match.params.profile_id
             }
-            console.log('before incremneting '+payload.viewed_by+" and "+payload.user_id)
+            console.log('before incremneting ' + payload.viewed_by + " and " + payload.user_id)
             Axios.post('/user/incrementViewCount', payload).then(response => {
                 console.log('-----------------------------------------------------------------')
                 console.log(response.data)
@@ -66,7 +61,7 @@ class Profile_Other extends Component {
 
     isFollowing() {
         if (this.props.user && this.props.userProfile) {
-            if (this.props.userProfile.hasOwnProperty('followedBy') &&  this.props.userProfile.followedBy.includes(this.props.user.id)) {
+            if (this.props.userProfile.hasOwnProperty('followedBy') && this.props.userProfile.followedBy.includes(this.props.user.id)) {
                 return true;
             }
         }
@@ -92,122 +87,45 @@ class Profile_Other extends Component {
 
         return (
             <React.Fragment>
-
-
-                <div className="t-wh-container">
-                    <div className="t-top-nav" >{this.state.name}</div>
-                    <div className="t-nf-container">
-                        <div className="t-text-container" >
-                            {/* change image with current user image    */}
+                <div>
+                    <div className="t-topnav-container" >{this.state.name} &nbsp; <span className="t-small-text t-secondary">@{this.state.handle}</span></div>
+                    <div className="p-3" style={{ borderBottom: "1px solid #38444d" }}>
+                        <div className="d-flex justify-content-between align-items-center">
                             <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
-                            <input className="t-textbox form-control" type="text" id="text" />
+                            <span style={{ fontStyle: "italic" }}>"{this.state.profile.description}"</span>
                         </div>
-
-                        <div className="t-tweet-right">
-                            {/* <label for="tweetImage">
-                    <i class="fa fa-picture-o fa-lg t-favicon"></i> 
-                    <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
-                </label> */}
+                        <div className="d-flex justify-content-end align-items-center">
                             <button className="btn btn-primary t-btn-hover t-rounded-button" style={{ display: this.isFollowing() ? "inline-block" : "none" }}
                                 onMouseEnter={(e) => this.handleHover(e, 1)} onMouseOut={(e) => this.handleHover(e, 0)}
-                                onClick={this.handleUnFollow}
-                            >Following</button>
+                                onClick={this.handleUnFollow}>Following</button>
                             <button className="btn btn-primary t-rounded-button" style={{ display: this.isFollowing() ? "none" : "inline-block" }} onClick={this.handleFollow}>Follow</button>
-                            {/* <button className="btn btn-primary t-rounded-button" data-toggle="modal" data-target="#profileModal" > Edit Profile</button> */}
-                        </div>
-
-                        <div>
-                            {this.state.name}
                         </div>
                         <div>
-                            {this.state.avatar}
-                        </div>
-                        <div>
-                        { 
-                             this.props.following.hasOwnProperty("result") &&
-                             this.props.following.result.length
-                             } Following 
-                             &nbsp;
-                             { 
-                             this.props.followedBy.hasOwnProperty("result") &&
-                             this.props.followedBy.result.length
+                            {
+                                this.props.following.hasOwnProperty("result") &&
+                                this.props.following.result.length
+                            } Following
+                            &nbsp;
+                            {
+                            this.props.followedBy.hasOwnProperty("result") &&
+                            this.props.followedBy.result.length
                              } Followers
+                        </div>
                     </div>
-                    </div>
-                    <ProfileModal data={this.state.profile}></ProfileModal>
-                    <Profile_Other_Tweets id={this.props.match.params.profile_id} ></Profile_Other_Tweets>
                 </div>
+                <ProfileModal data={this.state.profile}></ProfileModal>
+                <Profile_Other_Tweets id={this.props.match.params.profile_id} ></Profile_Other_Tweets>
             </React.Fragment>
         );
     }
 }
 
-/*  componentWillMount() {
-
-   this.props.getUserProfile(this.props.user.id);
-  
- 
- } */
-
-
-
-
-/* render() {
-  const { errors } = this.state;
-  
-  return (
-    <React.Fragment>
-    <div>
-          <div className="t-topnav-container" >{this.state.name}</div>
-          <div className="t-nf-container t-profile-container">
-          <div className="t-text-container" > 
-                 
-                  <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
-                  <input className="t-textbox form-control"  type="text" id="text"/>
-          </div>
-            <div className="d-flex justify-content-end">
-              
-                <button className="btn btn-primary" data-toggle="modal" data-target="#profileModal"> Edit Profile</button>
-            </div>
-            <div>
-                    {this.state.name}
-            </div>
-            <div>
-                    {this.state.description}
-            </div>
-            <div>
-                    66 Following 19 Followers
-            </div>
-           </div>  
-            <ProfileModal data={this.state.profile}></ProfileModal> 
-            <ProfileTweets></ProfileTweets>             
-    </div>
-    </React.Fragment>
-  );
-}
-
-} */
-
-
-/* Profile.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  success: PropTypes.object.isRequired
-};
- */
-/* const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors,
-  success:state.success
-}); */
-
 const mapStateToProps = state => {
     return {
         userProfile: state.userProfileReducer.userProfile,
         user: state.auth.user,
-        following : state.following,
-        followedBy : state.followedBy,
+        following: state.following,
+        followedBy: state.followedBy,
     }
 };
 const mapDispatchToProps = dispatch => {
@@ -215,8 +133,8 @@ const mapDispatchToProps = dispatch => {
         getUserProfile: (_id) => dispatch(getUserProfile(_id)),
         followUser: (id, target_id) => dispatch(followUser(id, target_id)),
         unFollowUser: (id, target_id) => dispatch(unFollowUser(id, target_id)),
-        fetchFollowing:(history)    => dispatch(fetchFollowing(history)),
-        fetchFollowedBy:(history)    => dispatch(fetchFollowedBy(history))
+        fetchFollowing: (history) => dispatch(fetchFollowing(history)),
+        fetchFollowedBy: (history) => dispatch(fetchFollowedBy(history))
     };
 }
 

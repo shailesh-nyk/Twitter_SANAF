@@ -42,7 +42,7 @@ var listRouter = require('./routes/list');
 
 app.use('/api', indexRouter);
 app.use('/conversation',requireAuth, conversationRouter);
-app.use('/api/tweet', tweetRouter);
+app.use('/api/tweet',requireAuth, tweetRouter);
 //app.use('/user',userRouter)
 app.use('/graphs',requireAuth,graphRouter)
 app.use('/user',userRouter);
