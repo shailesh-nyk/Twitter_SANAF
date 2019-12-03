@@ -7,6 +7,9 @@ import NewsFeed from './../newsfeed/newsfeed';
 import TweetView from './../tweet-view/tweet-view';
 import config from '../../../config/app-config';
 import Search from './../search/search';
+
+import Explore from './../explore/explore';
+
 import Profile from '../../components/Profile/Profile'
 import BookMarks from './../bookmarks/bookmarks';
 import HashTagView from './../hashtag/hashtag';
@@ -16,6 +19,7 @@ import ListView from './../list-view/list-view';
 import PropTypes from "prop-types";
 import Profile_Other from '../../components/Profile/Profile_Other';
 import { getNewsFeed } from './../../../redux/actions/newsfeed-action';
+
 
 
 class Main extends React.Component {
@@ -79,8 +83,12 @@ class Main extends React.Component {
                                 <Redirect to="/ui/newsfeed" />
                             )} />
                             <Route path="/ui/newsfeed" component={NewsFeed} />
+
+                            <Route path="/ui/explore" component={Explore} /> 
+
                             <Route path="/ui/profile" component={Profile} />
                             <Route path="/ui/userprofile/:profile_id" component={Profile_Other} />
+
                             <Route path="/ui/messages" component={Messages} />
                             <Route path="/ui/tweet/:tweet_id" component={TweetView} />
                             <Route path="/ui/bookmark" component={BookMarks} />

@@ -19,7 +19,9 @@ module.exports.getFollowers = function (req, callback) {
             callback(null, model);
         }
     ).lean();
-} 
+
+}
+
 module.exports.getFollowedBy = function (req, callback) {
     const id = req.id;
     console.log(id);
@@ -29,5 +31,4 @@ module.exports.getFollowedBy = function (req, callback) {
             callback(null, result);
         }
     ).populate('followedBy');
-
 }
