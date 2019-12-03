@@ -1,0 +1,97 @@
+@import '../src/assets/scss/var.scss';
+@import '../src/assets/scss/styles.scss';
+
+.t-nf-container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 7px solid $app-border;
+    color: $app-text;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 60px;
+}
+.t-top-nav {
+    font-size: 20px;
+    font-weight: 900;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom: 1px solid $app-border;
+    background-color: $app-bg;
+    position: fixed;
+    width: inherit;
+}
+.t-text-container {
+    display: flex;
+    flex-direction: row;   
+    color: $app-text
+}
+.t-wh-container {
+    width : 700px;
+    border-right: 1px solid $app-border;
+    border-left: 1px solid $app-border;
+}
+.form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+.t-textbox {
+    background-color: $app-bg;
+    border-color: $app-bg;
+    font-size: larger;
+    color: $app-text;
+    &:hover {
+        background-color: $app-bg; 
+        border-color: $app-bg;
+    }
+    &:focus {
+        background-color: $app-bg; 
+        border-color: $app-bg;
+        color: $app-text;
+    }
+}
+.t-profile-img {
+    width : 50px;
+    height : 50px;
+    border-radius: 40px;
+}
+.t-image-upload{
+    color: $app-theme;
+    padding-top:20px; 
+}
+.t-file-input{
+    display: none
+}
+.t-tweet-right {
+    margin-left: 60px;
+    padding-bottom: 20px; 
+}
+.t-rounded-button {
+    display: inline-block;
+    padding: 7px 20px;
+	border-radius: 25px;
+    text-decoration: none;
+    color: $app-text;
+    border-color: $app-theme;
+    font-size: large;
+    background-color: $app-theme;
+    transition: .4s;
+    font-weight: 800;
+    float : right;
+    &:hover {
+        background-color: $app-theme-hover;
+    }
+    &:focus {
+        outline: none
+    }
+    &:disabled {
+        background-color: $app-button-disabled;
+        border-color: $app-button-disabled;
+        color: $app-secondary-text;
+    }
+
+
+}
+
+

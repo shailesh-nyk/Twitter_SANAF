@@ -1,0 +1,15 @@
+.t-textbox {
+    background-color: $app-bg;
+    border-color: $app-bg;
+    font-size: larger;
+    color: $app-text;
+    &:hover {
+        background-color: $app-bg; 
+        border-color: $app-bg;
+    }
+    &:focus {
+        background-color: $app-bg; 
+        border-color: $app-bg;
+        color: $app-text;
+    }
+}

@@ -1,0 +1,45 @@
+@import '../src/assets/scss/var.scss';
+@import '../src/assets/scss/styles.scss';
+
+.t-textbox {
+    display: inline-block;
+    padding: 7px 20px;
+	border-radius: 25px;
+    background-color: $app-border;
+    border-color: $app-border;
+    font-size: larger;
+    color: $app-text;
+    height: 35px;
+    &:hover {
+        background-color: $app-border; 
+        border-color: $app-border;
+    }
+    &:focus {
+        background-color: $app-border; 
+        border-color: $app-theme;
+        color: $app-text;
+    }
+}
+
+.t-input-field {
+    display: none;
+}
+
+.t-favicon{
+    color: $app-theme;
+    padding-top:10px; 
+    padding-left:30px;
+    padding-right:10px;
+}
+
+.t-favicon-search{
+    color: $app-secondary-text;
+    padding-left:30px;
+    padding-right:10px;
+    border-radius: 25px;
+}
+
+.t-top-nav-explore {
+    display: flex;
+    flex-direction: row;
+}

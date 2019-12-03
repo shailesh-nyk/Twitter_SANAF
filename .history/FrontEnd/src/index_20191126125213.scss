@@ -1,0 +1,50 @@
+@import '../src/assets/scss/var.scss';
+@import '../src/assets/scss/styles.scss';
+
+//COMPONENT STYLES
+@import '../src/app/components/loader/loader.scss';
+@import '../src/app/components/messages/messages.scss';
+@import '../src//app/components/leftnav/leftnav.scss';
+@import '../src/app/components/conversationhead/conversationhead.scss';
+@import '../src/app/components/conversation/conversation.scss';
+@import '../src/app/components/tweet/tweet.scss';
+@import '../src/app/components/comment-modal/comment-modal.scss';
+@import '../src/app/components/signUp/signUp.scss';
+@import '../src/app/components/login/login.scss';
+@import '../src/app/components/userSearch-modal/userSearch-modal.scss';
+
+
+//PAGE STYLES
+@import '../src/app/pages/login/login.scss';
+@import '../src/app/pages/signup/signup.scss';
+@import '../src/app/pages/main/main.scss';
+@import '../src/app/pages/newsfeed/newsfeed.scss';
+@import '../src/app/pages/tweet-view/tweet-view.scss';
+@import '../src/app/pages/search/search.scss';
+@import '../src/app/pages/messages/messages.scss';
+
+
+body {
+    color: $app-text;
+    background-color: $app-bg;
+    font-size: 18px;
+    margin: 0;
+    font-family: -system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+i {
+  margin-right: 6px;
+}
+
+
+
+
+
+
