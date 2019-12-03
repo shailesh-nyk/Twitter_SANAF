@@ -26,7 +26,9 @@ module.exports.getUserProfile = function(req, callback){
                             avatar:user.avatar,
                             description:user.description,
                             phone_no:user.phone_no,
-                            email:user.email
+                            email:user.email,
+                            followedBy : user.followedBy,
+                            following : user.following
                            };
                         
                         result = { success:true, msg:"User Profile Details...",userDetails:userDetails};
