@@ -4,6 +4,7 @@ var utils = require('../../middleware/utils');
 var userService = require('../../services/user/mongo_user_fetch_following');
 var Redis = require("ioredis");
 var redis = new Redis(6379, "54.172.121.236", { password: "kafkasucks" });
+var hashtagService = require('./../hashtag/add_hashtag_service');
 
 module.exports.postTweet = function (req, callback) {
     let newTweet = new TweetModel({
@@ -19,6 +20,7 @@ module.exports.postTweet = function (req, callback) {
                 payload: err
             })
         } else {
+            hashtagService.addHashtag({tweetText : req.text , tweet_id : resp.id})
             invalidateRedis(req.user);
             callback(null, {
                 success: true,

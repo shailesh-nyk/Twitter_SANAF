@@ -2,6 +2,7 @@
     width: 400px;
     padding: 20px;
     border-left: 1px solid $app-border;
+    position: relative;
 }
 .react-autosuggest__suggestions-container--open {
     margin-right: 22px !important; 
@@ -13,7 +14,31 @@
     height: 300px;
     overflow: auto;
 }
-
+.t-search-icon {
+    position: absolute;
+    top: 29px;
+    left: 47px;
+    z-index: 3;
+}
+.react-autosuggest__input{
+    padding-left: 32px !important;
+    display: inline-block;
+    padding: 7px 20px;
+	border-radius: 25px;
+    background-color: $app-border;
+    border-color: $app-border;
+    font-size: larger;
+    color: $app-text;
+    height: 35px;
+    &:hover {
+        background-color: $app-border; 
+        border-color: $app-border;
+    }
+    &:focus {
+        background-color: $app-border; 
+        color: $app-text;
+    }
+}
 .t-btn-follow{
     width: 5rem;
     height: 3rem;
