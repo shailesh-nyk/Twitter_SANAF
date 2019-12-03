@@ -9,6 +9,7 @@ import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
 import { bookmarkTweet } from '../../../redux/actions/tweet-action';
 import RetweetModal from '../retweet-modal/retweet-modal';
 import Retweet from '../retweet/retweet';
+import { setMessage } from './../../../redux/actions/util-action';
 
 class Tweet extends React.Component {
     constructor(props) {
@@ -169,6 +170,10 @@ class Tweet extends React.Component {
                     } else {
                         this.getTweet();
                     }
+                    this.props.setMessage({
+                        msg: resp.data.msg,
+                        name: 'success'
+                    });
                 }
         });
     }
@@ -181,6 +186,10 @@ class Tweet extends React.Component {
             .then(resp => {
                 if(resp.data.success) {
                     this.getTweet();
+                    this.props.setMessage({
+                        msg: resp.data.msg,
+                        name: 'success'
+                    });
                 }
         });
     }
@@ -200,7 +209,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
        setTweetViewData: payload => dispatch(setTweetViewData(payload)),
-       bookmarkTweet: payload => dispatch(bookmarkTweet(payload))
+       bookmarkTweet: payload => dispatch(bookmarkTweet(payload)),
+       setMessage: payload => dispatch(setMessage(payload))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Tweet);
