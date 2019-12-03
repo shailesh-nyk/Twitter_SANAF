@@ -56,6 +56,7 @@ class Profile_Other extends Component {
                 viewed_by: this.props.user.id,
                 user_id: this.props.match.params.profile_id
             }
+            console.log('before incremneting '+payload.viewed_by+" and "+payload.user_id)
             Axios.post('/user/incrementViewCount', payload).then(response => {
                 console.log('-----------------------------------------------------------------')
                 console.log(response.data)
@@ -65,7 +66,7 @@ class Profile_Other extends Component {
 
     isFollowing() {
         if (this.props.user && this.props.userProfile) {
-            if (this.props.userProfile.followedBy.includes(this.props.user.id)) {
+            if (this.props.userProfile.hasOwnProperty('followedBy') &&  this.props.userProfile.followedBy.includes(this.props.user.id)) {
                 return true;
             }
         }
@@ -98,7 +99,7 @@ class Profile_Other extends Component {
                     <div className="t-nf-container">
                         <div className="t-text-container" >
                             {/* change image with current user image    */}
-                            <img className="t1-profile-img" src={config.base + this.state.avatar}></img>
+                            <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
                             <input className="t-textbox form-control" type="text" id="text" />
                         </div>
 

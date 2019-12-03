@@ -33,13 +33,20 @@ router.get('/userProfile',requireAuth, function(req, res) {
   }
   kafka.make_request('user', request , res);
 });
-
-router.post('/userProfile',requireAuth, upload.single('avatar'),function(req, res) {
+router.post('/userImageUpdate',requireAuth,function(req,res) {
+  console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+  console.log(req.body)
+  let request = {
+    body: req.body,
+   
+    message: 'USER_IMAGE_UPDATION'
+  }
+  kafka.make_request('user', request , res);
+})
+router.post('/userProfile',requireAuth,function(req, res) {
   
   let request = {
-    body: {body:req.body,
-           avatar: req.filename
-          },
+    body: req.body,
    
     message: 'USER_PROFILE_UPDATION'
   }
@@ -123,7 +130,7 @@ router.put('/deactivateAccount',requireAuth, function(req, res) {
 router.post('/incrementViewCount',requireAuth, function(req,res) {
   console.log('ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
   let request = {
-    body: req.user,
+    body: req.body,
     message: 'USER_VIEW_INCREMENT'
   }
   kafka.make_request('user', request , res);

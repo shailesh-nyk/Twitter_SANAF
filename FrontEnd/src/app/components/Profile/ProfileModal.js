@@ -41,7 +41,8 @@ class ProfileModal extends React.Component {
             name:nextProps.data.name,
             bio:nextProps.data.description,
             city:nextProps.data.city,
-            dob:nextProps.data.d_o_b
+            dob:nextProps.data.d_o_b,
+            avatar:nextProps.data.avatar
         })
     }
     handleImage = (e)=>{
@@ -80,7 +81,7 @@ class ProfileModal extends React.Component {
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content t-dark-container">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Update Profile of </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Update Profile of {this.state.name} </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -88,10 +89,10 @@ class ProfileModal extends React.Component {
                         <div class="modal-body t-tweet-comment-modal">
                             <div class="file-field">
                                 <div class="mb-4 media-left">
-                                    <img className="t2-profile-img" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
-        /* class="rounded-circle z-depth-1-half avatar-pic" */ alt="example placeholder avatar" />
-                                    <span><input type="file" onChange ={this.handleImage} ></input></span>
-
+                                    <img className="t2-profile-img" src={config.image_server+this.state.avatar}
+        /* class="rounded-circle z-depth-1-half avatar-pic" */  />
+                                    <span><input type="file" onChange ={this.handleImage} ></input></span><br/>
+                                    <button type="button" class="btn btn-primary" onClick={() => this.updateImage()}>Upload</button>
                                 </div>
                                 
                             </div>
@@ -120,21 +121,64 @@ class ProfileModal extends React.Component {
             </div>
         )
     }
-    updateDetails() {
+    updateImage() {
         const data = new FormData();
+        data.append('file-to-upload',this.state.avatar);
+        const headers = {
+            'content-type': 'multipart/form-data'
+        }
+        Axios.post(config.image_server,data,{ withCredentials: false })
+        .then((response)=>{
+            console.log('***********************************************************')
+            console.log(response.data);
+            if(response.data.fileName!=null ) {
+                console.log(response.data.fileName)
+                this.updateDetails2(response.data.fileName);
+            }
+           // updateDetails();
+        })
+    
+    }
+    updateDetails2(file) {
+        /* const data = new FormData();
         data.append('_id', this.props.data._id);
-        data.append('avatar', this.state.avatar);
+        data.append('avatar', file); */
+        const data = {
+            _id:this.props.data._id,
+            avatar:file
+        }
+        
+        console.log(data);
+
+      
+        Axios.post('/user/userImageUpdate',data)
+        .then((response)=>{
+            console.log(response);
+            this.props.getUserProfile(this.props.data._id)
+           
+        })
+    }
+    updateDetails() {
+        /* const data = new FormData();
+        data.append('_id', this.props.data._id);
+        //data.append('avatar', this.state.avatar);
         data.append('name', this.state.name);
         data.append('city', this.state.city);
         data.append('d_o_b', this.state.dob);
         data.append('description', this.state.bio);
-        console.log(data);
-
+        console.log(data); */
+        const data = {
+            _id:this.props.data._id,
+            name:this.state.name,
+            city:this.state.city,
+            d_o_b:this.state.d_o_b,
+            description:this.state.bio
+        }
         const headers = {
             'content-type': 'multipart/form-data'
         }
-      
-        Axios.post('/user/userProfile',data,{headers})
+        console.log(data)
+        Axios.post('/user/userProfile',data)
         .then((response)=>{
             console.log(response);
             this.props.getUserProfile(this.props.data._id)
@@ -152,12 +196,13 @@ class ProfileModal extends React.Component {
          }
      } */
 }
-const mapStateToProps = state => ({
+const mapStateToProps = state => {
+    return {
     auth: state.auth,
     //errors: state.errors,
     //success:state.success,
     userProfileReducer:state.userProfileReducer
-  });
+  }};
   
 const mapDispatchToProps = dispatch => {
     return {

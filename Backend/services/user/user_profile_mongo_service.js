@@ -26,9 +26,7 @@ module.exports.getUserProfile = function(req, callback){
                             avatar:user.avatar,
                             description:user.description,
                             phone_no:user.phone_no,
-                            email:user.email,
-                            followedBy : user.followedBy,
-                            following : user.following
+                            email:user.email
                            };
                         
                         result = { success:true, msg:"User Profile Details...",userDetails:userDetails};
@@ -49,17 +47,60 @@ module.exports.getUserProfile = function(req, callback){
                         
 };
 
+module.exports.updateImage = function(req, callback) {
+    UserModel.count({
+        
+        _id: req._id
+        
+    })
+    .then(c=>{ console.log("image updation count ",c)
+               
+              if(c>0)
+               {
+                   
+                        UserModel.updateOne({
+                            
+                                    _id:req._id
+                            
+                        },{
+                            
+                            avatar:req.avatar,
+                            
+                        })
+                            .then(user => {
+                                            console.log("jksjkjdkjdkejdkejdke");                        
+                                            result = { success:true, msg:"User Details Successfully Updated..."};
+                                            callback(null,result);
 
+                                    })
+                                    .catch(err => {
+                                        result = { success:false,msg:err.message };
+                                        callback(null,result);
+                                    });
+
+                }else{
+                    result = { success:false, msg:"User Not Found..."};
+                    callback(null,result);
+
+                }           
+
+            })
+            .catch(err => {
+                result = { success:false,msg:err.message };
+                callback(null,result);
+            });
+
+}
 module.exports.editUserProfile = function(req, callback){
 
     let result;
     console.log("Aiuhswraya body")
-    console.log(req.avatar)
-    console.log(req.body._id)
+    //console.log(req.avatar)
+    console.log(req._id)
   
     UserModel.count({
         
-        _id: req.body._id
+        _id: req._id
         
     })
     .then(c=>{ console.log("C nsnsn sjsj ",c)
@@ -69,14 +110,14 @@ module.exports.editUserProfile = function(req, callback){
                    
                         UserModel.updateOne({
                             
-                                    _id:req.body._id
+                                    _id:req._id
                             
                         },{
-                            name:req.body.name,
-                            avatar:req.avatar,
-                            description:req.body.description,
-                            city:req.body.city,
-                            d_o_b:req.body.d_o_b
+                            name:req.name,
+                            //avatar:req.avatar,
+                            description:req.description,
+                            city:req.city,
+                            d_o_b:req.d_o_b
                         })
                             .then(user => {
                                             console.log("jksjkjdkjdkejdkejdke");                        
