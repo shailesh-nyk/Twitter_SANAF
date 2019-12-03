@@ -11,7 +11,6 @@ class ProfileTweets extends Component {
         }
     }
     componentDidMount=()=>{
-        
         Axios.get('/api/tweet/user?id='+this.props.user.id).then(response=>{
             console.log(response.data.payload);
             this.setState({
@@ -22,7 +21,7 @@ class ProfileTweets extends Component {
     render() {
         return (
             <div>
-                 {  this.state.data.map( tweet => {
+                 {this.state.data.map( tweet => {
                 return <Tweet tweet={tweet}/>
             })}
             </div>

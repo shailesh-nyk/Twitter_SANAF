@@ -25,5 +25,6 @@ module.exports.getUsersTweets = function(req, callback){
             payload: result
         }) 
     } 
-    }).populate( [{ path:'userId', select:'name handle avatar'}, { path:'comments.user', select:'name handle avatar'}]);
+    }).populate( [{ path:'userId', select:'name handle avatar'}, { path:'comments.user', select:'name handle avatar'}])
+    .sort({ postedOn : 'descending'});
 };
