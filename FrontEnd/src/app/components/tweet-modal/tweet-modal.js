@@ -14,8 +14,26 @@ class TweetModal extends React.Component {
         this.state = {
             defaultText : "What's happening?",
             tweetText1 : "",
-            tweetImage1 : null
+            tweetImage1 : null,
+            listening: false
         }
+    }
+    speech() {
+        window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+        const recognition = new window.SpeechRecognition();
+        recognition.interimResults = true;
+        //recognition.maxAlternatives = 100;
+        recognition.continuous = true;
+            recognition.onresult = (event) => {
+            this.setState({
+               tweetText1: event.results[0][0].transcript,
+               listening: false
+            })
+        }
+        recognition.start();
+        this.setState({
+            listening: true
+        })
     }
     render() {
         return ( 
@@ -50,6 +68,7 @@ class TweetModal extends React.Component {
                                 </label>
                                
                         </div>
+                        <i class="fas fa-microphone  t-icon" style={this.state.listening ? {color:"red"} : {color:"white"}} onClick={() => this.speech()}></i>
                         <span className="t-small-text"> {280 - this.state.tweetText1.length} characters left </span>
                         <button className="btn btn-primary" data-dismiss="modal" disabled= { this.state.tweetText1=="" &&  this.state.tweetImage1== null ? true : false}
                                     onClick = {this.createTweet} > Tweet
@@ -57,7 +76,7 @@ class TweetModal extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
+          </div>    
         )
     }
     createTweet = () => {
