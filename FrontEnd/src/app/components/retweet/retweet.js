@@ -38,7 +38,7 @@ class Retweet extends React.Component {
                     </div>
                     <div class="t-tweet-right">
                         <div onClick={(e) => e.stopPropagation()}>
-                            <span className="t-primary-bold"> {this.state.data.userId.name} </span>
+                            <Link className="t-profile-link t-primary-bold" to={'/ui/userprofile/' + this.state.data.userId._id} >{this.state.data.userId.name}</Link>
                             <span className="t-secondary"> @{this.state.data.userId.handle}</span>
                             <span className="t-secondary" style={{marginLeft: "40px"}}> {this.state.data.timeElapsed}</span>
                         </div>

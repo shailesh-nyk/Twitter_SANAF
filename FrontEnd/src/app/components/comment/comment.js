@@ -1,7 +1,7 @@
 
 import React from 'react';
 import config from '../../../config/app-config';
-
+import { Link } from 'react-router-dom';
 
 class Comment extends React.Component { 
     constructor(props) {
@@ -15,7 +15,7 @@ class Comment extends React.Component {
                 </div>
                 <div class="t-tweet-right">
                     <div>
-                        <span className="t-primary-bold"> {this.props.data.user.name} </span>
+                        <Link className="t-profile-link t-primary-bold" to={'/ui/userprofile/' + this.props.data.user._id} >{this.props.data.user.name}</Link>
                         <span className="t-secondary"> @{this.props.data.user.handle} </span>
                         <span className="t-secondary" style={{marginLeft: "40px"}}> {this.props.data.timeElapsed}</span>
                     </div>
