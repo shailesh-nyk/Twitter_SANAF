@@ -10,7 +10,7 @@ class CommentModal extends React.Component {
     componentWillMount() {
         this.setState({
             data: this.props.data,
-            currentUser: "Shailesh"
+            text: ""
         })
     }
     render() {
@@ -52,7 +52,8 @@ class CommentModal extends React.Component {
                                 <img class="t-tweet-avatar" src={config.image_server + this.props.user.avatar}/>
                             </div>
                             <div class="t-tweet-right">
-                                <textarea id="comment-text" className="t-dark-container t-comment-textarea" placeholder="Type your comment here" required/>
+                                <textarea className="t-dark-container t-comment-textarea" placeholder="Type your comment here" value={this.state.text} 
+                                onChange={(e) => this.setState({ text: e.target.value})} required/>
                             </div>
                     </div>
                 </div>
@@ -65,10 +66,12 @@ class CommentModal extends React.Component {
         )
     }
     postComment() {
-        let text = document.getElementById("comment-text").value;
-        if(text) {
-            this.props.postComment(text);
+        if(this.state.text != "") {
+            this.props.postComment(this.state.text);
         }
+        this.setState({
+            text : ""
+        })
     }
 }
 

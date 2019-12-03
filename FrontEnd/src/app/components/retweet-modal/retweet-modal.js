@@ -10,7 +10,8 @@ class RetweetModal extends React.Component {
     }
     componentWillMount() {
         this.setState({
-            data: this.props.data
+            data: this.props.data,
+            text: ""
         })
     }
     render() {
@@ -30,7 +31,8 @@ class RetweetModal extends React.Component {
                                 <img class="t-tweet-avatar" src={config.image_server + this.props.user.avatar}/>
                             </div>
                             <div class="t-tweet-right">
-                                <textarea id="retweet-text" className="t-dark-container t-comment-textarea" placeholder="Retweet with a comment" required/>
+                                <textarea className="t-dark-container t-comment-textarea" placeholder="Retweet with a comment" required
+                                value={this.state.text} onChange={(e) => this.setState({text: e.target.value})}/>
                             </div>
                     </div>
                     <div>
@@ -47,8 +49,7 @@ class RetweetModal extends React.Component {
         )
     }
     reTweet() {
-        let text = document.getElementById("retweet-text").value;
-        this.props.reTweet(text);
+        this.props.reTweet(this.state.text);
     }
 }
 

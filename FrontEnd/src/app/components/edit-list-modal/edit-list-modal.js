@@ -11,12 +11,26 @@ class EditListModal extends React.Component {
         super(props);
         this.state = {
             value: '',
+            name: '',
+            desc: '',
+            isPublic: false
         }
     }
     componentDidMount() {
-        document.getElementById('edit-list-name').value = this.props.data.name;
-        document.getElementById('edit-list-desc').value = this.props.data.description;
-        document.getElementById('edit-list-public').checked = this.props.data.isPublic;
+        this.setState( {
+            name: this.props.data.name,
+            desc: this.props.data.description,
+            isPublic: this.props.data.isPublic
+        })
+    }
+    componentWillReceiveProps(next) {
+        if(next.data.name !== this.props.data.name) {
+            this.setState( {
+                name: next.data.name,
+                desc: next.data.description,
+                isPublic: next.data.isPublic
+            })
+        }
     }
     render() {
         const { value } = this.state;
@@ -90,15 +104,18 @@ class EditListModal extends React.Component {
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="create-list-name">Name:</label>
-                                        <input type="name" class="form-control" id="edit-list-name" required/>
+                                        <input type="name" class="form-control" required value={this.state.name}
+                                         onChange={(e) => this.setState({ name: e.target.value })}/>
                                     </div>
                                     <div class="form-group">
                                         <label for="create-list-desc">Description:</label>
-                                        <input type="name" class="form-control"  id="edit-list-desc"/>
+                                        <input type="name" class="form-control" value={this.state.desc} 
+                                         onChange={(e) => this.setState({ desc: e.target.value })}/>
                                     </div>
                                     <div class="form-group" style={{display:"flex"}}>
                                         <label style={{flex: "1"}} for="create-list-public">Make Public:</label>
-                                        <input style={{flex: "1"}} type="checkbox" class="form-control" id="edit-list-public"/>
+                                        <input style={{flex: "1"}} type="checkbox" class="form-control" checked={this.state.isPublic}
+                                        onChange={(e) => this.setState({ isPublic: e.target.checked })}/>
                                     </div>
                                 </div>
                             </div>
@@ -119,9 +136,9 @@ class EditListModal extends React.Component {
     editList(e) {
         e.preventDefault();
         let body = {
-            name: document.getElementById('edit-list-name').value,
-            description:document.getElementById('edit-list-desc').value,
-            isPublic: document.getElementById('edit-list-public').checked,
+            name: this.state.name,
+            description: this.state.desc,
+            isPublic: this.state.isPublic,
             list_id: this.props.data._id
         }
         this.props.editList(body);
