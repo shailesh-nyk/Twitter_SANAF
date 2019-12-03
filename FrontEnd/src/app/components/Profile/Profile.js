@@ -81,33 +81,19 @@ class Profile extends Component {
 
         return (
             <React.Fragment>
-
-
-                <div className="t-wh-container">
-                    <div className="t-top-nav" >{this.state.name}</div>
-                    <div className="t-nf-container">
-                        <div className="t-text-container" >
-                            {/* change image with current user image    */}
+                <div>
+                    <div className="t-topnav-container" >{this.state.name} &nbsp; <span className="t-small-text t-secondary">@{this.state.handle}</span></div>
+                    <div className="p-3" style={{borderBottom: "1px solid #38444d"}}>
+                        <div className="d-flex justify-content-between align-items-center">
                             <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
-                            <input className="t-textbox form-control" type="text" id="text" />
+                            <span style={{fontStyle: "italic"}}>"{this.state.profile.description}"</span>
                         </div>
-
-                        <div className="t-tweet-right">
-                            {/* <label for="tweetImage">
-                    <i class="fa fa-picture-o fa-lg t-favicon"></i> 
-                    <input className="t-file-input" onChange={this.fileHandler} id="tweetImage" type="file" accept="image/*" />
-                </label> */}
-                            <button className="btn btn-sm btn-primary t-rounded-button" onClick={this.onClickDeactivate}> Deactivate</button>
-                            <button className="btn btn-primary t-rounded-button" data-toggle="modal" data-target="#profileModal" > Edit Profile</button>
+                        <div className="d-flex justify-content-end align-items-center">
+                            <button className="btn btn-sm btn-secondary mr-3" onClick={this.onClickDeactivate}> Deactivate</button>
+                            <button className="btn btn-primary" data-toggle="modal" data-target="#profileModal" > Edit Profile</button>
                         </div>
-                        
-                        <div>
-                            {this.state.name}
-                        </div>
-                        <div>
-                            {this.state.avatar}
-                        </div>
-                        <div>
+                        {/* ADD FOLLOWERS AND FOLLOWING TO TABS AND SHOW COUNT THERE */}
+                        {/* <div>
                             { 
                              this.props.following.hasOwnProperty("result") &&
                              this.props.following.result.length
@@ -117,7 +103,7 @@ class Profile extends Component {
                              this.props.followedBy.hasOwnProperty("result") &&
                              this.props.followedBy.result.length
                              } Followers
-                    </div>
+                        </div> */}
                     </div>
                     <ProfileModal data={this.state.profile}></ProfileModal>
                     <ProfileTweets></ProfileTweets>
