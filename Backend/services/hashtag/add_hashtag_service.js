@@ -2,7 +2,7 @@ var HashtagModel = require('../../models/hashtag');
 var findHashtags = require('find-hashtags');
 
 
-module.exports.addHashtag = function(req,callback){
+module.exports.addHashtag = function(req){
     var hashtags = findHashtags(req.tweetText);
     const promises = hashtags.map( hashtag => {
         return new Promise((resolve,reject) => {
@@ -31,17 +31,8 @@ module.exports.addHashtag = function(req,callback){
     })
     Promise.all(promises)
     .then( (result ) => {
-        callback(null,{
-            success: true,
-            msg: "Successfully added hashtag on the tweet" ,
-            payload: result
-        }) 
+        return
     })
     .catch( err => {
-        callback(null, {
-            success: false,
-            msg: "Something went wrong",
-            payload: err
-        })
     })
 }

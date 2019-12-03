@@ -149,6 +149,7 @@ class Search extends React.Component {
         let searchResults = this.props.searchResults || [];
         return (
             <div className="t-search-container">
+                <i class="fa fa-search t-search-icon" fa-lg></i>
                 <Autosuggest
                     suggestions={searchResults}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
