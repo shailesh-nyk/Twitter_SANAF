@@ -8,7 +8,6 @@ import TweetView from './../tweet-view/tweet-view';
 import config from '../../../config/app-config';
 import Search from './../search/search';
 
-import Explore from './../explore/explore';
 
 import Profile from '../../components/Profile/Profile'
 import BookMarks from './../bookmarks/bookmarks';
@@ -83,9 +82,6 @@ class Main extends React.Component {
                                 <Redirect to="/ui/newsfeed" />
                             )} />
                             <Route path="/ui/newsfeed" component={NewsFeed} />
-
-                            <Route path="/ui/explore" component={Explore} /> 
-
                             <Route path="/ui/profile" component={Profile} />
                             <Route path="/ui/userprofile/:profile_id" component={Profile_Other} />
 

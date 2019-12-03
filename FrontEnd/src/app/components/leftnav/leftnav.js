@@ -30,7 +30,6 @@ class LeftNav extends React.Component {
                                 <i className="fab fa-twitter fa-2x p-3"></i>
 
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/" >                          <i className="pr-3 fas fa-home"></i>       Home         </Link>
-                                <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/explore">                           <i className="pr-3 fas fa-hashtag"></i>    Explore     </Link>
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/messages" onClick={this.props.reset}>               {messageIcon}                Messages     </Link>
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/bookmark"><i className="pr-3 far fa-bookmark"></i>   Bookmarks    </Link>
                                 <Link className="t-leftnav-a t-medium-text t-icon nav-link" to="/ui/list"><i className="pr-3 fas fa-list-ul"></i>    Lists        </Link>
