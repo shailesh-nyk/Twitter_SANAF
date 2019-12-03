@@ -106,7 +106,7 @@ class conversation extends React.Component {
                 <div className="overflow-auto" style={{ height: "100%", paddingTop: "95px", paddingBottom: "60px"}}>
                     {user_message == null ? this.renderStartConversationInfo() : this.renderMessages(user_message.messages)}
                 </div>
-                {user_message && <div class="input-group p-2 bottom" style={{backgroundColor: "#15202b"}}>
+                {user_message && <div class="input-group p-2 bottom" style={{backgroundColor: "#15202b", zIndex: "1"}}>
                     <input type="text" class="form-control" onKeyUp={this.checkEnterKeyPress} id="inpMessage"
                         placeholder="Enter message" />
                     <div class="input-group-append">
