@@ -52,7 +52,7 @@ class conversationhead extends React.Component {
     }
     render() {
         return (
-            <div class="list-group">
+            <div class="list-group" style={{height: "auto"}}>
                 {this.props.conversationheads && this.renderConversationHead()}
             </div>
         )

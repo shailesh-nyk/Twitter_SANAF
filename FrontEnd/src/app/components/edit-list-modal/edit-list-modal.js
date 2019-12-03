@@ -77,7 +77,7 @@ class EditListModal extends React.Component {
                                         <div className="d-flex justify-content-between">
                                             <div className="d-flex align-items-center">
                                                 <img style={{width:"50px", borderRadius: "60px"}} src={config.image_server + user.avatar}/>
-                                                <div>
+                                                <div class="ml-3">
                                                     <span>{user.name}</span> <br/>
                                                     <span className="t-secondary t-small-text">@{user.handle}</span>
                                                 </div>

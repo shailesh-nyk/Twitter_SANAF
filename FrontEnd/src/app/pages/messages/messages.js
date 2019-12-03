@@ -80,34 +80,40 @@ class Messages extends React.Component {
             onChange: this.onChange
         };
         return (
-            <div className="row t-messages-div">
-                <div className="col-6 overflow-allow t-container-border t-no-padding">
-                    <div class="d-flex bd-highlight mb-3  t-container-border t-find-better-way">
-                        <div class="mr-auto bd-highlight t-primary-bold t-medium-text">
-                            Messages
+            <div>
+                <div className="t-topnav-container">
+                      <div class="d-flex justify-content-between align-items-center" style={{width: "47%"}}>
+                            <div class="mr-auto bd-highlight t-primary-bold t-medium-text">
+                                Messages
+                            </div>
+                            <div class="bd-highlight">
+                                <span className="t-userSearch" data-toggle="modal" data-target="#userSearchModal" onClick={(e) => e.stopPropagation()}>
+                                    <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} id="newConversation" />
+                                </span>
+                            </div>
+                      </div>
+                </div>
+                <div className="row">
+                    <div className="d-flex flex-column col-6 overflow-allow t-no-padding">
+                        <div className="p-1">
+                            <Autosuggest
+                                suggestions={suggestions}
+                                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                                getSuggestionValue={this.getSuggestionValue}
+                                renderSuggestion={this.renderSuggestion}
+                                inputProps={inputProps}
+                            />
                         </div>
-                        <div class="bd-highlight">
-                            <span className="t-userSearch" data-toggle="modal" data-target="#userSearchModal" onClick={(e) => e.stopPropagation()}>
-                                <i class="fas fa-plus-circle" style={{ fontSize: "larger" }} onClick={this.handleClick} id="newConversation" />
-                            </span>
+                        <div style={{height: "calc(100vh - 137px)", overflow: "auto"}}>
+                           <ConversationHead query={this.state.value} changeHead={this.changeSelectedHead} />
                         </div>
                     </div>
-                    <div className="p-1">
-                        <Autosuggest
-                            suggestions={suggestions}
-                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                            getSuggestionValue={this.getSuggestionValue}
-                            renderSuggestion={this.renderSuggestion}
-                            inputProps={inputProps}
-                        />
+                    <div className="col-6" style={{height: "calc(100vh - 66px)", overflow: "auto"}}>
+                        <Conversation query={this.state.head} />
                     </div>
-                    <ConversationHead query={this.state.value} changeHead={this.changeSelectedHead} />
+                    <UserSearch />
                 </div>
-                <div className="col-6 t-container-border t-no-padding">
-                    <Conversation query={this.state.head} />
-                </div>
-                <UserSearch />
             </div>
         )
     }
