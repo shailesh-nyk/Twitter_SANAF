@@ -88,7 +88,7 @@ class Profile extends Component {
                     <div className="t-nf-container">
                         <div className="t-text-container" >
                             {/* change image with current user image    */}
-                            <img className="t1-profile-img" src={config.base + this.state.avatar}></img>
+                            <img className="t1-profile-img" src={config.image_server + this.state.avatar}></img>
                             <input className="t-textbox form-control" type="text" id="text" />
                         </div>
 

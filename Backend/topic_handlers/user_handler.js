@@ -21,7 +21,8 @@ const messageServiceMap = {
     'GET_BOOKMARKS': bookmarkService.getBookmarks,
     'USER_ACCOUNT_DEACTIVATE' : userAccountDeactivate.deactivateAccount,
     'USER_VIEW_INCREMENT' : userProfileService.incrementViewCount,
-    'FOLLOWERS': userFollowing.getFollowers
+    'FOLLOWERS': userFollowing.getFollowers,
+    'USER_IMAGE_UPDATION': userProfileService.updateImage
 }
 
 module.exports.handleRequest = function(req, callback){
