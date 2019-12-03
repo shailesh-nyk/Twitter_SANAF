@@ -84,32 +84,5 @@ module.exports.handleSearch = function (req, callback) {
                 payload: err
             });
         })
-
-    // UserModel.find({
-    //     $or: [{ 'name': query },
-    //     { 'handle': query }]
-    // }, (err, result) => {
-    //     if (err) {
-    //         callback(true, {
-    //             success: false,
-    //             msg: err.message,
-    //             payload: err
-    //         });
-    //     }
-    //     if (result) {
-    //         callback(false, {
-    //             success: true,
-    //             msg: "Search result",
-    //             payload: JSON.parse(JSON.stringify(result))
-    //         });
-    //     }
-    //     else {
-    //         callback(true, {
-    //             success: false,
-    //             msg: err.message,
-    //             payload: err
-    //         });
-    //     }
-    // }).limit(5);
 }
 
