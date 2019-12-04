@@ -16,7 +16,7 @@ module.exports.reTweet = function(req, callback){
                     payload: err
                 })
             } else{
-                utils.invalidate(req.user_id);
+                utils.invalidateRedis(req.user_id);
                 updateOriginalTweet(req.tweet_id, req.user_id);
                 hashtagService.addHashtag({tweetText : req.text , tweet_id : resp.id})
                 callback(null,{
