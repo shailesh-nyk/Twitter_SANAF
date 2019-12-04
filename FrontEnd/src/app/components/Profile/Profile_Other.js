@@ -27,6 +27,15 @@ class Profile_Other extends Component {
         console.log("inside other profile")
         console.log(this.props.match.params.profile_id)
         console.log(this.props)
+        const payload = {
+            viewed_by: this.props.user.id,
+            user_id: this.props.match.params.profile_id
+        }
+        console.log('before incremneting ' + payload.viewed_by + " and " + payload.user_id)
+        Axios.post('/user/incrementViewCount', payload).then(response => {
+            console.log('-----------------------------------------------------------------')
+            console.log(response.data)
+        })
     }
 
     componentWillMount() {
@@ -47,7 +56,7 @@ class Profile_Other extends Component {
                 avatar: nextProps.userProfile.avatar,
                 profile: nextProps.userProfile
             });
-            const payload = {
+            /* const payload = {
                 viewed_by: this.props.user.id,
                 user_id: this.props.match.params.profile_id
             }
@@ -55,7 +64,7 @@ class Profile_Other extends Component {
             Axios.post('/user/incrementViewCount', payload).then(response => {
                 console.log('-----------------------------------------------------------------')
                 console.log(response.data)
-            })
+            }) */
         }
     }
 

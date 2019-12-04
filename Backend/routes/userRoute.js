@@ -99,8 +99,8 @@ router.get('/followers', function(req, res) {
   kafka.make_request('user', request , res);
 })
 
-router.get('/followedBy', function(req, res) {
-
+router.get('/followedBy',requireAuth , function(req, res) {
+ 
   let request = {
     body: req.user,
     message: 'FOLLOWED_BY'

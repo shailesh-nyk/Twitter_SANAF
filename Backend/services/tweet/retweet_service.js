@@ -1,4 +1,6 @@
 var TweetModel = require('../../models/tweet');
+var utils = require('../../middleware/utils');
+var hashtagService = require('./../hashtag/add_hashtag_service');
 
 module.exports.reTweet = function(req, callback){
         let newTweet = new TweetModel({
@@ -14,7 +16,9 @@ module.exports.reTweet = function(req, callback){
                     payload: err
                 })
             } else{
+                utils.invalidateRedis(req.user_id);
                 updateOriginalTweet(req.tweet_id, req.user_id);
+                hashtagService.addHashtag({tweetText : req.text , tweet_id : resp.id})
                 callback(null,{
                     success: true,
                     msg: "Retweeted successfully!",

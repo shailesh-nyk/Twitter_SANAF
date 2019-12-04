@@ -49,7 +49,7 @@ module.exports.send = function (req, callback) {
         users: users,
         messages: [messageObj]
     });
-    ConversationModel.findOne({ users: { $in: users } }, (err, result) => {
+    ConversationModel.findOne({ users: { $all: users } }, (err, result) => {
         if (err) {
             callback(null, {
                 success: false,

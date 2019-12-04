@@ -9,7 +9,7 @@ class conversation extends React.Component {
         config.listen(config.socket, this.reloadConversation);
     }
     reloadConversation = () => {
-        setTimeout(()=>this.props.fetchConversationheads(this.props.user.id),500);
+        setTimeout(() => this.props.fetchConversationheads(this.props.user.id), 500);
     }
     renderMessages = (messages) => {
         if (messages) {
@@ -55,7 +55,7 @@ class conversation extends React.Component {
     renderUserName = (user) => {
         if (user) {
             return (
-                <div className="p-3 t-container-border" style={{position: "absolute", zIndex: "1", width: "90%", backgroundColor: "#15202b"}}>
+                <div className="p-3 t-container-border" style={{ position: "absolute", zIndex: "1", width: "90%", backgroundColor: "#15202b" }}>
                     <h5>{user.name}</h5>
                     <small>@{user.handle}</small>
                     <i class="fas fa-info-circle" style={{ float: "right" }}></i>
@@ -101,12 +101,12 @@ class conversation extends React.Component {
             var user_message = this.getConversation(this.props.query);
         }
         return (
-            <div style={{height: "100%"}}>
+            <div style={{ height: "100%" }}>
                 {user_message && this.renderUserName(user_message.user)}
-                <div className="overflow-auto" style={{ height: "100%", paddingTop: "95px", paddingBottom: "60px"}}>
+                <div className="overflow-auto" style={{ height: "100%", paddingTop: "95px", paddingBottom: "60px" }}>
                     {user_message == null ? this.renderStartConversationInfo() : this.renderMessages(user_message.messages)}
                 </div>
-                {user_message && <div class="input-group p-2 bottom" style={{backgroundColor: "#15202b", zIndex: "1"}}>
+                {user_message && <div class="input-group p-2 bottom" style={{ backgroundColor: "#15202b", zIndex: "1" }}>
                     <input type="text" class="form-control" onKeyUp={this.checkEnterKeyPress} id="inpMessage"
                         placeholder="Enter message" />
                     <div class="input-group-append">

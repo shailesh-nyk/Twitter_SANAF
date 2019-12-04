@@ -91,8 +91,9 @@ class ProfileModal extends React.Component {
                                 <div class="mb-4 media-left">
                                     <img className="t2-profile-img" src={config.image_server+this.state.avatar}
         /* class="rounded-circle z-depth-1-half avatar-pic" */  />
-                                    <span><input type="file" onChange ={this.handleImage} ></input></span><br/>
-                                    <button type="button" class="btn btn-primary" onClick={() => this.updateImage()}>Upload</button>
+                                    <span class='p-3'><input type="file" onChange ={this.handleImage} ></input><br/>
+                                    <button type="button" class="btn btn-primary float-right mt-2" onClick={() => this.updateImage()}>Upload</button>
+                                    </span>
                                 </div>
                                 
                             </div>
@@ -114,7 +115,7 @@ class ProfileModal extends React.Component {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" onClick={() => this.updateDetails()}>Update</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={() => this.updateDetails()}>Update</button>
                         </div>
                     </div>
                 </div>
@@ -181,20 +182,12 @@ class ProfileModal extends React.Component {
         Axios.post('/user/userProfile',data)
         .then((response)=>{
             console.log(response);
-            this.props.getUserProfile(this.props.data._id)
-           /*  this.setState({
-                image:"http://localhost:3001"+response.data.cust[0].customer_image
-            }) */
-            //change reducers also
+            this.props.getUserProfile(this.props.data._id);
+            
            
         })
     }
-    /*  postComment() {
-         //let text = document.getElementById("comment-text").value;
-         if(text) {
-            // this.props.postComment(text);
-         }
-     } */
+   
 }
 const mapStateToProps = state => {
     return {

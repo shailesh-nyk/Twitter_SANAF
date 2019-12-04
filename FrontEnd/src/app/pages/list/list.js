@@ -30,7 +30,7 @@ class List extends React.Component {
                         return <ListItem data={list}/>
                     })}
                     {this.props.ownedList.length == 0 ? (
-                        <div class='t-secondary t-small-text'>
+                        <div class='t-secondary t-small-text p-5'>
                             You haven't created any list
                         </div>
                     ) : (null)}
@@ -40,7 +40,7 @@ class List extends React.Component {
                         return <ListItem data={list}/>
                     })}
                      {this.props.subscribedList.length == 0 ? (
-                        <div class='t-secondary t-small-text'>
+                        <div class='t-secondary t-small-text p-5'>
                             You haven't subscribed to any list
                         </div>
                     ) : (null)}

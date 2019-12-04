@@ -1,3 +1,6 @@
+var userService = require('../services/user/mongo_user_fetch_following');
+var Redis = require("ioredis");
+var redis = new Redis(6379, "54.172.121.236", { password: "kafkasucks" });
 
 module.exports.getTimeElapsed = function(time) {
     let minutes = Math.floor((new Date() - time)/60000);
@@ -12,4 +15,21 @@ module.exports.getTimeElapsed = function(time) {
         let days = Math.floor(minutes/1440);
         return days + (days > 1 ? " days" : " day") + " ago";
     }
+}
+
+module.exports.invalidateRedis = (id) => {
+    userService.getFollowers({ id: id }, function (err, res) {
+        let followers = []
+        if (!Array.isArray(JSON.parse(JSON.stringify(res))))
+            followers.push(JSON.parse(JSON.stringify(res))._id);
+        else {
+            followers = JSON.parse(JSON.stringify(res));
+        }
+        if (followers.length > 0) {
+            redis.del(followers, (err, o) => {
+                if (err) console.log("===============REDIS error while invalidating Cache");
+                else console.log("==================REDIS Cache cleared for " + o + "  records");
+            })
+        }
+    })
 }
