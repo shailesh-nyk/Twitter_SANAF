@@ -136,6 +136,7 @@ router.post('/incrementViewCount',requireAuth, function(req,res) {
   kafka.make_request('user', request , res);
 });
 
+
 router.get('/followersnew',requireAuth, function(req, res) {
   let request = {
     body: req.query,
@@ -150,5 +151,7 @@ router.get('/followingnew',requireAuth , function(req, res) {
     message: 'FOLLOWING_NEW'
   }
   kafka.make_request('user', request , res);
+
 })
 module.exports = router;
+
