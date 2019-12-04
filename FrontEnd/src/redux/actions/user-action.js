@@ -21,7 +21,7 @@ const getBookmarksDispatcher = (payload) => {
 
 export const fetchFollowing = (id) => {
     return (dispatch) => {
-        axios.get("http://localhost:8000/user/following", {
+        axios.get("/user/following", {
             params: { id },
             withCredentials: false,
         })
