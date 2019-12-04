@@ -88,18 +88,37 @@ class Profile extends Component {
                              <ProfileTweets></ProfileTweets>
                         </div>
                         <div class="tab-pane fade" id="nav-followers" role="tabpanel" aria-labelledby="nav-followers-tab">
-
+                        {this.props.followedBy.hasOwnProperty('result') ? (
+                                 this.props.followedBy.result.map(user => {
+                                     return (
+                                        <div className="d-flex align-items-center p-3" style={{borderBottom: "1px solid #38444d"}}>
+                                            <Link className="t-profile-link t-primary-bold" to={`/ui/userprofile/${user._id}`}>
+                                            <img style={{width:"50px", borderRadius: "60px"}} src={config.image_server + user.avatar}/>
+                                            <div class="ml-3">
+                                                <span>{user.name}</span> <br/>
+                                                <span className="t-secondary t-small-text">@{user.handle}</span>
+                                            </div>
+                                            </Link>
+                                        </div>  
+                                     )
+                                 })
+                             ) : (  
+                              <div class='t-secondary t-small-text'>
+                                You aren't following anyone yet!
+                              </div>) }
                         </div>
                         <div class="tab-pane fade" id="nav-following" role="tabpanel" aria-labelledby="nav-following-tab">
                              {this.props.following.hasOwnProperty('result') ? (
                                  this.props.following.result.map(user => {
                                      return (
                                         <div className="d-flex align-items-center p-3" style={{borderBottom: "1px solid #38444d"}}>
+                                           <Link className="t-profile-link t-primary-bold" to={`/ui/userprofile/${user._id}`}>
                                             <img style={{width:"50px", borderRadius: "60px"}} src={config.image_server + user.avatar}/>
                                             <div class="ml-3">
                                                 <span>{user.name}</span> <br/>
                                                 <span className="t-secondary t-small-text">@{user.handle}</span>
                                             </div>
+                                            </Link>
                                         </div>  
                                      )
                                  })
