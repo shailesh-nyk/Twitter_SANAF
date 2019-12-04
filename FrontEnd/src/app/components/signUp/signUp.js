@@ -249,7 +249,7 @@ class SignUp extends Component {
                                         type="password"
                                         placeholder="Password"
                                         required
-                                        pattern="^[a-zA-Z]+$"
+                                        pattern="^[a-zA-Z0-9]+$"
                                         minLength="1"
                                         maxLength="10"
                                         className={classnames("form-control", {
