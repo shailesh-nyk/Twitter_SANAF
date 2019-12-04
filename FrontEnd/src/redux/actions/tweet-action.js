@@ -9,17 +9,17 @@ import { startLoader, stopLoader, setMessage } from './util-action';
 //         payload
 //     }
 // }
-let notifyFollowers = (user) => {
+export const notifyFollowers = (user) => {
     axios.get('/user/followers', {
         params: {
             id: user
         }
     })
-        .then(list => {
-            if (list.data.length > 0) {
-                axios.post(config.image_server + 'broadcast', list.data, { withCredentials: false })
-            }
-        });
+    .then(list => {
+        if (list.data.length > 0) {
+            axios.post(config.image_server + 'broadcast', list.data, { withCredentials: false })
+        }
+    });
 }
 
 export const postTweet = (payload) => {
@@ -34,7 +34,6 @@ export const postTweet = (payload) => {
                         name: 'success'
                     }))
                     setTimeout(() => notifyFollowers(payload.user), 500);
-
                 } else {
                     dispatch(setMessage({
                         msg: "We couldn't post your tweet. Please try again",
