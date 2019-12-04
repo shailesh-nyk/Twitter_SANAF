@@ -92,13 +92,11 @@ class Profile extends Component {
                                  this.props.followedBy.result.map(user => {
                                      return (
                                         <div className="d-flex align-items-center p-3" style={{borderBottom: "1px solid #38444d"}}>
-                                            <Link className="t-profile-link t-primary-bold" to={`/ui/userprofile/${user._id}`}>
                                             <img style={{width:"50px", borderRadius: "60px"}} src={config.image_server + user.avatar}/>
                                             <div class="ml-3">
-                                                <span>{user.name}</span> <br/>
-                                                <span className="t-secondary t-small-text">@{user.handle}</span>
+                                                <Link className="t-profile-link t-primary-bold" to={`/ui/userprofile/${user._id}`}> {user.name}</Link>
+                                                &nbsp; <span className="t-secondary t-small-text">@{user.handle}</span>
                                             </div>
-                                            </Link>
                                         </div>  
                                      )
                                  })
@@ -112,13 +110,11 @@ class Profile extends Component {
                                  this.props.following.result.map(user => {
                                      return (
                                         <div className="d-flex align-items-center p-3" style={{borderBottom: "1px solid #38444d"}}>
-                                           <Link className="t-profile-link t-primary-bold" to={`/ui/userprofile/${user._id}`}>
                                             <img style={{width:"50px", borderRadius: "60px"}} src={config.image_server + user.avatar}/>
                                             <div class="ml-3">
-                                                <span>{user.name}</span> <br/>
-                                                <span className="t-secondary t-small-text">@{user.handle}</span>
+                                                <Link className="t-profile-link t-primary-bold" to={`/ui/userprofile/${user._id}`}> {user.name}</Link>
+                                                &nbsp; <span className="t-secondary t-small-text">@{user.handle}</span>
                                             </div>
-                                            </Link>
                                         </div>  
                                      )
                                  })
