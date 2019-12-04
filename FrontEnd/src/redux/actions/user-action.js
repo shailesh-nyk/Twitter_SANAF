@@ -68,6 +68,7 @@ export const followUser = (id, target_id) => {
             .then(function (response) {
                 dispatch(getRecommendation(id));
                 dispatch(getUserProfile(target_id));
+                axios.post(config.image_server + 'broadcast', [id], { withCredentials: false })
             })
             .catch(function (error) {
 
@@ -86,6 +87,7 @@ export const unFollowUser = (id, target_id) => {
             .then(function (response) {
                 dispatch(getRecommendation(id));
                 dispatch(getUserProfile(target_id));
+                axios.post(config.image_server + 'broadcast', [id], { withCredentials: false })
             })
             .catch(function (error) {
 

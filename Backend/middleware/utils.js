@@ -33,3 +33,9 @@ module.exports.invalidateRedis = (id) => {
         }
     })
 }
+module.exports.invalidateUserRedis = (id) => {
+    redis.del(id, (err, o) => {
+        if (err) console.log("===============REDIS error while invalidating Cache");
+        else console.log("==================REDIS Cache cleared for " + o + "  records");
+    })
+}

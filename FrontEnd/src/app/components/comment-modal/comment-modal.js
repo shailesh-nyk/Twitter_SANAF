@@ -9,13 +9,12 @@ class CommentModal extends React.Component {
     }
     componentWillMount() {
         this.setState({
-            data: this.props.data,
             text: ""
         })
     }
     render() {
         return ( 
-            <div class="modal fade" id={"commentModal"+this.state.data._id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id={"commentModal"+this.props.data._id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content t-dark-container">
                 <div class="modal-header">
@@ -27,15 +26,15 @@ class CommentModal extends React.Component {
                 <div class="modal-body t-tweet-comment-modal">
                     <div className="t-tweet-container">
                             <div>
-                                <img class="t-tweet-avatar" src={config.image_server + this.state.data.userId.avatar}/>
+                                <img class="t-tweet-avatar" src={config.image_server + this.props.data.userId.avatar}/>
                             </div>
                             <div class="t-tweet-right">
                                 <div>
-                                    <span className="t-primary-bold"> {this.state.data.userId.name} </span>
-                                    <span className="t-secondary"> @{this.state.data.userId.handle}</span>
+                                    <span className="t-primary-bold"> {this.props.data.userId.name} </span>
+                                    <span className="t-secondary"> @{this.props.data.userId.handle}</span>
                                 </div>
                                 <div>
-                                    <p>{this.state.data.text}</p>
+                                    <p>{this.props.data.text}</p>
                                 </div>
                             </div>
                     </div>
@@ -44,7 +43,7 @@ class CommentModal extends React.Component {
                                 <div></div>
                             </div>
                             <div class="t-tweet-right t-secondary">
-                                 Replying to @{this.state.data.userId.handle}
+                                 Replying to @{this.props.data.userId.handle}
                             </div>
                     </div>
                     <div className="t-tweet-container">
