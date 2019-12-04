@@ -31,7 +31,7 @@ module.exports.postTweet = function (req, callback) {
     });
 };
 
-function invalidateRedis(id) {
+const invalidateRedis = (id) => {
     userService.getFollowers({ id: id }, function (err, res) {
         let followers = []
         if (!Array.isArray(JSON.parse(JSON.stringify(res))))
@@ -47,3 +47,4 @@ function invalidateRedis(id) {
         }
     })
 }
+ module.exports = { invalidateRedis }
