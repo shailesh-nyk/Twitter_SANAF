@@ -17,6 +17,11 @@ class Retweet extends React.Component {
     componentWillMount() {
         this.getTweet(this.props.retweetID);
     }
+    componentWillReceiveProps(next) {
+        if(next.retweetID !== this.props.retweetID) {
+            this.getTweet(next.retweetID);
+        }
+    }
     render() {
         console.log(this.props);
         if(this.state.redirectToTweet) {
