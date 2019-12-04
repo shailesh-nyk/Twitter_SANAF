@@ -3,11 +3,13 @@
 const UserModel = require('../../models/users');
 const TweetModel = require('../../models/tweet');
 
-
+const moment = require('moment');
 
 module.exports.tweetsFrequencyWiseDaily = function(req, callback){
 
     let result;
+    let currDt = moment(Date.now()).add(1,'days').format('YYYY-MM-DD');
+    let previousMonth = moment(Date.now()).subtract(30, 'days').format('YYYY-MM-DD');
     
 TweetModel.aggregate(
   [
@@ -23,7 +25,7 @@ TweetModel.aggregate(
 
     { "$match": {
         "postedOn": { 
-            "$gte": new Date("2019-11-01"), "$lt": new Date("2019-11-30")
+            "$gte": new Date(previousMonth), "$lt": new Date(currDt)
         }
     }},
     { "$group": {
@@ -115,12 +117,17 @@ TweetModel.aggregate(
 module.exports.tweetsFrequencyWiseHourly = function(req, callback){
 
   let result;
-  
+
+  let currDt = moment(Date.now()).add(1,'days').format('YYYY-MM-DD');
+  let previousDay = moment(Date.now()).subtract(1, 'days').format('YYYY-MM-DD');
+
+  console.log("Previous Faya...",previousDay);
+  console.log("Cutrrent Faya...",currDt);
 TweetModel.aggregate(
 [
    { "$match": {
       "postedOn": { 
-          "$gte": new Date("2019-10-17"), "$lt": new Date("2019-10-18")
+          "$gt": new Date(previousDay), "$lt": new Date(currDt)
       }
   }},
   { "$group": {
