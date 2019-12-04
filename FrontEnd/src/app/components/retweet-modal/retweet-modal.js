@@ -10,13 +10,12 @@ class RetweetModal extends React.Component {
     }
     componentWillMount() {
         this.setState({
-            data: this.props.data,
             text: ""
         })
     }
     render() {
         return ( 
-            <div class="modal fade" id={"retweetModal" + this.state.data._id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id={"retweetModal" + this.props.data._id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content t-dark-container">
                 <div class="modal-header">
@@ -37,7 +36,7 @@ class RetweetModal extends React.Component {
                     </div>
                     <div>
                         <span class="t-secondary"> <i class="fas fa-retweet"></i> retweeting</span>
-                        <Retweet retweetID={this.state.data._id}/>  
+                        <Retweet retweetID={this.props.data._id}/>  
                     </div>
                 </div>
                 <div class="modal-footer">
