@@ -11,7 +11,7 @@ export const fetchConversationheadsThunkHelper = (conversationheads) => {
 
 export const fetchConversationheads = (id) => {
     return (dispatch) => {
-        axios.get("http://localhost:8000/conversation/heads", {
+        axios.get("/conversation/heads", {
             params: { id },
             withCredentials: false,
         })
@@ -43,7 +43,7 @@ export const sendmessage = (message_payload) => {
 }
 
 const saveMessage = (message_payload, dispatch) => {
-    axios.post("http://localhost:8000/conversation/save", {
+    axios.post("/conversation/save", {
         message: message_payload.message,
         users: message_payload.users,
     },
@@ -61,7 +61,7 @@ const saveMessage = (message_payload, dispatch) => {
 
 export const createConvHead = (message_payload) => {
     return (dispatch) => {
-        axios.post("http://localhost:8000/conversation/create", {
+        axios.post("/conversation/create", {
             users: message_payload.users
         },
             { withCredentials: false })
