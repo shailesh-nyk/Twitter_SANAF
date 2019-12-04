@@ -15,15 +15,17 @@ class Retweet extends React.Component {
         }
     }
     componentWillMount() {
-        this.getTweet(this.props.retweetID);
+        if(this.props.isOpen) {
+            this.getTweet(this.props.retweetID);
+        }
     }
     componentWillReceiveProps(next) {
-        if(next.retweetID !== this.props.retweetID) {
+        if(next.isOpen || next.retweetID !== this.props.retweetID) {
             this.getTweet(next.retweetID);
         }
     }
     render() {
-        console.log(this.props);
+       
         if(this.state.redirectToTweet) {
             return (
                 <Redirect to={ {
@@ -85,6 +87,7 @@ class Retweet extends React.Component {
         axios.put('/api/tweet/view', body);
     }
     getTweet() {
+        console.log("INSIDE RETWEET GETTWEET CALL");
         axios.get('/api/tweet', {
             params: {
                 id: this.props.retweetID

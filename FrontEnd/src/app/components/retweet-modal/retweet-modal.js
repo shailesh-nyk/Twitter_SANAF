@@ -7,10 +7,25 @@ import { connect } from 'react-redux';
 class RetweetModal extends React.Component { 
     constructor(props) {
         super(props);
+        this.state ={
+            text: "",
+            isOpen: false
+        }   
+        this.isOpen = this.isOpen.bind(this);
     }
-    componentWillMount() {
+    componentDidMount(){
+        let id = "#retweetModal" + this.props.data._id;
+        let that = this;
+        window.$(id).on("show.bs.modal", function(e) {
+            that.isOpen(true);
+        })
+        window.$(id).on("hide.bs.modal", function(e) {
+            that.isOpen(false);
+        })
+    }
+    isOpen(bool) {
         this.setState({
-            text: ""
+            isOpen: bool
         })
     }
     render() {
@@ -36,7 +51,7 @@ class RetweetModal extends React.Component {
                     </div>
                     <div>
                         <span class="t-secondary"> <i class="fas fa-retweet"></i> retweeting</span>
-                        <Retweet retweetID={this.props.data._id}/>  
+                        <Retweet retweetID={this.props.data._id} isOpen={this.state.isOpen}/>
                     </div>
                 </div>
                 <div class="modal-footer">
