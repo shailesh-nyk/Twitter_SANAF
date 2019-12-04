@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+const timeZone = require('mongoose-timezone');
 
 var userSchema = new Schema({
 
@@ -49,7 +50,10 @@ var userSchema = new Schema({
   },
   following: [{ type: Schema.ObjectId, ref: 'user' }],
   followedBy: [{ type: Schema.ObjectId, ref: 'user' }],
-  views: [{ type: Schema.ObjectId, ref: 'user' }],
+  views: [{
+    user: { type: Schema.Types.ObjectId, ref: 'user'},
+    createdOn: { type: Date }
+  }],      
  
   bookmarks: [],
   lists: [{ type: Schema.ObjectId, ref: 'lists' }],
@@ -64,6 +68,7 @@ var userSchema = new Schema({
   }
 );
 
+userSchema.plugin(timeZone, { paths: ['timestamps','views.createdOn'] });
 var UserModel = mongoose.model('user', userSchema);
 
 module.exports = UserModel;

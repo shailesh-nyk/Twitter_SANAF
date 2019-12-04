@@ -2,6 +2,9 @@
 
 const UserModel = require('../../models/users');
 var upload = require('../../middleware/FileUploadMiddleware')
+
+const moment = require('moment-timezone');
+
 module.exports.getUserProfile = function(req, callback){
     console.log("new filename 2"+req.filename);
     let result;
@@ -149,12 +152,21 @@ module.exports.editUserProfile = function(req, callback){
 };
 
 module.exports.incrementViewCount = function(req, callback) {
-    console.log(req)
+    console.log("Request ...",req)
     console.log('------------------------------------------------------------------------------------')
+
+    var moment = require('moment');
+
+//var utcDate = moment.utc().toDate();
+
+var utc = new Date();
+utc.setHours( utc.getHours() - 8);
+
+//console.log("UTC Date....", utc);
    
     UserModel.findByIdAndUpdate(
         req.user_id,
-        { $push: { "views": req.viewed_by } },
+        { $push: { "views": {user:req.viewed_by,createdOn:utc} } },
         { safe: true, upsert: true, new: true },
         function (err, model) {
 

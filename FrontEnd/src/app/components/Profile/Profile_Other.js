@@ -50,12 +50,15 @@ class Profile_Other extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps != null) {
             console.log(nextProps.userProfile)
-            this.setState({
-                name: nextProps.userProfile.name,
-                handle: nextProps.userProfile.handle,
-                avatar: nextProps.userProfile.avatar,
-                profile: nextProps.userProfile
-            });
+            if(nextProps.userProfile!=null)
+            {
+                this.setState({
+                    name: nextProps.userProfile.name,
+                    handle: nextProps.userProfile.handle,
+                    avatar: nextProps.userProfile.avatar,
+                    profile: nextProps.userProfile
+                });
+           }
             /* const payload = {
                 viewed_by: this.props.user.id,
                 user_id: this.props.match.params.profile_id

@@ -11,7 +11,7 @@ module.exports.tweetsWithProfileViews = function(req, callback){
 
  let result;
     
-    let currDt = moment(Date.now()).format('YYYY-MM-DD');
+    let currDt = moment(Date.now()).add(1,'days').format('YYYY-MM-DD');
     let previousMonth = moment(Date.now()).subtract(30, 'days').format('YYYY-MM-DD');
 
     //console.log("Current Date ", dateString);
@@ -22,7 +22,7 @@ module.exports.tweetsWithProfileViews = function(req, callback){
       '$unwind' : '$views'
     },
       { "$match": {
-          "_id" : req.id,//mongoose.Types.ObjectId('5dd2362783758161341f5c60'),
+          "_id" : mongoose.Types.ObjectId(req.id),
           "views.createdOn": { 
               "$gte": new Date(previousMonth), "$lt": new Date(currDt)
           }
@@ -48,9 +48,8 @@ module.exports.tweetsWithProfileViews = function(req, callback){
     { $sort: { _id: 1 } }
    ])
     .then(tweets=>{
-
          let arr=[];
-
+console.log("Tweets....",tweets);
          tweets.map((item,index) =>{
 
             let newArr = [];
