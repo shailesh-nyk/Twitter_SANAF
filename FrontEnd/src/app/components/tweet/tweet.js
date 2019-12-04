@@ -31,7 +31,7 @@ class Tweet extends React.Component {
         }
     }
     componentWillReceiveProps(next) {
-        if(next.tweet !== this.props.tweet) {
+        if(next.tweet._id !== this.props.tweet._id) {
             this.getTweet(next.tweet._id);
         }
     }
@@ -67,7 +67,7 @@ class Tweet extends React.Component {
                     {this.state.data.parent_id ? (
                         <div>
                             <span class="t-secondary"> <i class="fas fa-retweet"></i> retweeted</span>
-                            <Retweet retweetID={this.state.data.parent_id}/> 
+                            <Retweet retweetID={this.state.data.parent_id} isOpen={true}/> 
                         </div>
                          
                     ) : (null)}
@@ -139,6 +139,7 @@ class Tweet extends React.Component {
     }
 
     getTweet(tweet_id) {
+        console.log("INSIDE TWEET GETWEET CALL");
         axios.get('/api/tweet', {
             params: {
                 id: tweet_id ? tweet_id : this.state.data._id
