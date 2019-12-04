@@ -4,7 +4,7 @@ import Autosuggest from 'react-autosuggest';
 import config from '../../../config/app-config';
 import { getRecommendation, handleSearch } from './../../../redux/actions/recommendation-action';
 import { followUser } from './../../../redux/actions/user-action';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 class Search extends React.Component {
     constructor(props) {
@@ -104,7 +104,7 @@ class Search extends React.Component {
                 <div data-id={user._id} class="t-recommendation d-flex p-2 align-items-center">
                     <img src={config.image_server + user.avatar} alt="Avatar" class="t-conversationhead-avatar p-2" />
                     <div class="d-flex flex-column p-2">
-                        <span>{user.name}</span>
+                        <Link className="t-profile-link t-primary-bold" to={'/ui/userprofile/' + user._id} >{user.name}</Link>
                         <small> @{user.handle} </small>
                     </div>
                     <button className="btn t-btn-follow p-2" data-id={user._id} onClick={this.handleFollow}> Follow </button>

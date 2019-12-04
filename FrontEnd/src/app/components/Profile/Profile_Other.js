@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { getUserProfile, fetchFollowing, fetchFollowedBy } from './../../../redux/actions/userProfile-action';
+import { getUserProfile } from './../../../redux/actions/userProfile-action';
 import config from '../../../config/app-config';
 import ProfileModal from "./ProfileModal";
 import Profile_Other_Tweets from './Profile_Other_Tweets'
@@ -21,8 +21,9 @@ class Profile_Other extends Component {
             handle: "",
             avatar: "",
             profile: "",
-            following: false
-
+            following: false,
+            followersCount : 0,
+            followingCount: 0
         };
         console.log("inside other profile")
         console.log(this.props.match.params.profile_id)
@@ -42,14 +43,32 @@ class Profile_Other extends Component {
         console.log("other component mounted")
         if (null != this.props.match.params.profile_id) {
             this.props.getUserProfile(this.props.match.params.profile_id);
+            this.fetchFollow(this.props.match.params.profile_id);
         }
-        this.props.fetchFollowing(this.props.history);
-        this.props.fetchFollowedBy(this.props.history);
     }
-
+    fetchFollow(id) {
+        let followers = 0;
+        let following = 0;
+        Axios.get('/user/followersnew', { params: { user_id: id}})
+        .then(resp => {
+            followers = resp.data.result.length;
+            Axios.get('/user/followingnew', { params: { user_id: id}})
+            .then(resp => {
+                following = resp.data.result.length;
+                this.setState({
+                    followersCount : followers,
+                    followingCount: following
+                })
+            })
+        })
+    }
+    
     componentWillReceiveProps(nextProps) {
         if (nextProps != null) {
-            console.log(nextProps.userProfile)
+            if (nextProps.match.params.profile_id !== this.props.match.params.profile_id) {
+                this.props.getUserProfile(nextProps.match.params.profile_id);
+                this.fetchFollow(nextProps.match.params.profile_id);
+            }   
             if(nextProps.userProfile!=null)
             {
                 this.setState({
@@ -113,15 +132,9 @@ class Profile_Other extends Component {
                             <button className="btn btn-primary t-rounded-button" style={{ display: this.isFollowing() ? "none" : "inline-block" }} onClick={this.handleFollow}>Follow</button>
                         </div>
                         <div>
-                            {
-                                this.props.following.hasOwnProperty("result") &&
-                                this.props.following.result.length
-                            } Following
+                            {this.state.followingCount} Following
                             &nbsp;
-                            {
-                            this.props.followedBy.hasOwnProperty("result") &&
-                            this.props.followedBy.result.length
-                             } Followers
+                            {this.state.followersCount} Followers
                         </div>
                     </div>
                 </div>
@@ -144,9 +157,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getUserProfile: (_id) => dispatch(getUserProfile(_id)),
         followUser: (id, target_id) => dispatch(followUser(id, target_id)),
-        unFollowUser: (id, target_id) => dispatch(unFollowUser(id, target_id)),
-        fetchFollowing: (history) => dispatch(fetchFollowing(history)),
-        fetchFollowedBy: (history) => dispatch(fetchFollowedBy(history))
+        unFollowUser: (id, target_id) => dispatch(unFollowUser(id, target_id))
     };
 }
 
