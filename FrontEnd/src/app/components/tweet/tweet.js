@@ -6,7 +6,7 @@ import CommentModal from '../../components/comment-modal/comment-modal';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setTweetViewData } from '../../../redux/actions/newsfeed-action';
-import { bookmarkTweet } from '../../../redux/actions/tweet-action';
+import { bookmarkTweet, notifyFollowers } from '../../../redux/actions/tweet-action';
 import RetweetModal from '../retweet-modal/retweet-modal';
 import Retweet from '../retweet/retweet';
 import { setMessage } from './../../../redux/actions/util-action';
@@ -190,6 +190,7 @@ class Tweet extends React.Component {
                         msg: resp.data.msg,
                         name: 'success'
                     });
+                    setTimeout(() => notifyFollowers(this.props.user.id), 500);
                 }
         });
     }
