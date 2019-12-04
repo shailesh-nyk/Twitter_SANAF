@@ -6,6 +6,10 @@ import config from '../../../config/app-config';
 class conversation extends React.Component {
     constructor(props) {
         super(props);
+        config.listen(config.socket, this.reloadConversation);
+    }
+    reloadConversation = () => {
+        setTimeout(() => this.props.fetchConversationheads(this.props.user.id), 500);
     }
     renderMessages = (messages) => {
         if (messages) {
