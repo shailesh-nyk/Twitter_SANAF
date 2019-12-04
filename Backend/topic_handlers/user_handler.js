@@ -22,7 +22,9 @@ const messageServiceMap = {
     'USER_ACCOUNT_DEACTIVATE' : userAccountDeactivate.deactivateAccount,
     'USER_VIEW_INCREMENT' : userProfileService.incrementViewCount,
     'FOLLOWERS': userFollowing.getFollowers,
-    'USER_IMAGE_UPDATION': userProfileService.updateImage
+    'USER_IMAGE_UPDATION': userProfileService.updateImage,
+    'FOLLOWERS_NEW' : userFollowing.getFollowersNew,
+    'FOLLOWING_NEW' : userFollowing.getFollowingNew
 }
 
 module.exports.handleRequest = function(req, callback){
