@@ -68,8 +68,8 @@ app.post('/broadcast', (req, res) => {
 
 
 
-const port = parseInt(process.env.PORT, 10) || 3000;
-server.listen(port, () => console.log(`server listening on`, port));
+//const port = parseInt(process.env.PORT, 10) || 3000;
+//server.listen(port, () => console.log(`server listening on`, port));
 
 let users = {};
 app.set('users', users);
@@ -80,6 +80,13 @@ io.on('connection', function (socket) {
     console.log("User ", id, " connected");
     console.log("------------------------");
   });
+
+  // socket.on('disconnect', function(){
+  //   console.log("------------------------");   
+  //   console.log('user disconnected');
+  //   console.log("------------------------");
+  // });
+
 
   socket.on('disconnect', function(){
     console.log("------------------------");   
